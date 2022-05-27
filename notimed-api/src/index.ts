@@ -1,16 +1,13 @@
-import express from 'express'
+import './pre-start'; // Must be the first import
+import logger from 'jet-logger';
+import server from './server';
 
-const app = express()
 
-app.use(express.json())
+// Constants
+const serverStartMsg = 'Express server started on port: ',
+        port = (process.env.PORT || 3000);
 
-const PORT = 3000
-
-app.get('/ping', (_req, res) =>{
-    console.log('someone pinged here')
-    res.send('pong')
-})
-
-app.listen(PORT, ()=>{
-    console.log(`server running on port ${PORT} `)
-})
+// Start server
+server.listen(port, () => {
+    logger.info(serverStartMsg + port);
+});
