@@ -1,43 +1,40 @@
+// const { default: mongoose } = require('mongoose');
+// const {Schema, model} = require('mongoose');
 
-// User schema
-export interface IUser {
-    id: number;
-    name: string;
-    email: string;
-}
+// const ObjectID = mongoose.Schema.Types.ObjectId;
 
 
-/**
- * Get a new User object.
- * 
- * @returns 
- */
-function getNew(name: string, email: string): IUser {
-    return {
-        id: -1,
-        email,
-        name,
-    };
-}
+import { model, Schema } from "mongoose";
 
+const User: Schema = new Schema({
+    
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
 
-/**
- * Copy a user object.
- * 
- * @param user 
- * @returns 
- */
-function copy(user: IUser): IUser {
-    return {
-        id: user.id,
-        email: user.email,
-        name: user.name,
+    birthday: {
+        type: Date,
+        required: true
+    },
+    gender: {
+        type: String,
+        required: true
+    },
+    rol: {
+        type: String,
+        required: true,
+        enum: ["admin", "user"]
     }
-}
+});
 
-
-// Export default
-export default {
-    new: getNew,
-    copy,
-}
+module.exports = model('user', User);
