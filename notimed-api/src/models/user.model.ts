@@ -39,4 +39,4 @@ const User: Schema = new Schema({
     }
 });
 
-module.exports = model('User', User);
+export default User
