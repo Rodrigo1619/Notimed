@@ -1,85 +1,91 @@
-import cookieParser from 'cookie-parser';
-import morgan from 'morgan';
+
 import path from 'path';
-import helmet from 'helmet';
-
 import express, { NextFunction, Request, Response } from 'express';
-import StatusCodes from 'http-status-codes';
-import 'express-async-errors';
-
-import logger from 'jet-logger';
-import { CustomError } from '@shared/errors';
-
 import dbConnection from './db/config';
+
 const cors = require('cors');
+
+
+
 
 // Constants
 const app = express();
+const usersPath = '/api/users';
 
+import cookieParser from 'cookie-parser';
+const session = require('express-session');
+const passport = require('passport');
 
-/***********************************************************************************
- *                                  Middlewares
- **********************************************************************************/
+const LocalStrategy = require('passport-local').Strategy
 
-// Common middlewares
-app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());
 
-// Show routes called in console during development
-if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'));
-}
-
-// Security (helmet recommended in express docs)
-if (process.env.NODE_ENV === 'production') {
-    app.use(helmet());
-}
+app.use(cookieParser('mi ultra secreto'));
 
 
-/***********************************************************************************
- *                         API routes and error handling
- **********************************************************************************/
+// required for passport session
+app.use(session({
+  secret: 'secrettexthere',
+  saveUninitialized: true,
+  resave: true
+}));
 
-// Add api router
-//app.use('/api', apiRouter);
+// Init passport authentication 
+app.use(passport.initialize());
+// persistent login sessions 
+app.use(passport.session());
 
-// Error handling
-app.use((err: Error | CustomError, _: Request, res: Response, __: NextFunction) => {
-    logger.err(err, true);
-    const status = (err instanceof CustomError ? err.HttpStatus : StatusCodes.BAD_REQUEST);
-    return res.status(status).json({
-        error: err.message,
-    });
+passport.use(new LocalStrategy(function(username:String, password:String, done:any){
+     if(username === 'juan' && password==='1234')
+     return done(null, {id:1, name: 'Memo'});
+
+     done(null, false);
+}));
+
+passport.serializeUser((user: any, done:any)=>{
+    done(null, user.id);
 });
 
+passport.deserializeUser((id:Number, done:any)=>{
+    done(null, {id:1, name: 'Memo'});
 
-/***********************************************************************************
- *                                  Front-end content
- **********************************************************************************/
+});
+
 
 // Set views dir
 const viewsDir = path.join(__dirname, 'views');
 app.set('views', viewsDir);
 
-// Set static dir
-const staticDir = path.join(__dirname, 'public');
-app.use(express.static(staticDir));
+
+
 
 // Serve index.html file
-app.get('*', (_: Request, res: Response) => {
-    res.sendFile('index.html', {root: viewsDir});
-});
+app.get('/login', (_: Request, res: Response) => {
+    res.sendFile('login.html', {root: viewsDir});
+}); 
 
-/* //cors
-const useCors = cors();
+app.post('/login', passport.authenticate('local',{
+    successRedirect: "/",
+    failureRedirect: "/login"
+})); 
 
+app.get("/",/* (req, res, next)=>{
+    if (req.isAuthenticated()) { return next() } 
+    res.redirect("/login");
+
+},  */(req, res)=>{
+    res.send("Hola ya inicié sesión");
+})
 //db connection
 const dbConnect = async ()=>{
     await dbConnection();
     console.log("---------------------------------");
-} */
+}
+
+//Conectar base de datos
+dbConnect();
+//cors
+app.use(cors());
 
 
-// Export here and start in a diff file (for testing).
 export default app;
