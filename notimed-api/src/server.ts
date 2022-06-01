@@ -10,6 +10,8 @@ import 'express-async-errors';
 import logger from 'jet-logger';
 import { CustomError } from '@shared/errors';
 
+import dbConnection from './db/config';
+const cors = require('cors');
 
 // Constants
 const app = express();
@@ -69,6 +71,14 @@ app.get('*', (_: Request, res: Response) => {
     res.sendFile('index.html', {root: viewsDir});
 });
 
+/* //cors
+const useCors = cors();
+
+//db connection
+const dbConnect = async ()=>{
+    await dbConnection();
+    console.log("---------------------------------");
+} */
 
 
 // Export here and start in a diff file (for testing).
