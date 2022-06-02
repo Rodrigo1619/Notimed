@@ -1,16 +1,19 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Router, NextFunction, Request, Response } from 'express';
 import path from "path";
+import userController from '../controllers/user-controller';
 
 /* const express = require("express"); */
 
-const userRoutes = () => {
-    const app = express();
-    const viewsDir = path.join(__dirname, 'views');
-    app.set('views', viewsDir);
+const baseRouter = Router()
 
-    app.get('/login', (_: Request, res: Response) => {
-        
-    });
-}
+//post
+baseRouter.post('/register', userController.register)
+
+//get
+baseRouter.get('/', userController.getAll)
+
+
+const userRoutes = Router()
+userRoutes.use('/users', baseRouter)
 
 export default userRoutes;

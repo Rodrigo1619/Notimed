@@ -38,5 +38,4 @@ const User: Schema = new Schema({
         enum: ["admin", "user"]
     }
 });
-
-export default User
+export default model("user", User);
