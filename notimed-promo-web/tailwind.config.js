@@ -6,6 +6,8 @@ module.exports = {
     },
     colors: {
       'blue-primary': '#2A56C8',
+      'gray-background': '#E1E1EC',
+      'gray-text': '#45464F'
     },
     screens: {
       sm: '480px',
