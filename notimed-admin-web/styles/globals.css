@@ -2,3 +2,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer html {
+  .subhead1 {
+    @apply text-subhead1 font-medium
+  }
+
+  .subhead2 {
+    @apply text-subhead2 font-medium
+  }
+
+  .labelSmall {
+    @apply text-labelSmall font-medium
+  }
+
+  .overlinetext {
+    @apply text-overline font-medium
+  }
+
+  .titleMedium {
+    @apply text-titleMedium font-medium
+  }
+
+  .titleSmall {
+    @apply text-titleSmall font-medium
+  }
+
+  .labelLarge {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+  }
+
+  .labelMedium {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+  }
+
+  .labelSmall {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+  }
+}
+
