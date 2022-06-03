@@ -4,8 +4,8 @@ import Image from 'next/image'
 
 const Home: NextPage = () => {
   return (
-    <div className=''>
-      <h1>Login</h1>
+    <div className='text-display1 bg-surface text-onSurface shadow-E3  hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus'>
+      <h1> Login </h1>
     </div>
   )
 }
