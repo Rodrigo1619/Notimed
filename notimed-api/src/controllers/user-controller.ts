@@ -1,46 +1,135 @@
-import { Request, Response } from 'express'
-import jwt, { JwtPayload } from 'jsonwebtoken'
-import User from '../models/user.model'
+import User from '@models/user.model';
+import { NextFunction, Request, Response } from 'express'
+//import jwt, { JwtPayload } from 'jsonwebtoken'
 
-const userController ={
+const bcrypt = require('bcrypt');
+const express = require('express');
 
-    register: async (req: Request, res: Response)=>{
-        try {
-            const {name, lastName, email, password,birthday, gender, rol} = req.body as any
-            if(email === "" || password === "")
-                throw { status: 400, message: "Fields are empty"}
 
-                const existingUser = await User.findOne({ email})
 
-                if(existingUser)
-                throw{ status: 400, message: "User alredy exists"}
 
-                const newUser = new User({
-                    name,
-                    lastName,
-                    email,
-                    password,
-                    birthday,
-                    gender,
-                    rol
-                })
-                await newUser.save()
+const register = async (req: Request, res: Response, next: NextFunction)=>{
 
-                return res.status(201).json({message: "User created", content: newUser})
-        }catch(err: any){
-            return res 
-            .status(err.status as number ?? 400)
-            .json({message: err.message ?? JSON.stringify(err)})
+    try {
+        
+        /* if(name === "" || email === "" || password === ""|| lastName === "" || birthday === "" || gender === "") 
+        throw { status: 400, message: "Fields are empty"} */
+        const body = req.body
+        const existingUser = await User.findOne({email: body.email}); 
+ 
+        if(existingUser){
+        throw{ status: 400, message: "user already exists"}        
+        }else{
+
+            const myPasssword = body.password;
+            const saltRounds = 10;
+            const salt = bcrypt.genSaltSync(saltRounds);
+            const hash = bcrypt.hashSync(myPasssword, salt);
+            console.log(hash);
+
+            const newUser = new User({
+                name: req.body.name,
+                lastName: req.body.lastName,
+                email: req.body.email,
+                password: hash,
+                birthday: req.body.birthday,
+                gender: req.body.gender,
+                rol: req.body.rol
+            });
+
+
+
+          await newUser.save()
+          .then((item:Object)=>{
+              res.status(200).send({item} )
+          })
+            .catch((err:any) => {
+                res.status(400).send(err);
+            });
         }
+        
+
+        
+
+    // Encriptar contraseña
+
+   /* const saltRounds = 10;
+   let myPlainPassword = password;
+ 
+   bcrypt.genSalt(saltRounds, function(err:any, salt:any){
+       bcrypt.hash(myPlainPassword, salt, function(err:any, hash:any){
+        console.log(hash);
+       });
+   }); */
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+   
+    //---
+
     
-    },
+
+   
     //login
     //Esto ya es con el token y el .env y no se como le han hecho ahi
     //whoAmI
     //este es el ultimo
-    getAll: async( req: Request, res: Response)=>{
-        return res.status(200).json(await User.find())
+    const getAllUsers =  async(req: Request,  res: Response)=>{
+
+        const {limit=5, skip=0} = req.query;
+    
+        const query = {estado:true};
+    
+      
+        const[ total, users] = await Promise.all([
+            User.countDocuments(query),
+            User.find(query)
+                .skip(Number(skip))
+                .limit(Number(limit))
+        ]) 
+    
+        res.json({total, users});
     }
 
+export {
+    register, 
+    getAllUsers
 }
-export default userController
+
+
+/* 
+ try {
+
+            const {name, lastName, email, password,birthday, gender, rol} = req.body;
+
+
+                const salt = 10;
+                const hashedPassword = await bcrypt.hash(password, salt);
+                next();
+                const newUser = new user({
+                    name,
+                    lastName,
+                    email,
+                    password: hashedPassword,
+                    birthday,
+                    gender,
+                    rol
+                });
+
+                
+                await newUser.save();
+
+                res.send({newUser});
+
+    
+
+                //Encriptar la constraseña con bcrypt
+
+        
+        }catch(err:anyy){
+            return res 
+            .status(err:anytus as number ?? 400)
+            .json({message: err:anysage ?? JSON.stringify(err:any        } */

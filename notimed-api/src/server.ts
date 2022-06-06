@@ -18,7 +18,9 @@ const passport = require('passport');
 
 const LocalStrategy = require('passport-local').Strategy
 
-app.use(express.urlencoded({extended: true}));
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser('mi ultra secreto'));
 
@@ -69,13 +71,7 @@ app.post('/login', passport.authenticate('local',{
     failureRedirect: "/login"
 })); 
 
-app.get("/",/* (req, res, next)=>{
-    if (req.isAuthenticated()) { return next() } 
-    res.redirect("/login");
 
-},  */(req, res)=>{
-    res.send("Hola ya inicié sesión");
-})
 //db connection
 const dbConnect = async ()=>{
     await dbConnection();
@@ -87,5 +83,10 @@ dbConnect();
 //cors
 app.use(cors());
 
+
+
+//rutas definidas
+
+app.use(usersPath, require('../src/routes/user-routes'));
 
 export default app;

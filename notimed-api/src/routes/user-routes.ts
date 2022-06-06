@@ -1,19 +1,17 @@
 import express, { Router, NextFunction, Request, Response } from 'express';
 import path from "path";
-import userController from '../controllers/user-controller';
+import {register, getAllUsers} from "../controllers/user-controller"
 
 /* const express = require("express"); */
 
-const baseRouter = Router()
+const router = Router()
 
 //post
-baseRouter.post('/register', userController.register)
+router.post('/register', register)
 
 //get
-baseRouter.get('/', userController.getAll)
+router.get('/', getAllUsers);
 
 
-const userRoutes = Router()
-userRoutes.use('/users', baseRouter)
+module.exports = router;
 
-export default userRoutes;
