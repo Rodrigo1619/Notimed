@@ -1,10 +1,11 @@
+import configEnv from "config/config";
 import mongoose, { ConnectOptions } from "mongoose";
 import '../pre-start';
 
 const dbConnection = async() => {
     //const URI = process.env.MONGODB_CNN;
     try {
-         mongoose.connect('mongodb+srv://notimed-user:0i3TouPcpOa3UsvF@notimedapi.6n93w.mongodb.net/notimedapi', {
+         mongoose.connect(`${configEnv.mongo_cn}`, {
             useNewUrlParser: true,
             useUnifiedTopology: true
 }       as ConnectOptions);

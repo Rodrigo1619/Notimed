@@ -1,16 +1,17 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Router, NextFunction, Request, Response } from 'express';
 import path from "path";
+import {register, getAllUsers} from "../controllers/user-controller"
 
 /* const express = require("express"); */
 
-const userRoutes = () => {
-    const app = express();
-    const viewsDir = path.join(__dirname, 'views');
-    app.set('views', viewsDir);
+const router = Router()
 
-    app.get('/login', (_: Request, res: Response) => {
-        
-    });
-}
+//post
+router.post('/register', register)
 
-export default userRoutes;
+//get
+router.get('/', getAllUsers);
+
+
+module.exports = router;
+
