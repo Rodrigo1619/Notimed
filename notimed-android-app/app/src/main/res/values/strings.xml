@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NotiMed</string>
+    <string name="login">Inicio de sesión</string>
+    <string name="labelEmail">mrroboto@example.com</string>
+    <string name="labelEmailOut">Ingresa tu correo:</string>
+    <string name="labelPasswordOut">Ingresa tu contraseña:</string>
+    <string name="labelPassword">Contraseña</string>
 </resources>

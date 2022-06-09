@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorSurface"
+    tools:context=".LoginFragment">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="199dp"
+        android:background="@drawable/ic_top"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/labelLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normalGap"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view">
+
+        <TextView
+            android:id="@+id/labelLogin"
+            style="@style/TextAppearance.Material3.HeadlineMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:textColor="?colorOnPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/loginNotimed"
+            android:layout_width="40dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="@dimen/normalGap"
+            android:background="@drawable/ic_loginnotimed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/labelLogin"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/FormLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normalGap"
+        android:layout_marginTop="@dimen/normalGap"
+        android:layout_marginEnd="@dimen/normalGap"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            style="@style/TextAppearance.Material3.BodyMedium"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="@dimen/margin_label_textField"
+            android:layout_marginBottom="@dimen/margin_label_textField"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_outline_email_24"
+            android:drawablePadding="@dimen/smallGap"
+            android:ems="10"
+            android:textColor="?colorOnSurface"
+            android:hint="@string/labelEmail"
+            android:textColorHint="?colorOnSurfaceVariant"
+            android:importantForAutofill="no"
+            android:paddingStart="@dimen/gap12dp"
+            android:paddingEnd="@dimen/smallGap"
+            android:paddingVertical="@dimen/smallGap"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toTopOf="@+id/labelPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelEmail" />
+
+        <TextView
+            android:id="@+id/labelEmail"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/labelEmailOut"
+            android:textColor="?colorOnSurface"
+            app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editPassword"
+            style="@style/TextAppearance.Material3.BodyMedium"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="@dimen/margin_label_textField"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_round_lock_24"
+            android:drawablePadding="@dimen/smallGap"
+            android:ems="10"
+            android:textColorHint="?colorOnSurfaceVariant"
+            android:textColor="?colorOnSurface"
+            android:hint="@string/labelPassword"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:paddingVertical="@dimen/smallGap"
+            android:paddingStart="@dimen/gap12dp"
+            android:paddingEnd="@dimen/smallGap"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelPassword" />
+
+        <TextView
+            android:id="@+id/labelPassword"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_label_textField"
+            android:layout_marginBottom="20dp"
+            android:text="@string/labelPasswordOut"
+            android:textColor="?colorOnSurface"
+            app:layout_constraintBottom_toTopOf="@+id/editPassword"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

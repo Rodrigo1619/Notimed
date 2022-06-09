@@ -3,8 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_login.xml" value="0.23489583333333333" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable-night/splash_screen.xml" value="0.1" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/custom_input.xml" value="0.165" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.11" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_loginnotimed.xml" value="0.1475" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_notimed.xml" value="0.1475" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_notimed_dark.xml" value="0.1205" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_outline_email_24.xml" value="0.165" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_outline_email_focused.xml" value="0.165" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_round_lock_24.xml" value="0.11" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_round_lock_focused.xml" value="0.165" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_top.xml" value="0.1475" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_top_background.xml" value="0.1475" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_top_vector.xml" value="0.1475" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/splash_screen.xml" value="0.1" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/font/raleway.xml" value="0.27314814814814814" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout-land/activity_main.xml" value="0.184375" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/activity_main.xml" value="0.16" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_login.xml" value="0.2" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_welcome.xml" value="0.1" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>
   </component>
@@ -13,5 +31,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.12" />
+      </ProjectState>
+    </option>
   </component>
 </project>
