@@ -2,8 +2,17 @@
 <resources>
     <string name="app_name">NotiMed</string>
     <string name="login">Inicio de sesión</string>
-    <string name="labelEmail">mrroboto@example.com</string>
-    <string name="labelEmailOut">Ingresa tu correo:</string>
-    <string name="labelPasswordOut">Ingresa tu contraseña:</string>
+    <string name="labelEmail">Correo electrónico</string>
     <string name="labelPassword">Contraseña</string>
+    <string name="forgetPassword">¿Olvidaste tu contraseña?</string>
+    <string name="loginText">Inicia sesión</string>
+    <string name="registerText">Regístrate</string>
+    <string name="accountRegister">¿No tienes cuenta?</string>
+    <string name="labelName">Nombre</string>
+    <string name="labelLastName">Apellido</string>
+    <string name="labelBirthday">Fecha de nacimiento</string>
+    <string name="labelMale">Masculino</string>
+    <string name="labelFemale">Femenino</string>
+    <string name="loginNav">¿Ya tienes una cuenta? ¡Inicia sesión!</string>
+    <string name="labelGender">Género</string>
 </resources>
