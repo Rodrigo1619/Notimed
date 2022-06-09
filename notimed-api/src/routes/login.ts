@@ -1,8 +1,9 @@
 import express from 'express';
 import passport from 'passport';
 import path from 'path';
-
 require('../auth/google-auth');
+import jwt from 'jsonwebtoken';
+
 
 const loginRouter = express();
 
@@ -30,6 +31,33 @@ loginRouter.get("/auth/google/callback", passport.authenticate('google', {failur
 });
 
 
-//loginRouter.get("/profile", )
+loginRouter.post('/signup', passport.authenticate('signup',{session: false}), async (req, res, next) => {
+    res.json({
+        message: 'Signup Succesful',
+        user: req.user
+    })
+})
+
+loginRouter.post('/login',async (req, res, next) => {
+    passport.authenticate('login',async (err, user, info) => {
+        try {
+            if(err || user){
+              const error = new Error('New error')
+              return next(error);  
+            }
+
+            req.login(user, {session: false},async (err) => {
+                if(err) return next(err)
+                const body = {_id: user._id, lastName: user.lastName, email: user.email, birthday: user.birthday, gender: user.gender}
+                const token = jwt.sign({user:body}, 'top_secret')
+                return res.json({token})
+            })
+        } catch (error) {
+            
+        }
+    }) (req, res, next)
+})
+
+
 
 module.exports = loginRouter;
