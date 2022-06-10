@@ -7,7 +7,7 @@ import {register, getAllUsers} from "../controllers/user-controller"
 const router = Router()
 
 //post
-router.post('/register', register)
+//router.post('/signup', register)
 
 //get
 router.get('/', getAllUsers);

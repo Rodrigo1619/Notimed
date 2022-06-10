@@ -1,57 +1,19 @@
-
+//Imports
 import path from 'path';
 import express, { NextFunction, Request, Response } from 'express';
 import dbConnection from './db/config';
-
-const cors = require('cors');
-
-
-
-
+import passport from 'passport';
 // Constants
+const cors = require('cors');
 const app = express();
-const usersPath = '/api/users';
+const usersPath = '/notimed';
+const loginPath = '/login';
 
-import cookieParser from 'cookie-parser';
-const session = require('express-session');
-const passport = require('passport');
-
-const LocalStrategy = require('passport-local').Strategy
-
+//Para tomar los datos del body en formato json
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cookieParser('mi ultra secreto'));
-
-
-// required for passport session
-app.use(session({
-  secret: 'secrettexthere',
-  saveUninitialized: true,
-  resave: true
-}));
-
-// Init passport authentication 
-app.use(passport.initialize());
-// persistent login sessions 
-app.use(passport.session());
-
-passport.use(new LocalStrategy(function(username:String, password:String, done:any){
-     if(username === 'juan' && password==='1234')
-     return done(null, {id:1, name: 'Memo'});
-
-     done(null, false);
-}));
-
-passport.serializeUser((user: any, done:any)=>{
-    done(null, user.id);
-});
-
-passport.deserializeUser((id:Number, done:any)=>{
-    done(null, {id:1, name: 'Memo'});
-
-});
 
 
 // Set views dir
@@ -60,16 +22,11 @@ app.set('views', viewsDir);
 
 
 
+//Middlewares
 
-// Serve index.html file
-app.get('/login', (_: Request, res: Response) => {
-    res.sendFile('login.html', {root: viewsDir});
-}); 
+//Passport
+app.use(passport.initialize());
 
-app.post('/login', passport.authenticate('local',{
-    successRedirect: "/",
-    failureRedirect: "/login"
-})); 
 
 
 //db connection
@@ -88,5 +45,6 @@ app.use(cors());
 //rutas definidas
 
 app.use(usersPath, require('../src/routes/user-routes'));
+app.use(loginPath, require('../src/routes/login'));
 
 export default app;

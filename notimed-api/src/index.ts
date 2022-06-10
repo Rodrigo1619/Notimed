@@ -7,7 +7,7 @@ import configEnv from '../config/config';
 
 
 
-const PORT = process.env.PORT
+const PORT = configEnv.port;
 // Start server, Iniciando servidor
 server.listen(PORT, () => {
     logger.info('Express server started on port: ' + PORT);
