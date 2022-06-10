@@ -28,4 +28,4 @@ const Appointment: Schema = new Schema({
     }
 });
 
-module.exports = model('appointment', Appointment);
+export default model('appointment', Appointment);

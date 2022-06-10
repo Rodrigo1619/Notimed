@@ -8,6 +8,9 @@ const cors = require('cors');
 const app = express();
 const usersPath = '/notimed';
 const loginPath = '/login';
+const reminderPath = '/reminder';
+const contactPath = '/contact';
+const appointmentPath = '/appointment';
 
 //Para tomar los datos del body en formato json
 var bodyParser = require('body-parser');
@@ -46,5 +49,7 @@ app.use(cors());
 
 app.use(usersPath, require('../src/routes/user-routes'));
 app.use(loginPath, require('../src/routes/login'));
-
+app.use(reminderPath, require('../src/routes/reminder-routes'));
+app.use(contactPath, require('../src/routes/contact-routes'));
+app.use(appointmentPath, require('../src/routes/appointment-routes'));
 export default app;
