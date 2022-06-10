@@ -84,8 +84,10 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editName"
                     android:layout_width="300dp"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_label_textField"
+                    app:helperText="@string/helper_text"
+                    app:helperTextEnabled="true"
                     app:layout_constraintBottom_toTopOf="@+id/editLastName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +107,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editLastName"
                     android:layout_width="0dp"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_label_textField"
                     android:layout_marginBottom="@dimen/margin_label_textField"
                     app:layout_constraintBottom_toTopOf="@+id/editEmail"
@@ -128,7 +130,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editEmail"
                     android:layout_width="0dp"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_label_textField"
                     android:layout_marginBottom="@dimen/margin_label_textField"
                     app:layout_constraintBottom_toTopOf="@+id/editBirthday"
@@ -150,7 +152,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editBirthday"
                     android:layout_width="0dp"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_label_textField"
                     android:layout_marginBottom="@dimen/margin_label_textField"
                     app:layout_constraintBottom_toTopOf="@+id/editPassword"
@@ -159,14 +161,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/editEmail">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_input_birthday"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_round_calendar"
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/labelBirthday"
-                        android:inputType="date"
-                        android:focusable="true"
-                        android:clickable="true"
+                        android:inputType="text"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:maxLines="1"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
@@ -176,10 +181,13 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editPassword"
                     android:layout_width="0dp"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_label_textField"
                     android:layout_marginBottom="20dp"
                     app:endIconMode="password_toggle"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
+                    app:errorContentDescription="@string/labelBirthday"
                     app:layout_constraintBottom_toTopOf="@+id/labelGender"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
