@@ -39,16 +39,24 @@ class LoginFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.loginButton.setOnClickListener {
-            val email = binding.editEmail.editText
-            val password = binding.editPassword.editText
+            val email = binding.editEmail.editText?.text
+            val password = binding.editPassword.editText?.text
 
-            if(email!!.text.toString().isEmpty() || password!!.text.toString().isEmpty()) {
+            if(email.toString().isEmpty()) {
                 binding.editEmail.error = getString(R.string.onErrorEmpty)
-                binding.editPassword.error = getString(R.string.onErrorEmpty)
             } else {
                 binding.editEmail.error = null
+            }
+
+            if(password.toString().isEmpty()) {
+                binding.editPassword.error = getString(R.string.onErrorEmpty)
+            } else {
                 binding.editPassword.error = null
             }
+
+
+            it.findNavController()
+
         }
 
         binding.registerButton.setOnClickListener {
@@ -59,6 +67,5 @@ class LoginFragment : Fragment() {
             it.findNavController().navigate(R.id.action_loginFragment_to_recoverFragment)
         }
     }
-
 
 }

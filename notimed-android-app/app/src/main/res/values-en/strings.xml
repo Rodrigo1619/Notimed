@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NotiMed</string>
-    <string name="login">Log in</string>
     <string name="labelEmail">Email</string>
     <string name="labelPassword">Password</string>
     <string name="forgetPassword">Forgot your password?</string>
@@ -11,9 +10,7 @@
     <string name="labelName">First name</string>
     <string name="labelLastName">Last name</string>
     <string name="labelBirthday">Birthday</string>
-    <string name="labelMale">Male</string>
-    <string name="labelFemale">Female</string>
-    <string name="loginNav">Already have an account? Log in!</string>
+    <string name="loginNav">Already have an account? Sign In!</string>
     <string name="labelGender">Gender</string>
     <string name="helper_text">required</string>
     <string name="placeholderName">John</string>
@@ -21,4 +18,14 @@
     <string name="labelRecoverButton">Request password</string>
     <string name="labelRecover">Recover password</string>
     <string name="onErrorEmpty">This text field is required</string>
+    <string name="minimunChars">At least 8 characters required</string>
+    <string name="ErrorforEmail">Enter an email</string>
+    <string name="ErrorforName">Are you sure you entered your name correctly?</string>
+    <string name="ErrorforLastName">Are you sure you entered your lastname correctly?</string>
+    <string name="ErrorforDropdown">Please select one</string>
+    <string-array name="genders">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string name="login">Sign In</string>
 </resources>
