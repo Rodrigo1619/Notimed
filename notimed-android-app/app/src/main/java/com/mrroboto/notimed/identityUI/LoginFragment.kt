@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentLoginBinding
+
 
 class LoginFragment : Fragment() {
 
@@ -35,8 +38,25 @@ class LoginFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.loginButton.setOnClickListener {
+            val email = binding.editEmail.editText
+            val password = binding.editPassword.editText
+
+            if(email!!.text.toString().isEmpty() || password!!.text.toString().isEmpty()) {
+                binding.editEmail.error = getString(R.string.onErrorEmpty)
+                binding.editPassword.error = getString(R.string.onErrorEmpty)
+            } else {
+                binding.editEmail.error = null
+                binding.editPassword.error = null
+            }
+        }
+
         binding.registerButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
+        binding.ForgetPassword.setOnClickListener {
+            it.findNavController().navigate(R.id.action_loginFragment_to_recoverFragment)
         }
     }
 

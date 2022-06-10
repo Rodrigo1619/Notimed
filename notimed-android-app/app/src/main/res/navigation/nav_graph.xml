@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_recoverFragment"
+            app:destination="@id/recoverFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -25,5 +28,9 @@
         android:id="@+id/recoverFragment"
         android:name="com.mrroboto.notimed.identityUI.RecoverFragment"
         android:label="fragment_recover"
-        tools:layout="@layout/fragment_recover" />
+        tools:layout="@layout/fragment_recover" >
+        <action
+            android:id="@+id/action_recoverFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

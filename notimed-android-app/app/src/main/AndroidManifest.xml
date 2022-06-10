@@ -10,6 +10,7 @@
         android:theme="@style/Theme.Notimed">
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true"
             android:theme="@style/splashScreen">
             <intent-filter>

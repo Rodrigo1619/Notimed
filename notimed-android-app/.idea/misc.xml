@@ -11,6 +11,7 @@
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_notimed_dark.xml" value="0.1205" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_outline_email_24.xml" value="0.165" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_outline_email_focused.xml" value="0.165" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_recovernotimed.xml" value="0.1745" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_registernotimed.xml" value="0.165" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_round_calendar_today_24.xml" value="0.165" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_round_lock_24.xml" value="0.11" />
@@ -25,9 +26,9 @@
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/font/raleway.xml" value="0.27314814814814814" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout-land/activity_main.xml" value="0.184375" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/activity_main.xml" value="0.16" />
-        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_login.xml" value="0.20478837109876016" />
-        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_recover.xml" value="0.18985334918747523" />
-        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_register.xml" value="0.264" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_login.xml" value="0.264" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_recover.xml" value="0.4" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_register.xml" value="0.136" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_welcome.xml" value="0.1" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>

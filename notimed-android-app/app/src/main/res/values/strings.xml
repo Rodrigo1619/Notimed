@@ -15,5 +15,11 @@
     <string name="labelFemale">Femenino</string>
     <string name="loginNav">¿Ya tienes una cuenta? ¡Inicia sesión!</string>
     <string name="labelGender">Género</string>
-    <string name="helper_text">required</string>
+    <string name="helper_text">requerido</string>
+    <string name="labelRecover">Recuperar contraseña</string>
+    <string name="placeholderEmail" translatable="false">mrroboto@gmail.com</string>
+    <string name="placeholderName">Juan</string>
+    <string name="placeholderLastName">Rodas</string>
+    <string name="labelRecoverButton">Recuperar contraseña</string>
+    <string name="onErrorEmpty">Este campo es requerido</string>
 </resources>
