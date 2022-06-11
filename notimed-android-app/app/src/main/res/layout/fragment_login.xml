@@ -90,7 +90,6 @@
                     app:helperTextEnabled="true"
                     app:helperText="@string/helper_text"
                     app:helperTextTextColor="?colorOnSurfaceVariant"
-                    app:placeholderText="@string/placeholderEmail"
                     app:boxStrokeErrorColor="?colorError"
                     app:errorEnabled="true"
                     app:errorTextColor="?colorError"
@@ -104,6 +103,7 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_outline_email_24"
                         android:drawablePadding="@dimen/smallGap"
+                        android:text="@{loginViewModel.currentEmail}"
                         android:hint="@string/labelEmail"
                         android:inputType="textEmailAddress"
                         android:textColor="?colorOnSurface"
@@ -130,6 +130,7 @@
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/labelPassword"
                         android:inputType="textPassword"
+                        android:text="@{loginViewModel.currentPassword}"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>

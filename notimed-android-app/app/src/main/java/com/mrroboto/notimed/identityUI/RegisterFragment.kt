@@ -47,13 +47,12 @@ class RegisterFragment : Fragment() {
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, genders)
 
         binding.dropdownGender.setAdapter(arrayAdapter)
-
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.loginViewModel = viewModel
+        binding.registerViewModel = viewModel
 
         binding.lifecycleOwner = viewLifecycleOwner
 

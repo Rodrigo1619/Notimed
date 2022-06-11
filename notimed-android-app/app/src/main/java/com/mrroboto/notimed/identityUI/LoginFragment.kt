@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentLoginBinding
+import java.util.Observer
 
 
 class LoginFragment : Fragment() {
@@ -31,6 +32,7 @@ class LoginFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,6 +56,14 @@ class LoginFragment : Fragment() {
                 binding.editPassword.error = null
             }
 
+            viewModel.currentEmail.value = email.toString()
+
+            viewModel.currentEmail.observe(viewLifecycleOwner) { type ->
+                binding.editEmail.editText!!.setText(type.toString())
+            }
+
+            Toast.makeText(requireActivity(), email, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), viewModel.currentEmail.value, Toast.LENGTH_SHORT).show()
 
             it.findNavController()
 
