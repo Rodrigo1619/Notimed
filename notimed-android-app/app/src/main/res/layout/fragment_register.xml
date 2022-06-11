@@ -103,6 +103,7 @@
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/labelName"
                         android:inputType="text"
+                        android:text="@{registerViewModel.currentName}"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -127,6 +128,7 @@
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/labelLastName"
                         android:inputType="text"
+                        android:text="@{registerViewModel.currentLastname}"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -152,6 +154,7 @@
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/labelEmail"
                         android:inputType="textEmailAddress"
+                        android:text="@{registerViewModel.currentEmail}"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -172,13 +175,14 @@
                         android:id="@+id/text_input_birthday"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:clickable="false"
+                        android:clickable="true"
                         android:cursorVisible="false"
                         android:drawableStart="@drawable/ic_round_calendar"
                         android:drawablePadding="@dimen/smallGap"
-                        android:focusable="false"
+                        android:focusable="true"
                         android:focusableInTouchMode="false"
                         android:hint="@string/labelBirthday"
+                        android:text="@{registerViewModel.currentBirthday}"
                         android:inputType="text"
                         android:maxLines="1"
                         android:textColor="?colorOnSurface"
@@ -208,6 +212,7 @@
                         android:drawableStart="@drawable/ic_round_lock_24"
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/labelPassword"
+                        android:text="@{registerViewModel.currentPassword}"
                         android:inputType="textPassword"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
@@ -234,7 +239,8 @@
                         android:id="@+id/dropdownGender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none"/>
+                        android:inputType="none"
+                        android:text="@{registerViewModel.currentGender}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 

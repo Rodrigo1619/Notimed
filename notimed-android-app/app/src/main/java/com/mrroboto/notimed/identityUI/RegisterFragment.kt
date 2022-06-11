@@ -1,26 +1,14 @@
 package com.mrroboto.notimed.identityUI
 
 import android.app.DatePickerDialog
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.RadioButton
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.core.content.res.ResourcesCompat.getColorStateList
-import androidx.core.graphics.toColor
-import androidx.core.view.get
-import androidx.core.view.isEmpty
-import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentRegisterBinding
 import com.mrroboto.notimed.datePickers.DatePickerFragment
@@ -131,6 +119,48 @@ class RegisterFragment : Fragment() {
             else -> genderContainer.error = null
         }
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val email = binding.editEmail.editText?.text
+        val password = binding.editPassword.editText?.text
+        val name = binding.editName.editText?.text
+        val lastName = binding.editLastName.editText?.text
+        val birthday = binding.editBirthday.editText?.text
+        val genderContainer = binding.gender.editText?.text
+
+        viewModel.currentEmail.value = email.toString()
+        viewModel.currentPassword.value = password.toString()
+        viewModel.currentBirthday.value = birthday.toString()
+        viewModel.currentLastname.value = lastName.toString()
+        viewModel.currentName.value = name.toString()
+        viewModel.currentGender.value = genderContainer.toString()
+
+
+        viewModel.currentEmail.observe(viewLifecycleOwner) {
+            binding.editEmail.editText!!.setText(viewModel.currentEmail.value)
+        }
+
+        viewModel.currentPassword.observe(viewLifecycleOwner) {
+            binding.editPassword.editText!!.setText(viewModel.currentPassword.value)
+        }
+
+        viewModel.currentBirthday.observe(viewLifecycleOwner) {
+            binding.editBirthday.editText!!.setText(viewModel.currentBirthday.value)
+        }
+
+        viewModel.currentLastname.observe(viewLifecycleOwner) {
+            binding.editLastName.editText!!.setText(viewModel.currentLastname.value)
+        }
+
+        viewModel.currentName.observe(viewLifecycleOwner) {
+            binding.editName.editText!!.setText(viewModel.currentName.value)
+        }
+
+        viewModel.currentGender.observe(viewLifecycleOwner) {
+            binding.gender.editText!!.setText(viewModel.currentGender.value)
+        }
     }
 }
 

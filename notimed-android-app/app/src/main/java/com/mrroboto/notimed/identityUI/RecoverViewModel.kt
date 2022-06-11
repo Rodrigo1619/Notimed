@@ -1,7 +1,8 @@
 package com.mrroboto.notimed.identityUI
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class RecoverViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+    var currentEmail = MutableLiveData<String>()
 }

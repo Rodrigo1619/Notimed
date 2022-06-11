@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -47,5 +48,18 @@ class RecoverFragment : Fragment() {
             }
 
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val email = binding.editEmail.editText?.text
+
+        viewModel.currentEmail.value = email.toString()
+
+        viewModel.currentEmail.observe(viewLifecycleOwner) {
+            binding.editEmail.editText!!.setText(viewModel.currentEmail.value)
+        }
+
+
     }
 }

@@ -104,8 +104,9 @@
                         android:drawableStart="@drawable/ic_outline_email_24"
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/labelEmail"
-                        android:inputType="textPassword"
+                        android:inputType="textEmailAddress"
                         android:textColor="?colorOnSurface"
+                        android:text="@{recoverViewModel.currentEmail}"
                         android:textColorHint="?colorOnSurfaceVariant"
                         tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>

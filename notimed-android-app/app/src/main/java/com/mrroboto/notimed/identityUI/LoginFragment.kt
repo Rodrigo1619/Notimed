@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentLoginBinding
@@ -56,18 +57,14 @@ class LoginFragment : Fragment() {
                 binding.editPassword.error = null
             }
 
-            viewModel.currentEmail.value = email.toString()
-
-            viewModel.currentEmail.observe(viewLifecycleOwner) { type ->
-                binding.editEmail.editText!!.setText(type.toString())
-            }
-
-            Toast.makeText(requireActivity(), email, Toast.LENGTH_SHORT).show()
-            Toast.makeText(requireActivity(), viewModel.currentEmail.value, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), "click: $email", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), "click: $password", Toast.LENGTH_SHORT).show()
 
             it.findNavController()
 
+
         }
+
 
         binding.registerButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -75,6 +72,25 @@ class LoginFragment : Fragment() {
 
         binding.ForgetPassword.setOnClickListener {
             it.findNavController().navigate(R.id.action_loginFragment_to_recoverFragment)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val email = binding.editEmail.editText?.text
+        val password = binding.editPassword.editText?.text
+
+        viewModel.currentEmail.value = email.toString()
+        viewModel.currentPassword.value = password.toString()
+
+        viewModel.currentEmail.observe(viewLifecycleOwner) {
+            binding.editEmail.editText!!.setText(viewModel.currentEmail.value)
+            Toast.makeText(requireActivity(), "itEmail: $it", Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.currentPassword.observe(viewLifecycleOwner) {
+            binding.editPassword.editText!!.setText(viewModel.currentPassword.value)
+            Toast.makeText(requireActivity(), "itPass: $it", Toast.LENGTH_SHORT).show()
         }
     }
 
