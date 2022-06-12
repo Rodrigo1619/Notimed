@@ -45,10 +45,10 @@ const createContact = async(req: Request, res: Response)=>{
     }
 }
 
-const getContact = (req: Request, res: Response)=>{
-    res.send('You are at contact route')
+const getContacts = async(req: Request, res: Response)=>{
+    return res.status(200).json(await Contact.find());
 };
 export{
     createContact,
-    getContact
+    getContacts
 };
