@@ -1,22 +1,65 @@
+
 import express from 'express';
-import passport from 'passport';
-import path from 'path';
-require('../auth/google-auth');
-import jwt from 'jsonwebtoken';
+import { login, register } from 'src/controllers/user-controller';
 
 
 const loginRouter = express();
 
-const viewsDir = path.join(__dirname, '../views');
+loginRouter.post("/signup",  register);
 
-loginRouter.set('views', viewsDir);
+loginRouter.post("/signin", login);
 
-loginRouter.get("/auth", (req, res)=>{
+module.exports = loginRouter;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* const viewsDir = path.join(__dirname, '../views');
+
+loginRouter.set('views', viewsDir);  */
+/* 
+loginRouter.get("/signin", (req, res)=>{
     //Va a mostrar la página de login
     res.sendFile('login.html', {root: viewsDir});
+}) 
+
+loginRouter.get("/signup", (req, res)=>{
+    res.sendFile('signup.html', {root: viewsDir});
 })
-
-
 
 loginRouter.get(
     "/auth/google",
@@ -29,8 +72,6 @@ loginRouter.get("/auth/google/callback", passport.authenticate('google', {failur
     res.redirect("/");
 
 });
-
-
 loginRouter.post('/signup', passport.authenticate('signup',{session: false}), async (req, res, next) => {
     res.json({
         message: 'Signup Succesful',
@@ -38,7 +79,7 @@ loginRouter.post('/signup', passport.authenticate('signup',{session: false}), as
     })
 })
 
-loginRouter.post('/login',async (req, res, next) => {
+loginRouter.post('/signin',async (req, res, next) => {
     passport.authenticate('login',async (err, user, info) => {
         try {
             if(err || user){
@@ -56,8 +97,7 @@ loginRouter.post('/login',async (req, res, next) => {
             
         }
     }) (req, res, next)
-})
+}) */
 
 
 
-module.exports = loginRouter;

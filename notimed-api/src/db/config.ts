@@ -2,8 +2,9 @@ import configEnv from "config/config";
 import mongoose, { ConnectOptions } from "mongoose";
 import '../pre-start';
 
+
+//Conectar a mongoDB
 const dbConnection = async() => {
-    //const URI = process.env.MONGODB_CNN;
     try {
          mongoose.connect(`${configEnv.mongo_cn}`, {
             useNewUrlParser: true,

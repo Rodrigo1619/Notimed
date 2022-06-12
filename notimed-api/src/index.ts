@@ -21,5 +21,3 @@ db.on('error', console.error.bind(console, 'connection error:')); // enlaza el t
 db.once('open', () => {
   console.log('Mongo DB is connected'); // si esta todo ok, imprime esto
 });
-
-console.log('desde config', configEnv);
