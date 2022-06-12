@@ -82,10 +82,6 @@ const login = async (req: Request, res: Response)=>{
     }
 }
 
-
-
-
-
 const getAllUsers =  async(req: Request,  res: Response)=>{
 
         const {limit=5, skip=0} = req.query;
