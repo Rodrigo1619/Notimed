@@ -7,6 +7,6 @@ const router = Router();
 router.get('/contact', getContact);
 
 //post
-router.post('/createContact',createContact);
+router.post('/create',createContact);
 
 module.exports = router; 
