@@ -17,21 +17,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-
-// Set views dir
-const viewsDir = path.join(__dirname, 'views');
-app.set('views', viewsDir);
-
-
-
-//Middlewares
-
-//Passport
-app.use(passport.initialize());
-
-
-
 //db connection
 const dbConnect = async ()=>{
     await dbConnection();
@@ -42,7 +27,6 @@ const dbConnect = async ()=>{
 dbConnect();
 //cors
 app.use(cors());
-
 
 
 //rutas definidas

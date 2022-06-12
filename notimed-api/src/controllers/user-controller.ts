@@ -104,4 +104,6 @@ export {
     register, 
     login,
     getAllUsers
+
 }
+
