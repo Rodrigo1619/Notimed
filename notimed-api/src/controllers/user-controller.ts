@@ -1,6 +1,6 @@
 import User from '@models/user.model';
 import { NextFunction, Request, Response } from 'express'
-//import jwt, { JwtPayload } from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
 const bcrypt = require('bcrypt');
 const express = require('express');
@@ -34,13 +34,21 @@ const register = async (req: Request, res: Response, next: NextFunction)=>{
                 rol: req.body.rol
             });
           await newUser.save()
-          .then((item:Object)=>{
-              res.status(200).send({item} )
+          .then((newUser:any)=>{
+            const payload = {
+                id: newUser._id,
+                rol: newUser.rol,
+            }
+            const token = jwt.sign(payload, "NfpyfOXRlt" );
+
+        res.status(200).send({token});
           })
             .catch((err:any) => {
-                res.status(400).send(err);
+                res.status(400).send({
+                    message: 'Error al registar el usuario',
+                    err
+                });
             });
-
     } 
     }
     catch (error) {
