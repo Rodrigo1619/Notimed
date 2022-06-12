@@ -24,6 +24,7 @@ const UserSchema = new Schema({
     },
   email: { 
     type: String, 
+    unique: true,
     required: true 
   },
   password: { 
@@ -45,16 +46,8 @@ const UserSchema = new Schema({
     default: 'user',
     required: true }
   
-}).pre('save', function(next) {
-  const hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10));
-  this.password = hash;
-  next();
-})
+});
 
-/* UserSchema.methods.comparePassword = function(password:string, cb:any){
-  bcrypt.compare(password, this.password)
-}; */
-  
 
 // 3. Create a Model.
 export default model('User', UserSchema);

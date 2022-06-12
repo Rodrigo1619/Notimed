@@ -4,17 +4,14 @@ import User from '@models/user.model';
 import { NextFunction, Request, Response } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
-const bcrypt = require('bcrypt');
-const express = require('express');
-
-
-
+import bcrypt from 'bcrypt';
+import configEnv from 'src/config/config';
 
 const register = async (req: Request, res: Response, next: NextFunction)=>{
     try {
-        
-        /* if(name === "" || email === "" || password === ""|| lastName === "" || birthday === "" || gender === "") 
-        throw { status: 400, message: "Fields are empty"} */
+        const {name, lastName, email, password, birthday, gender, rol} = req.body;
+        if(name === "" || email === "" || password === ""|| lastName === "" || birthday === "" || gender === "") 
+        throw { status: 400, message: "Fields are empty"} 
 
         const body = req.body
         const existingUser = await User.findOne({email: body.email}); 
@@ -27,23 +24,18 @@ const register = async (req: Request, res: Response, next: NextFunction)=>{
             const hash = bcrypt.hashSync(myPasssword, bcrypt.genSaltSync(10));
             
             const newUser = new User({
-                name: req.body.name,
-                lastName: req.body.lastName,
-                email: req.body.email,
+                name: name,
+                lastName: lastName,
+                email: email,
                 password: hash,
-                birthday: req.body.birthday,
-                gender: req.body.gender,
-                rol: req.body.rol
+                birthday: birthday,
+                gender: gender,
+                rol: rol
             });
           await newUser.save()
           .then((newUser:any)=>{
-            const payload = {
-                id: newUser._id,
-                rol: newUser.rol,
-            }
-            const token = jwt.sign(payload, "NfpyfOXRlt" );
 
-        res.status(200).send({token});
+             res.status(200).send({newUser});
           })
             .catch((err:any) => {
                 res.status(400).send({
@@ -62,18 +54,29 @@ const register = async (req: Request, res: Response, next: NextFunction)=>{
 const login = async (req: Request, res: Response)=>{
     try {    
 
-    const password = req.body.password
-    const email = req.body.email;
+        const {email, password} = req.body;
 
-    User.findOne({email: email}, async(user:any)=>{
-        const validate = await bcrypt.compare(password, user.password);
-        if (!validate) {
-            res.status(403).send({message: "Datos incorrectos"})
-        } else {
-            res.status(200).send({message: 'Has iniciado sesión'})
-        }
+        const user = await User.findOne({email})
+            if (!user) {
+                return res.status(401).send({
+                    message: 'Usuario no encontrado'
+                });
+            }
 
-    });        
+            if (!bcrypt.compareSync(password, user.password)) {
+                return res.status(401).send({
+                    message: 'Datos incorrectos'
+                });  
+            }
+
+            const payload = {
+                id: user._id
+            }
+
+            const token = jwt.sign(payload, configEnv.secret_key as string);
+            console.log(token)
+            res.status(200).json({token});
+           
     } catch (error) {
         console.log(error);
     }
