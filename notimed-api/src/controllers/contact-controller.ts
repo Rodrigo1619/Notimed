@@ -41,14 +41,21 @@ const createContact = async(req: Request, res: Response)=>{
         
 
     }catch(error){
-        console.log(error);
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
     }
 }
 
 const getContacts = async(req: Request, res: Response)=>{
     return res.status(200).json(await Contact.find());
 };
+
+const getContact =async (req:Request, res: Response) => {
+    return res.status(200).json(await Contact.findOne());
+}
 export{
     createContact,
-    getContacts
+    getContacts,
+    getContact
 };
