@@ -2,8 +2,8 @@ import './pre-start'; // Must be the first import
 import logger from 'jet-logger';
 import server from './server';
 import mongoose from 'mongoose';
-import '../config/config';
-import configEnv from '../config/config';
+import './config/config';
+import configEnv from './config/config';
 
 
 
@@ -21,5 +21,3 @@ db.on('error', console.error.bind(console, 'connection error:')); // enlaza el t
 db.once('open', () => {
   console.log('Mongo DB is connected'); // si esta todo ok, imprime esto
 });
-
-console.log('desde config', configEnv);

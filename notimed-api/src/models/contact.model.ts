@@ -40,4 +40,4 @@ const Contact: Schema = new Schema({
     }
 });
 
-module.exports = model('contact', Contact);
+export default model('contact', Contact);

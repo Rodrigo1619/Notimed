@@ -2,7 +2,7 @@ import { Schema, model, Document} from 'mongoose';
 import bcrypt from 'bcrypt';
 
 // 1. Create an interface representing a document in MongoDB.
-interface IUser extends Document {
+/* interface IUser extends Document {
   name: string;
   lastName: string;
   email: string;
@@ -10,10 +10,10 @@ interface IUser extends Document {
   birthday: string;
   gender: string;
   rol: string;
-}
+} */
 
 // 2. Create a Schema corresponding to the document interface.
-const UserSchema = new Schema<IUser>({
+const UserSchema = new Schema({
   name: { 
     type: String,
      required: true 
@@ -28,6 +28,7 @@ const UserSchema = new Schema<IUser>({
   },
   password: { 
     type: String, 
+    select: true,
     required: true 
   },
   birthday: { 
@@ -44,19 +45,18 @@ const UserSchema = new Schema<IUser>({
     default: 'user',
     required: true }
   
-}).pre<IUser>('save', async function(next) {
-  const hash = await bcrypt.hash(this.password, 10);
+}).pre('save', function(next) {
+  const hash = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10));
   this.password = hash;
   next();
 })
 
-UserSchema.methods.isValidPassword = async function (password:string) {
-  const user = this;
-  const compare = await bcrypt.compare(password, user.password);
-  return compare;
-}
+/* UserSchema.methods.comparePassword = function(password:string, cb:any){
+  bcrypt.compare(password, this.password)
+}; */
+  
 
 // 3. Create a Model.
-const User = model<IUser>('User', UserSchema);
+export default model('User', UserSchema);
 
-export default User;
+//export default User;

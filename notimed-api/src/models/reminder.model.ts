@@ -23,4 +23,4 @@ const Reminder: Schema = new Schema({
     },
 });
 
-module.exports = model('Reminder', Reminder);
+export default model('Reminder', Reminder);
