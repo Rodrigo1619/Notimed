@@ -11,11 +11,11 @@ const Appointment: Schema = new Schema({
         required: true
     },
     appointmentDate: {
-        type: Date,
+        type: String,
         required: true
     },
     appointmentHour: {
-        type: Date,
+        type: String,
         required: true
     },
     address: {
