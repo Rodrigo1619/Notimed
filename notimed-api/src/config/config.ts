@@ -1,4 +1,4 @@
-import '../src/pre-start';
+import '../pre-start';
 
 
 const configEnv = {

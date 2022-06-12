@@ -1,3 +1,5 @@
+
+
 import User from '@models/user.model';
 import { NextFunction, Request, Response } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
@@ -102,4 +104,6 @@ export {
     register, 
     login,
     getAllUsers
+
 }
+
