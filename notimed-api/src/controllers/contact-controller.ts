@@ -54,6 +54,7 @@ const getContacts = async(req: Request, res: Response)=>{
 const getContact =async (req:Request, res: Response) => {
     return res.status(200).json(await Contact.findOne());
 }
+//patch
 export{
     createContact,
     getContacts,
