@@ -7,14 +7,14 @@ const Reminder: Schema = new Schema({
     },
     prescriptions: [{
         dose: Number,
-        hour: Date
+        hour: String
     }],
     startDay: {
         type: String,
         required: false
     },
     endDay: {
-        type: Date,
+        type: String,
         required: false
     },
     foodOption: {

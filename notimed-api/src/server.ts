@@ -10,7 +10,8 @@ const usersPath = '/notimed';
 const loginPath = '/login';
 const reminderPath = '/reminder';
 const contactPath = '/contact';
-const appointmentPath = '/appointment';
+const appointmentPath = '/appointment'
+const profilePath = '/profile';
 
 //Para tomar los datos del body en formato json
 var bodyParser = require('body-parser');
@@ -36,4 +37,5 @@ app.use(loginPath, require('../src/routes/login'));
 app.use(reminderPath, require('../src/routes/reminder-routes'));
 app.use(contactPath, require('../src/routes/contact-routes'));
 app.use(appointmentPath, require('../src/routes/appointment-routes'));
+app.use(profilePath, require('../src/routes/profile-routes'));
 export default app;
