@@ -7,7 +7,7 @@ const Reminder: Schema = new Schema({
     },
     prescriptions: [{
         dose: Number,
-        hour: Date
+        hour: String
     }],
     startDay: {
         type: String,
