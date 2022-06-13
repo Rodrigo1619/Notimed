@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NotiMed</string>
+    <string name="login">Inicio de sesión</string>
+    <string name="labelEmail">Correo electrónico</string>
+    <string name="labelPassword">Contraseña</string>
+    <string name="forgetPassword">¿Olvidaste tu contraseña?</string>
+    <string name="loginText">Inicia sesión</string>
+    <string name="registerText">Regístrate</string>
+    <string name="accountRegister">¿No tienes cuenta?</string>
+    <string name="labelName">Nombre</string>
+    <string name="labelLastName">Apellido</string>
+    <string name="labelBirthday">Fecha de nacimiento</string>
+    <string name="loginNav">¿Ya tienes una cuenta? ¡Inicia sesión!</string>
+    <string name="labelGender">Género</string>
+    <string name="helper_text">requerido</string>
+    <string name="labelRecover">Recuperar contraseña</string>
+    <string name="placeholderEmail" translatable="false">mrroboto@gmail.com</string>
+    <string name="placeholderName">Juan</string>
+    <string name="placeholderLastName">Rodas</string>
+    <string name="labelRecoverButton">Recuperar contraseña</string>
+    <string name="onErrorEmpty">Este campo es requerido</string>
+    <string name="minimunChars">Se requieren mínimo 8 caracteres</string>
+    <string-array name="genders">
+        <item>Masculino</item>
+        <item>Femenino</item>
+    </string-array>
+    <string name="ErrorforEmail">Ingresa un correo electrónico</string>
+    <string name="ErrorforName">¿Estás seguro de haber ingresado tu nombre correctamente?</string>
+    <string name="ErrorforLastName">¿Estás seguro de haber ingresado tu apellido correctamente?</string>
+    <string name="ErrorforDropdown">Por favor selecciona uno</string>
 </resources>

@@ -1,0 +1,12 @@
+<TextView
+    android:id="@+id/textDropMenu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+    android:paddingHorizontal="@dimen/smallGap"
+    android:paddingVertical="@dimen/gap12dp"
+    android:text="@string/labelGender"
+    style="@style/TextAppearance.Material3.BodyLarge"
+    android:textColor="?colorOnSurface"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    />
