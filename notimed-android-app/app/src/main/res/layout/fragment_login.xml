@@ -5,14 +5,14 @@
     
     <data>
         <variable
-            name="loginViewModel"
-            type="com.mrroboto.notimed.identityUI.LoginViewModel" />
+            name="viewModel"
+            type="com.mrroboto.notimed.viewmodels.UserViewModel" />
     </data>
     <ScrollView 
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="?colorSurface"
-        tools:context=".identityUI.LoginFragment">
+        tools:context=".views.LoginFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_outline_email_24"
                         android:drawablePadding="@dimen/smallGap"
-                        android:text="@{loginViewModel.currentEmail}"
+                        android:text="@{viewModel.currentEmail}"
                         android:hint="@string/labelEmail"
                         android:inputType="textEmailAddress"
                         android:textColor="?colorOnSurface"
@@ -130,7 +130,7 @@
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/labelPassword"
                         android:inputType="textPassword"
-                        android:text="@{loginViewModel.currentPassword}"
+                        android:text="@{viewModel.currentPassword}"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>

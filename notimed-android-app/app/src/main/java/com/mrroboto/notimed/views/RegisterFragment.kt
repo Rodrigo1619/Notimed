@@ -1,4 +1,4 @@
-package com.mrroboto.notimed.identityUI
+package com.mrroboto.notimed.views
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -8,17 +8,26 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentRegisterBinding
-import com.mrroboto.notimed.datePickers.DatePickerFragment
+import com.mrroboto.notimed.models.User
+import com.mrroboto.notimed.viewmodels.ViewModelFactory
+import com.mrroboto.notimed.views.datePickers.DatePickerFragment
+import com.mrroboto.notimed.viewmodels.UserViewModel
 import java.util.*
-
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
-    private val viewModel: RegisterViewModel by activityViewModels()
-
+    private val viewModelFactory by lazy {
+        val app = requireActivity().application as NotiMedApplication
+        ViewModelFactory(app.getUserRepository())
+    }
+    private val viewModel: UserViewModel by viewModels {
+        viewModelFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +49,7 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.registerViewModel = viewModel
+        binding.viewModel = viewModel
 
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -59,23 +68,27 @@ class RegisterFragment : Fragment() {
         }
 
         binding.labelLogin.setOnClickListener {
-
+            it.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
 
         binding.registerButton.setOnClickListener {
-            val email = binding.editEmail
-            val password = binding.editPassword
-            val name = binding.editName
-            val lastName = binding.editLastName
-            val birthday = binding.editBirthday
+            val email = binding.editEmail.editText?.text.toString()
+            val password = binding.editPassword.editText?.text.toString()
+            val name = binding.editName.editText?.text.toString()
+            val lastName = binding.editLastName.editText?.text.toString()
+            val birthday = binding.editBirthday.editText?.text.toString()
 
             // Validations when inputs are empty
-            validations()
+            validationsInputs()
+
+
+
+            val newUser = User(email, password, name, lastName, birthday)
 
         }
     }
 
-    private fun validations() {
+    private fun validationsInputs() {
         val email = binding.editEmail
         val password = binding.editPassword
         val name = binding.editName

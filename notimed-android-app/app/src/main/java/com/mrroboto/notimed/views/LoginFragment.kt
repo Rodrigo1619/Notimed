@@ -1,25 +1,30 @@
-package com.mrroboto.notimed.identityUI
+package com.mrroboto.notimed.views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentLoginBinding
-import java.util.Observer
+import com.mrroboto.notimed.viewmodels.UserViewModel
+import com.mrroboto.notimed.viewmodels.ViewModelFactory
 
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    private val viewModel: LoginViewModel by activityViewModels()
+    private val viewModelFactory by lazy {
+        val app = requireActivity().application as NotiMedApplication
+        ViewModelFactory(app.getUserRepository())
+    }
+    private val viewModel: UserViewModel by viewModels {
+        viewModelFactory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +42,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.loginViewModel = viewModel
+        binding.viewModel = viewModel
 
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -57,11 +62,9 @@ class LoginFragment : Fragment() {
                 binding.editPassword.error = null
             }
 
-            Toast.makeText(requireActivity(), "click: $email", Toast.LENGTH_SHORT).show()
-            Toast.makeText(requireActivity(), "click: $password", Toast.LENGTH_SHORT).show()
+
 
             it.findNavController()
-
 
         }
 
@@ -85,13 +88,14 @@ class LoginFragment : Fragment() {
 
         viewModel.currentEmail.observe(viewLifecycleOwner) {
             binding.editEmail.editText!!.setText(viewModel.currentEmail.value)
-            Toast.makeText(requireActivity(), "itEmail: $it", Toast.LENGTH_SHORT).show()
         }
 
         viewModel.currentPassword.observe(viewLifecycleOwner) {
             binding.editPassword.editText!!.setText(viewModel.currentPassword.value)
-            Toast.makeText(requireActivity(), "itPass: $it", Toast.LENGTH_SHORT).show()
         }
+
+
+
     }
 
 }

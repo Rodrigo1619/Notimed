@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mrroboto.notimed">
 
     <application
         android:allowBackup="true"
@@ -7,9 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_notimed_dark"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Notimed">
+        android:theme="@style/Theme.Notimed"
+        android:name=".NotiMedApplication">
         <activity
-            android:name=".MainActivity"
+            android:name=".views.MainActivity"
             android:exported="true"
             android:theme="@style/splashScreen">
             <intent-filter>
