@@ -14,7 +14,7 @@ const Reminder: Schema = new Schema({
         required: false
     },
     endDay: {
-        type: Date,
+        type: String,
         required: false
     },
     foodOption: {
