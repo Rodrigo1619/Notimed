@@ -2,16 +2,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <data>
+
         <variable
             name="viewModel"
             type="com.mrroboto.notimed.viewmodels.UserViewModel" />
     </data>
-    <ScrollView 
-        android:layout_width="wrap_content"
+
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?colorSurface"
+        android:fillViewport="false"
         tools:context=".views.LoginFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/normalGap"
+                android:layout_marginEnd="@dimen/normalGap"
                 android:foregroundGravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/view"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -67,35 +71,32 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/FormLayout"
-                android:layout_width="300dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normalGap"
+                android:layout_marginStart="@dimen/margin_20dp"
                 android:layout_marginTop="@dimen/normalGap"
-                android:layout_marginEnd="@dimen/normalGap"
+                android:layout_marginEnd="@dimen/margin_20dp"
                 android:layout_marginBottom="@dimen/normalGap"
-                android:maxWidth="400dp"
-                android:minWidth="250dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view">
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintWidth_max="480dp">
 
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editEmail"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_label_textField"
-                    android:layout_marginBottom="@dimen/margin_label_textField"
-                    app:helperTextEnabled="true"
-                    app:helperText="@string/helper_text"
-                    app:helperTextTextColor="?colorOnSurfaceVariant"
+                    android:layout_marginBottom="@dimen/margin_20dp"
                     app:boxStrokeErrorColor="?colorError"
+                    app:endIconMode="clear_text"
                     app:errorEnabled="true"
                     app:errorTextColor="?colorError"
-                    app:endIconMode="clear_text"
+                    app:helperText="@string/helper_text"
+                    app:helperTextEnabled="true"
+                    app:helperTextTextColor="?colorOnSurfaceVariant"
                     app:layout_constraintBottom_toTopOf="@+id/editPassword"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -103,9 +104,9 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_outline_email_24"
                         android:drawablePadding="@dimen/smallGap"
-                        android:text="@{viewModel.currentEmail}"
                         android:hint="@string/labelEmail"
                         android:inputType="textEmailAddress"
+                        android:text="@{viewModel.currentEmail}"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -114,11 +115,10 @@
                     android:id="@+id/editPassword"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:helperTextEnabled="true"
-                    app:helperText="@string/helper_text"
-                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     app:endIconMode="password_toggle"
+                    app:helperText="@string/helper_text"
+                    app:helperTextEnabled="true"
                     app:layout_constraintBottom_toTopOf="@+id/ForgetPassword"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
@@ -139,8 +139,8 @@
                     android:id="@+id/ForgetPassword"
                     style="@style/TextAppearance.Material3.LabelMedium"
                     android:layout_width="0dp"
-                    android:layout_height="16dp"
-                    android:layout_marginTop="@dimen/margin_label_textField"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:text="@string/forgetPassword"
@@ -155,7 +155,7 @@
                     style="@style/TextAppearance.Material3.LabelLarge"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
-                    android:layout_marginTop="@dimen/margin_label_textField"
+                    android:layout_marginTop="@dimen/margin_20dp"
                     android:text="@string/loginText"
                     android:textColor="?colorOnPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -166,7 +166,7 @@
                     android:id="@+id/spaceLine"
                     android:layout_width="0dp"
                     android:layout_height="4dp"
-                    android:layout_marginTop="@dimen/margin_label_textField"
+                    android:layout_marginTop="@dimen/margin_20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/line"
                     app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -179,7 +179,7 @@
                     style="@style/TextAppearance.Material3.LabelMedium"
                     android:layout_width="0dp"
                     android:layout_height="16dp"
-                    android:layout_marginBottom="@dimen/margin_label_textField"
+                    android:layout_marginBottom="@dimen/margin_20dp"
                     android:text="@string/accountRegister"
                     android:textAlignment="center"
                     android:textColor="?colorOnSurface"
@@ -192,7 +192,7 @@
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
-                    android:layout_marginTop="@dimen/margin_label_textField"
+                    android:layout_marginTop="@dimen/margin_20dp"
                     android:text="@string/registerText"
                     android:textColor="?colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
