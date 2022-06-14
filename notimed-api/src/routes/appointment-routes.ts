@@ -6,6 +6,6 @@ const router = Router();
 router.post('/create', createAppointment);
 
 router.get('/appointment', getAppointment);
-router.get('/appointments', getAppointments);
+router.get('/', getAppointments);
 
 module.exports = router; 
