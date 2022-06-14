@@ -1,11 +1,11 @@
-package com.mrroboto.notimed.data.room
+package com.mrroboto.notimed.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.mrroboto.notimed.data.room.dao.UserDao
-import com.mrroboto.notimed.models.User
+import com.mrroboto.notimed.data.dao.UserDao
+import com.mrroboto.notimed.data.models.User
 
 @Database(entities = [User::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {

@@ -13,7 +13,7 @@ import androidx.navigation.findNavController
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentRegisterBinding
-import com.mrroboto.notimed.models.User
+import com.mrroboto.notimed.data.models.User
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
 import com.mrroboto.notimed.views.datePickers.DatePickerFragment
 import com.mrroboto.notimed.viewmodels.UserViewModel

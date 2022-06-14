@@ -1,8 +1,7 @@
-package com.mrroboto.notimed.data.room.dao
+package com.mrroboto.notimed.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.mrroboto.notimed.models.User
+import com.mrroboto.notimed.data.models.User
 
 @Dao
 interface UserDao {

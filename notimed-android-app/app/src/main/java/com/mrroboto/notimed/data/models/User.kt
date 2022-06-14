@@ -1,4 +1,4 @@
-package com.mrroboto.notimed.models
+package com.mrroboto.notimed.data.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
