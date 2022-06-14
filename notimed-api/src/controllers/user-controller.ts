@@ -7,22 +7,22 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
 import bcrypt from 'bcrypt';
 import configEnv from 'src/config/config';
 
-const register = async (req: Request, res: Response, next: NextFunction)=>{
+const register = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const {name, lastName, email, password, birthday, gender, rol} = req.body;
-        if(name === "" || email === "" || password === ""|| lastName === "" || birthday === "" || gender === "") 
-        throw { status: 400, message: "Fields are empty"} 
+        const { name, lastName, email, password, birthday, gender, rol } = req.body;
+        if (name === "" || email === "" || password === "" || lastName === "" || birthday === "" || gender === "")
+            throw { status: 400, message: "Fields are empty" }
 
         const body = req.body
-        const existingUser = await User.findOne({email: body.email}); 
- 
-        if(existingUser){
-        throw{ status: 400, message: "user already exists"}        
-        }else{
+        const existingUser = await User.findOne({ email: body.email });
+
+        if (existingUser) {
+            throw { status: 400, message: "user already exists" }
+        } else {
 
             const myPasssword = body.password;
             const hash = bcrypt.hashSync(myPasssword, bcrypt.genSaltSync(10));
-            
+
             const newUser = new User({
                 name: name,
                 lastName: lastName,
@@ -32,77 +32,99 @@ const register = async (req: Request, res: Response, next: NextFunction)=>{
                 gender: gender,
                 rol: rol
             });
-          await newUser.save()
-          .then((newUser:any)=>{
+            await newUser.save()
+                .then((newUser: any) => {
 
-             res.status(200).send({newUser});
-          })
-            .catch((err:any) => {
-                res.status(400).send({
-                    message: 'Error al registar el usuario',
-                    err
+                    res.status(200).send({ newUser });
+                })
+                .catch((err: any) => {
+                    res.status(400).send({
+                        message: 'Error al registar el usuario',
+                        err
+                    });
                 });
-            });
-    } 
+        }
     }
     catch (error) {
-        console.log(error);
+        return res
+            .status(error.status as number ?? 400)
+            .json({ message: error.message ?? JSON.stringify(error) });
     }
 }
-  
 
-const login = async (req: Request, res: Response)=>{
-    try {    
 
-        const {email, password} = req.body;
+const login = async (req: Request, res: Response) => {
+    try {
 
-        const user = await User.findOne({email})
-            if (!user) {
-                return res.status(401).send({
-                    message: 'Usuario no encontrado'
-                });
-            }
+        const { email, password } = req.body;
 
-            if (!bcrypt.compareSync(password, user.password)) {
-                return res.status(401).send({
-                    message: 'Datos incorrectos'
-                });  
-            }
+        const user = await User.findOne({ email })
+        if (!user) {
+            return res.status(401).send({
+                message: 'Usuario no encontrado'
+            });
+        }
 
-            const payload = {
-                id: user._id
-            }
+        if (!bcrypt.compareSync(password, user.password)) {
+            return res.status(401).send({
+                message: 'Datos incorrectos'
+            });
+        }
 
-            const token = jwt.sign(payload, configEnv.secret_key as string);
-            console.log(token)
-            res.status(200).json({token});
-           
+        const payload = {
+            id: user._id
+        }
+
+        const token = jwt.sign(payload, configEnv.secret_key as string);
+        res.status(200).json({ token });
+
     } catch (error) {
-        console.log(error);
+        return res
+            .status(error.status as number ?? 400)
+            .json({ message: error.message ?? JSON.stringify(error) });
     }
 }
 
-const getAllUsers =  async(req: Request,  res: Response)=>{
+const getAllUsers = async (req: Request, res: Response) => {
 
-        const {limit=5, skip=0} = req.query;
-    
-        const query = {estado:true};
-    
-      
-        const[ total, users] = await Promise.all([
-            User.countDocuments(query),
-            User.find(query)
-                .skip(Number(skip))
-                .limit(Number(limit))
-        ]) 
-    
-        res.json({total, users});
+    const { limit = 5, skip = 0 } = req.query;
+
+    const query = { estado: true };
+
+
+    const [total, users] = await Promise.all([
+        User.countDocuments(query),
+        User.find(query)
+            .skip(Number(skip))
+            .limit(Number(limit))
+    ])
+
+    res.json({ total, users });
+}
+
+
+const getUser = async (req: Request, res: Response) => {
+    try {
+        const { email } = req.body;
+
+        const user = await User.findOne({ email });
+
+        if (!user)
+            return res.status(404).send({ message: "User not found" });
+
+        res.send({ user })
+    } catch (error) {
+        return res
+            .status(error.status as number ?? 400)
+            .json({ message: error.message ?? JSON.stringify(error) });
     }
+
+}
 
 export {
-    register, 
+    register,
     login,
-    getAllUsers
-
+    getAllUsers,
+    getUser
 }
 
