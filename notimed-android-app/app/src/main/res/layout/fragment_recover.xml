@@ -5,14 +5,14 @@
 
     <data>
         <variable
-            name="recoverViewModel"
-            type="com.mrroboto.notimed.identityUI.RecoverViewModel" />
+            name="viewModel"
+            type="com.mrroboto.notimed.viewmodels.UserViewModel" />
     </data>
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="?colorSurface"
-        tools:context=".identityUI.RecoverFragment">
+        tools:context=".views.RecoverFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -68,18 +68,17 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/FormLayout"
-                android:layout_width="300dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/normalGap"
+                android:layout_marginStart="@dimen/margin_20dp"
                 android:layout_marginTop="@dimen/normalGap"
-                android:layout_marginEnd="@dimen/normalGap"
+                android:layout_marginEnd="@dimen/margin_20dp"
                 android:layout_marginBottom="@dimen/normalGap"
-                android:maxWidth="400dp"
-                android:minWidth="250dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view">
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintWidth_max="480dp">
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -88,10 +87,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
                     app:errorEnabled="true"
                     app:errorTextColor="?colorError"
+                    app:helperText="@string/helper_text"
+                    app:helperTextEnabled="true"
                     app:layout_constraintBottom_toTopOf="@+id/recoverButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -105,8 +104,8 @@
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/labelEmail"
                         android:inputType="textEmailAddress"
+                        android:text="@{viewModel.currentEmail}"
                         android:textColor="?colorOnSurface"
-                        android:text="@{recoverViewModel.currentEmail}"
                         android:textColorHint="?colorOnSurfaceVariant"
                         tools:ignore="TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -116,7 +115,7 @@
                     style="?colorError"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/margin_label_textField"
+                    android:layout_marginTop="@dimen/margin_20dp"
                     android:backgroundTint="?colorSecondaryContainer"
                     android:text="@string/labelRecoverButton"
                     android:textAppearance="@style/TextAppearance.Material3.LabelLarge"

@@ -1,22 +1,30 @@
-package com.mrroboto.notimed.identityUI
+package com.mrroboto.notimed.views
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentRecoverBinding
+import com.mrroboto.notimed.viewmodels.UserViewModel
+import com.mrroboto.notimed.viewmodels.ViewModelFactory
 
 class RecoverFragment : Fragment() {
 
     private lateinit var binding: FragmentRecoverBinding
-    private val viewModel: RecoverViewModel by activityViewModels()
+
+    private val viewModelFactory by lazy {
+        val app = requireActivity().application as NotiMedApplication
+        ViewModelFactory(app.getUserRepository())
+    }
+    private val viewModel: UserViewModel by viewModels {
+        viewModelFactory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +41,7 @@ class RecoverFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recoverViewModel = viewModel
+        binding.viewModel = viewModel
 
         binding.lifecycleOwner = viewLifecycleOwner
 

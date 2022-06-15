@@ -1,9 +1,8 @@
-package com.mrroboto.notimed
+package com.mrroboto.notimed.views
 
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import com.mrroboto.notimed.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

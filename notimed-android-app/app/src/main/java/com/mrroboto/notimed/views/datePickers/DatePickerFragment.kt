@@ -1,4 +1,4 @@
-package com.mrroboto.notimed.datePickers
+package com.mrroboto.notimed.views.datePickers
 
 import android.app.DatePickerDialog
 import android.app.Dialog
