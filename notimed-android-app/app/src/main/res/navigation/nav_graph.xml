@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.mrroboto.notimed.identityUI.LoginFragment"
+        android:name="com.mrroboto.notimed.views.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.mrroboto.notimed.identityUI.RegisterFragment"
+        android:name="com.mrroboto.notimed.views.RegisterFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/recoverFragment"
-        android:name="com.mrroboto.notimed.identityUI.RecoverFragment"
+        android:name="com.mrroboto.notimed.views.RecoverFragment"
         android:label="fragment_recover"
         tools:layout="@layout/fragment_recover" >
         <action
