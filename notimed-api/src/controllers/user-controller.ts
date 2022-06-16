@@ -1,11 +1,9 @@
-
-
-import User from '@models/user.model';
+import User from '../models/user.model';
 import { NextFunction, Request, Response } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
 import bcrypt from 'bcrypt';
-import configEnv from 'src/config/config';
+import configEnv from '../config/config';
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -60,13 +58,13 @@ const login = async (req: Request, res: Response) => {
 
         const user = await User.findOne({ email })
         if (!user) {
-            return res.status(401).send({
+            return res.status(404).send({
                 message: 'Usuario no encontrado'
             });
         }
 
         if (!bcrypt.compareSync(password, user.password)) {
-            return res.status(401).send({
+            return res.status(403).send({
                 message: 'Datos incorrectos'
             });
         }

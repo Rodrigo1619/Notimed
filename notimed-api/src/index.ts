@@ -2,12 +2,11 @@ import './pre-start'; // Must be the first import
 import logger from 'jet-logger';
 import server from './server';
 import mongoose from 'mongoose';
-import './config/config';
 import configEnv from './config/config';
 
 
 
-const PORT = configEnv.port;
+const PORT = Number(configEnv.port || 3000);
 // Start server, Iniciando servidor
 server.listen(PORT, () => {
     logger.info('Express server started on port: ' + PORT);
