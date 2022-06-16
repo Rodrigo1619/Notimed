@@ -1,4 +1,4 @@
-import configEnv from "src/config/config";
+import configEnv from "../config/config";
 import mongoose, { ConnectOptions } from "mongoose";
 import '../pre-start';
 

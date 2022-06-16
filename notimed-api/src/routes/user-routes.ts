@@ -1,5 +1,4 @@
-import express, { Router, NextFunction, Request, Response } from 'express';
-import path from "path";
+import { Router } from 'express';
 import {register, getAllUsers, getUser} from "../controllers/user-controller"
 
 

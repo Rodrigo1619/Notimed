@@ -1,15 +1,14 @@
 //Imports
-import path from 'path';
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import dbConnection from './db/config';
-import passport from 'passport';
 // Constants
+var logger = require("morgan");
 const cors = require('cors');
 const app = express();
 const usersPath = '/users';
 const identityPath = '/identity';
 const reminderPath = '/reminders';
-const contactPath = '/contacta';
+const contactPath = '/contacts';
 const appointmentPath = '/appointments'
 
 //Para tomar los datos del body en formato json
@@ -27,13 +26,14 @@ const dbConnect = async ()=>{
 dbConnect();
 //cors
 app.use(cors());
-
+app.use(logger("dev"));
 
 //rutas definidas
 
-app.use(usersPath, require('../src/routes/user-routes'));
-app.use(identityPath, require('../src/routes/identity-routes'));
-app.use(reminderPath, require('../src/routes/reminder-routes'));
-app.use(contactPath, require('../src/routes/contact-routes'));
-app.use(appointmentPath, require('../src/routes/appointment-routes'));
+app.use(usersPath, require('./routes/user-routes'));
+app.use(identityPath, require('./routes/identity-routes'));
+app.use(reminderPath, require('./routes/reminder-routes'));
+app.use(contactPath, require('./routes/contact-routes'));
+app.use(appointmentPath, require('./routes/appointment-routes'));
+
 export default app;
