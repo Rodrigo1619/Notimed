@@ -1,4 +1,5 @@
 import express,{Request, Response} from 'express';
+import reminderModel from '../models/reminder.model';
 import Reminder from '../models/reminder.model';
 
 
@@ -36,6 +37,15 @@ const addReminder = async(req: Request, res: Response)=>{
     }
 
 }
+const deleteReminder = async(req:Request, res:Response)=>{
+    const {id} = req.body;
+    try{
+        reminderModel.deleteOne({_id: id});
+        return res.status(204).json
+    }catch(error){
+        console.log(error);
+    }
+}
 
 const getReminders = async(req: Request, res: Response)=>{
     return res.status(200).json(await Reminder.find());
@@ -43,8 +53,11 @@ const getReminders = async(req: Request, res: Response)=>{
 const getReminder = async(req:Request, res:Response)=>{
     return res.status(200).json(await Reminder.findOne());
 }
+
+
 export{
     addReminder,
+    deleteReminder,
     getReminders,
     getReminder
 }

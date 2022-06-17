@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addReminder,getReminders, getReminder } from "../controllers/reminder-controller";
+import { addReminder,deleteReminder,getReminders, getReminder } from "../controllers/reminder-controller";
 
 const router = Router();
 
@@ -10,6 +10,8 @@ router.post('/add', addReminder);
 router.get('/reminders', getReminders);
 router.get('/reminder', getReminder);
 
+//delete
+router.delete('delete', deleteReminder)
 
 
 module.exports = router; 

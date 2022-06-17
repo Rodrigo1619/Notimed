@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {createContact,getContacts, getContact} from "../controllers/contact-controller"
+import {createContact,deleteContact,getContacts, getContact} from "../controllers/contact-controller"
 
 const router = Router();
 
@@ -9,4 +9,6 @@ router.get('/contact',getContact);
 //post
 router.post('/create',createContact);
 
+//delete
+router.delete('delete', deleteContact);
 module.exports = router; 

@@ -1,5 +1,7 @@
 import express,{Request, Response} from 'express';
+import contactModel from '../models/contact.model';
 import Contact from '../models/contact.model';
+
 
 
 const createContact = async(req: Request, res: Response)=>{
@@ -46,6 +48,15 @@ const createContact = async(req: Request, res: Response)=>{
         .json({message: error.message ?? JSON.stringify(error)});
     }
 }
+const deleteContact = async(req: Request, res: Response)=>{
+    const {id} = req.body;
+    try{
+        contactModel.deleteOne({_id: id});
+        return res.status(204).json
+    }catch(error){
+        console.log(error);
+    }
+}
 
 const getContacts = async(req: Request, res: Response)=>{
     return res.status(200).json(await Contact.find());
@@ -54,9 +65,10 @@ const getContacts = async(req: Request, res: Response)=>{
 const getContact =async (req:Request, res: Response) => {
     return res.status(200).json(await Contact.findOne());
 }
-//patch
+
 export{
     createContact,
+    deleteContact,
     getContacts,
     getContact
 };
