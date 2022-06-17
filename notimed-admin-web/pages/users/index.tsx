@@ -31,19 +31,21 @@ const Users: NextPage = () => {
                 <div className="w-full h-full px-4 mb-8 space-y-4 md:px-16">
                     <div className='space-y-4 md:flex md:flex-row md:items-center md:space-x-4'>
                         <SearchInput />
-                        <button className="w-full h-10 bg-primary rounded-2xl space-x-4
+                        <button className="w-full h-12 bg-primary rounded-2xl space-x-4
                             flex flex-row justify-center items-center text-onPrimary
-                            md:w-3/6">
-                            <MdPersonAdd size={24}/>
+                            md:w-3/6 lg:w-2/12">
+                            <MdPersonAdd size={24} />
                             <span className='labelLarge'> Nuevo usuario </span>
                         </button>
                     </div>
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
+                    <div className='space-y-4 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-4'>
+                        <UserCard />
+                        <UserCard />
+                        <UserCard />
+                        <UserCard />
+                        <UserCard />
+                        <UserCard />
+                    </div>
 
                     <ReactPaginate
                         className='bg-primary flex flex-row 

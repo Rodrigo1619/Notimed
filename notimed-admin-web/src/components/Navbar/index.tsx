@@ -49,10 +49,12 @@ const Navbar: FC<NavbarProps> = ({ title, logo, isEnabled }) => {
                     </div>
                     <div className="border-t-[1px] border-outline mt-3">
                         <Link href="/">
-                            <a className="flex flex-row w-full space-x-3 items-center bg-error rounded-full
-                            pl-4 pr-6 py-4 mt-4 text-onError ">
-                                <MdLogout size={24} role="button" />
-                                <span className="labelLarge hover:bg-onErrorState-hover"> Cerrar sesión </span>
+                            <a className="flex flex-row w-full bg-error text-onError rounded-full mt-4">
+                                <div className="w-full h-full flex flex-row bg-error px-6 py-4 rounded-full
+                                justify-center space-x-3 items-center hover:bg-onErrorState-hover focus:bg-onErrorState-focus">
+                                    <MdLogout size={24} role="button" />
+                                    <span className="labelLarge "> Cerrar sesión </span>
+                                </div>
                             </a>
                         </Link>
                     </div>
@@ -63,17 +65,17 @@ const Navbar: FC<NavbarProps> = ({ title, logo, isEnabled }) => {
 
     function normalNavbar() {
         return (
-            <div className="transition-all flex flex-row justify-between items-center px-4 py-4 bg-surface md:flex-col">
-                <div className=" flex md:w-full md:flex-row md:justify-between md:items-center">
+            <div className="transition-all flex flex-row justify-between items-center px-4 py-4 bg-surface md:flex-col md:px-16 lg:px-16 ">
+                <div className=" flex md:w-full md:flex-row md:justify-between md:items-center md:py-6">
                     <MdMenu role="button" size={24} className="w-fit h-fit rounded-full p-1 hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus" onClick={() => setIsActive(!isActive)} />
                     <div className="hidden md:block">
                         {logo}
                     </div>
                 </div>
-                <span className="text-titleLarge md:w-full md:text-left md:mt-10"> {title} </span>
+                <span className="text-titleLarge md:w-full md:text-left md:mt-10 lg:mt-0"> {title} </span>
                 <div className="md:hidden">
-                        {logo}
-                    </div>
+                    {logo}
+                </div>
             </div>
         )
     }
