@@ -4,4 +4,14 @@
     <dimen name="margin_20dp">20dp</dimen>
     <dimen name="smallGap">16dp</dimen>
     <dimen name="gap12dp">12dp</dimen>
+    <dimen name="MenuWelcome_constraint">100dp</dimen>
+    <dimen name="menu_username_bottom">70dp</dimen>
+    <dimen name="button_marginleft">40dp</dimen>
+    <dimen name="button_marginRight">40dp</dimen>
+    <dimen name="button_marginTop">20dp</dimen>
+    <dimen name="button_cornerRadius">12dp</dimen>
+    <dimen name="button_height">180dp</dimen>
+    <dimen name="button_width">150dp</dimen>
+    <dimen name="marginTop_icon">40dp</dimen>
+    <dimen name="marginbottom_text">30dp</dimen>
 </resources>

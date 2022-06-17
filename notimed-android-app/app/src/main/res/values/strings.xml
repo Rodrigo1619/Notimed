@@ -29,4 +29,10 @@
     <string name="ErrorforName">¿Estás seguro de haber ingresado tu nombre correctamente?</string>
     <string name="ErrorforLastName">¿Estás seguro de haber ingresado tu apellido correctamente?</string>
     <string name="ErrorforDropdown">Por favor selecciona uno</string>
+    <string name="Welcome">Bienvenido</string>
+    <string name="instructions">Ingresa a la actividad que desees realizar</string>
+    <string name="medicdates">Citas medicas</string>
+    <string name="contacts">Contactos</string>
+    <string name="profile">Perfil</string>
+    <string name="reminder">Recordatorios</string>
 </resources>

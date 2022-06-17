@@ -28,4 +28,10 @@
         <item>Female</item>
     </string-array>
     <string name="login">Sign In</string>
+    <string name="Welcome">Welcome</string>
+    <string name="instructions">Access the activity you want to do</string>
+    <string name="medicdates">Medic dates</string>
+    <string name="contacts">Contacts</string>
+    <string name="profile">Profile</string>
+    <string name="reminder">Reminder</string>
 </resources>

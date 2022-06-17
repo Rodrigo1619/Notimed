@@ -68,7 +68,7 @@ class LoginFragment : Fragment() {
             viewModel.onLogin(email.toString(), password.toString())
             
             Toast.makeText(requireActivity(), "Estamos dentro", Toast.LENGTH_SHORT).show()
-            it.findNavController()
+            it.findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
 
         }
 

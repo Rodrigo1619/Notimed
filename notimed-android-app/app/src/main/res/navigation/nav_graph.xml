@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_loginFragment_to_recoverFragment"
             app:destination="@id/recoverFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -33,4 +36,9 @@
             android:id="@+id/action_recoverFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.mrroboto.notimed.views.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" />
 </navigation>
