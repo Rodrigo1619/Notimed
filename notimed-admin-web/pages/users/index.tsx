@@ -31,10 +31,10 @@ const Users: NextPage = () => {
                 <div className="w-full h-full px-4 mb-8 space-y-4 md:px-16">
                     <div className='space-y-4 md:flex md:flex-row md:items-center md:space-x-4'>
                         <SearchInput />
-                        <button className="w-full h-10 bg-primary rounded-2xl 
+                        <button className="w-full h-10 bg-primary rounded-2xl space-x-4
                             flex flex-row justify-center items-center text-onPrimary
-                            space-x-4 md:w-3/6">
-                            <MdPersonAdd size={24} />
+                            md:w-3/6">
+                            <MdPersonAdd size={24}/>
                             <span className='labelLarge'> Nuevo usuario </span>
                         </button>
                     </div>
