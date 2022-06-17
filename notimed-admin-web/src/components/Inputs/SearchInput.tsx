@@ -3,7 +3,7 @@ import { MdPersonSearch } from "react-icons/md";
 
 const SearchInput: FC = () => {
     return (
-        <div className="flex flex-row w-fill h-[40px] mt-4 mx-4">
+        <div className="flex flex-row w-full h-[40px] mt-4">
             <div className="w-full flex items-center border-[1px] border-outline rounded-full">
                 <input
                     className="rounded-l-full pl-3 bg-surface placeholder:text-bodyMedium w-full h-full"

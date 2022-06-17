@@ -5,7 +5,8 @@ import { MdEdit, MdDelete } from "react-icons/md";
 
 const UserCard: FC = () => {
   return (
-      <div className='border-[1px] border-outline text-onSurface rounded-lg w-full h-auto p-4 text-body2 space-y-3'>
+      <div className='border-[1px] border-outline text-onSurface 
+        rounded-lg w-full h-auto p-4 text-body2 space-y-3'>
 
         <div className='flex flex-row justify-between h-auto items-center'>
           <span className='text-titleLarge'>Nombre</span>
@@ -32,11 +33,13 @@ const UserCard: FC = () => {
         </section>
         <div className='flex flex-row w-full justify-end space-x-2 h-auto'>
           <button className='flex justify-center items-center rounded-full border-[1px] 
-            border-outline h-10 w-10 text-button text-onSurface-variant'>
+            border-outline h-10 w-10 text-button text-onSurface-variant 
+            hover:bg-onSurfaceVariantState-hover focus:bg-onSurfaceVariantState-focus'>
             <MdEdit size={24} />
           </button>
           <button className='flex justify-center items-center rounded-full border-[1px] 
-            border-outline h-10 w-10 text-button text-onSurface-variant'>
+            border-outline h-10 w-10 text-button text-onSurface-variant
+            hover:bg-onSurfaceVariantState-hover focus:bg-onSurfaceVariantState-focus'>
             <MdDelete size={24} />
           </button>
         </div>

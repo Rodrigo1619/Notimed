@@ -9,23 +9,25 @@ import Head from 'next/head';
 const Users: NextPage = () => {
     return (
         <>
-        <Head>
-            <title> Usuarios </title>
-        </Head>
+            <Head>
+                <title> Usuarios </title>
+            </Head>
             <div className='w-full h-screen'>
-                <Navbar 
-                    title='Usuarios' 
-                    logo={<UserNotimed className='h-[2.25rem] w-[2.25rem]'/>} 
+                <Navbar
+                    title='Usuarios'
+                    logo={<UserNotimed className='h-[2.25rem] w-[2.25rem]' />}
                     isEnabled={true}
-                    />
-                <SearchInput />
-                <div className="w-full h-full px-4 mt-4 space-y-4">
-                    <button className="w-full h-10 bg-primary rounded-2xl 
-                    flex flex-row justify-center items-center text-onPrimary
-                    space-x-4 ">
-                        <MdPersonAdd size={24} />
-                        <span className='labelLarge'> Nuevo usuario </span>
-                    </button>
+                />
+                <div className="w-full h-full px-4 mt-4 space-y-4 md:px-16">
+                    <div className='space-y-4 md:flex md:flex-row md:items-center md:space-x-4'>
+                        <SearchInput />
+                        <button className="w-full h-10 bg-primary rounded-2xl 
+                            flex flex-row justify-center items-center text-onPrimary
+                            space-x-4 md:w-3/6">
+                            <MdPersonAdd size={24} />
+                            <span className='labelLarge'> Nuevo usuario </span>
+                        </button>
+                    </div>
                     <UserCard />
                     <UserCard />
                     <UserCard />

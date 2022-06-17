@@ -10,8 +10,8 @@ const Navbar: FC<NavbarProps> = ({ title, logo, isEnabled }) => {
 
     function openNavbar() {
         return (
-            <div className="transition-all fixed top-0 left-0 bg-onSurfaceState-focus h-screen w-full">
-                <div className="surface1 w-10/12 max-w-xs px-3 py-8 rounded-r-2xl h-full flex flex-col justify-between">
+            <div className="transition-all fixed top-0 left-0 bg-onSurfaceState-focus h-full w-full">
+                <div className="surface1 w-10/12 max-w-xs px-3 py-8 rounded-r-2xl h-full  overflow-y-auto flex flex-col justify-between">
                     <div className="flex flex-col">
                         <button
                             className="flex flex-row w-full rounded-full space-x-3 py-4 items-center pl-4
@@ -47,7 +47,7 @@ const Navbar: FC<NavbarProps> = ({ title, logo, isEnabled }) => {
                             </a>
                         </Link>
                     </div>
-                    <div className="border-t-[1px] border-outline">
+                    <div className="border-t-[1px] border-outline mt-3">
                         <Link href="/">
                             <a className="flex flex-row w-full space-x-3 items-center bg-error rounded-full
                             pl-4 pr-6 py-4 mt-4 text-onError ">
@@ -63,10 +63,17 @@ const Navbar: FC<NavbarProps> = ({ title, logo, isEnabled }) => {
 
     function normalNavbar() {
         return (
-            <div className="transition-all flex flex-row justify-between items-center px-4 py-4 bg-surface">
-                <MdMenu role="button" size={24} className="w-[24px] h-[24px]" onClick={() => setIsActive(!isActive)} />
-                <span className="text-titleLarge"> {title} </span>
-                {logo}
+            <div className="transition-all flex flex-row justify-between items-center px-4 py-4 bg-surface md:flex-col">
+                <div className=" flex md:w-full md:flex-row md:justify-between md:items-center">
+                    <MdMenu role="button" size={24} className="w-fit h-fit rounded-full p-1 hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus" onClick={() => setIsActive(!isActive)} />
+                    <div className="hidden md:block">
+                        {logo}
+                    </div>
+                </div>
+                <span className="text-titleLarge md:w-full md:text-left md:mt-10"> {title} </span>
+                <div className="md:hidden">
+                        {logo}
+                    </div>
             </div>
         )
     }
