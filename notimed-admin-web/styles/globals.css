@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #fefbff;
+}
+
 @layer html {
   .subhead1 {
     @apply text-subhead1 font-medium
