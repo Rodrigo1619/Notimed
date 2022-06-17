@@ -15,8 +15,6 @@ const Users: NextPage = () => {
 
     const [pageCount, setPageCount] = useState(items.length)
 
-
-
     return (
         <>
             <Head>

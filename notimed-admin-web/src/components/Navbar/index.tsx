@@ -67,12 +67,14 @@ const Navbar: FC<NavbarProps> = ({ title, logo, isEnabled }) => {
         return (
             <div className="transition-all flex flex-row justify-between items-center px-4 py-4 bg-surface md:flex-col md:px-16 lg:px-16 ">
                 <div className=" flex md:w-full md:flex-row md:justify-between md:items-center md:py-6">
-                    <MdMenu role="button" size={24} className="w-fit h-fit rounded-full p-1 hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus" onClick={() => setIsActive(!isActive)} />
+                    <MdMenu role="button" size={24} 
+                        className="w-fit h-fit rounded-full p-1 hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus" 
+                        onClick={() => setIsActive(!isActive)} />
                     <div className="hidden md:block">
                         {logo}
                     </div>
                 </div>
-                <span className="text-titleLarge md:w-full md:text-left md:mt-10 lg:mt-0"> {title} </span>
+                <span className="text-titleLarge md:w-full md:text-left  lg:mt-0"> {title} </span>
                 <div className="md:hidden">
                     {logo}
                 </div>
