@@ -19,8 +19,8 @@ Desarrollo backend en NodeJS con Typescript.
 
 1. Construir imagen(es) para producción o desarrollo
 ```
-docker build -f Dockerfile.dev -t notimed/dev-api
-docker build -f Dockerfile.prod -t notimed/prod-api
+docker build -f Dockerfile.dev -t notimed/dev-api .
+docker build -f Dockerfile.prod -t notimed/prod-api .
 ```
 
 2. Montar contenedor para producción o desarrollo. 
