@@ -1,18 +1,82 @@
 import React, { FC, useState } from "react";
-import { MdMenu } from 'react-icons/md'
+import Link from "next/link";
+import { MdMenu, MdMenuOpen, MdOutlineTableChart, MdGroup, MdPerson, MdLogout } from 'react-icons/md'
 import { NavbarProps } from "../interfaces/props";
 
-const Navbar: FC<NavbarProps> = ({ title, logo }) => {
+const Navbar: FC<NavbarProps> = ({ title, logo, isEnabled }) => {
 
     const [isActive, setIsActive] = useState(false);
+    const [isOn] = useState(isEnabled)
 
-    return (
-        <>
-            <div className="flex flex-row justify-between items-center px-4 py-4 bg-surface">
-                <MdMenu role="button" size={24} className="w-[24px] h-[24px]" />
+    function openNavbar() {
+        return (
+            <div className="transition-all fixed top-0 left-0 bg-onSurfaceState-focus h-screen w-full">
+                <div className="surface1 w-10/12 max-w-xs px-3 py-8 rounded-r-2xl h-full flex flex-col justify-between">
+                    <div className="flex flex-col">
+                        <button
+                            className="flex flex-row w-full rounded-full space-x-3 py-4 items-center pl-4
+                            hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus"
+                            onClick={() => { setIsActive(!isActive) }}
+                        >
+                            <MdMenuOpen size={24} />
+                            <span className="text-titleMedium"> Navegación </span>
+                        </button>
+                        <section className="flex flex-row w-full py-4 pl-4">
+                            <span className="text-bodySmall"> Acciones principales </span>
+                        </section>
+                        <Link href="/dashboard">
+                            <a
+                                className="flex flex-row w-full  space-x-3 items-center rounded-full
+                            pl-4 pr-6 py-4 hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus">
+                                <MdOutlineTableChart size={24} role="button" />
+                                <span className="labelLarge"> Dashboard </span>
+                            </a>
+                        </Link>
+                        <Link href="/users">
+                            <a className={`${isOn ? 'bg-secondaryContainer' : ''} flex flex-row w-full space-x-3 items-center rounded-full
+                            pl-4 pr-6 py-4 hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus`}>
+                                <MdGroup size={24} role="button" />
+                                <span className="labelLarge"> Usuarios </span>
+                            </a>
+                        </Link>
+                        <Link href="/profile">
+                            <a className="flex flex-row w-full space-x-3 items-center rounded-full
+                            pl-4 pr-6 py-4 hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus">
+                                <MdPerson size={24} role="button" />
+                                <span className="labelLarge"> Perfil </span>
+                            </a>
+                        </Link>
+                    </div>
+                    <div className="border-t-[1px] border-outline">
+                        <Link href="/">
+                            <a className="flex flex-row w-full space-x-3 items-center bg-error rounded-full
+                            pl-4 pr-6 py-4 mt-4 text-onError ">
+                                <MdLogout size={24} role="button" />
+                                <span className="labelLarge hover:bg-onErrorState-hover"> Cerrar sesión </span>
+                            </a>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    function normalNavbar() {
+        return (
+            <div className="transition-all flex flex-row justify-between items-center px-4 py-4 bg-surface">
+                <MdMenu role="button" size={24} className="w-[24px] h-[24px]" onClick={() => setIsActive(!isActive)} />
                 <span className="text-titleLarge"> {title} </span>
                 {logo}
             </div>
+        )
+    }
+
+
+    return (
+        <>
+            {
+                isActive ? openNavbar() : normalNavbar()
+            }
         </>
     );
 }

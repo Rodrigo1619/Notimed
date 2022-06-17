@@ -4,7 +4,8 @@ export interface PropVector {
 
 export interface NavbarProps {
     title: string,
-    logo: any
+    logo: any,
+    isEnabled: boolean
 }
 
 export interface InputProps {

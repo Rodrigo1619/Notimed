@@ -12,8 +12,12 @@ const Users: NextPage = () => {
         <Head>
             <title> Usuarios </title>
         </Head>
-            <div className='w-full h-screnn'>
-                <Navbar title='Usuarios' logo={<UserNotimed className='h-[2.25rem] w-[2.25rem]' />} />
+            <div className='w-full h-screen'>
+                <Navbar 
+                    title='Usuarios' 
+                    logo={<UserNotimed className='h-[2.25rem] w-[2.25rem]'/>} 
+                    isEnabled={true}
+                    />
                 <SearchInput />
                 <div className="w-full h-full px-4 mt-4 space-y-4">
                     <button className="w-full h-10 bg-primary rounded-2xl 
