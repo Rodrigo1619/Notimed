@@ -57,10 +57,3 @@ body {
     background: linear-gradient(0deg, rgba(42, 86, 200, 0.05), rgba(42, 86, 200, 0.05)), #FEFBFF;
     border-radius: 0px 0px 0px 0px;
   }
-
-
-.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
-  border-radius: 28px;
-  background-color: #fefbff;
-}
-

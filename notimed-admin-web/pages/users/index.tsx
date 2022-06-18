@@ -8,6 +8,7 @@ import Head from 'next/head';
 import ReactPaginate from 'react-paginate';
 import Paginate from '../../src/components/svg/Paginate';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const Users: NextPage = () => {
 
@@ -25,16 +26,19 @@ const Users: NextPage = () => {
                     title='Usuarios'
                     logo={<UserNotimed className='h-[2.25rem] w-[2.25rem]' />}
                     isEnabled={true}
+                    isBack = {false}
                 />
                 <div className="w-full h-full px-4 mb-8 space-y-4 md:px-16">
                     <div className='space-y-4 md:flex md:flex-row md:items-center md:space-x-4'>
                         <SearchInput />
-                        <button className="w-full h-12 bg-primary rounded-2xl space-x-4
+                        <Link href='/users/create'>
+                            <a className="w-full h-12 bg-primary rounded-2xl space-x-4
                             flex flex-row justify-center items-center text-onPrimary
                             md:w-3/6 lg:w-2/12">
-                            <MdPersonAdd size={24} />
-                            <span className='labelLarge'> Nuevo usuario </span>
-                        </button>
+                                <MdPersonAdd size={24} />
+                                <span className='labelLarge'> Nuevo usuario </span>
+                            </a>
+                        </Link>
                     </div>
                     <div className='space-y-4 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-4'>
                         <UserCard />

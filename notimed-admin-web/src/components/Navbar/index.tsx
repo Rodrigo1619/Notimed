@@ -1,12 +1,31 @@
 import React, { FC, useState } from "react";
 import Link from "next/link";
-import { MdMenu, MdMenuOpen, MdOutlineTableChart, MdGroup, MdPerson, MdLogout } from 'react-icons/md'
+import { MdMenu, MdMenuOpen, MdOutlineTableChart, MdGroup, MdPerson, MdLogout, MdArrowBack } from 'react-icons/md'
 import { NavbarProps } from "../interfaces/props";
 
-const Navbar: FC<NavbarProps> = ({ title, logo, isEnabled }) => {
+const Navbar: FC<NavbarProps> = ({ title, logo, isEnabled, isBack }) => {
 
     const [isActive, setIsActive] = useState(false);
     const [isOn] = useState(isEnabled)
+
+    function iconForNavbar() {
+        if (isBack == false)
+            return (
+                <MdMenu role="button" size={24}
+                    className="w-fit h-fit rounded-full p-1 hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus"
+                    onClick={() => setIsActive(!isActive)} />
+            )
+        else if (isBack == true)
+            return (
+                <Link href="/users">
+                    <a>
+                        <MdArrowBack role="button" size={24}
+                            className="w-fit h-fit rounded-full p-1 hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus"
+                            />
+                    </a>
+                </Link>
+            )
+    }
 
     function openNavbar() {
         return (
@@ -67,9 +86,7 @@ const Navbar: FC<NavbarProps> = ({ title, logo, isEnabled }) => {
         return (
             <div className="transition-all flex flex-row justify-between items-center px-4 py-4 bg-surface md:flex-col md:px-16 lg:px-16 ">
                 <div className=" flex md:w-full md:flex-row md:justify-between md:items-center md:py-6">
-                    <MdMenu role="button" size={24} 
-                        className="w-fit h-fit rounded-full p-1 hover:bg-onSurfaceState-hover focus:bg-onSurfaceState-focus" 
-                        onClick={() => setIsActive(!isActive)} />
+                    {iconForNavbar()}
                     <div className="hidden md:block">
                         {logo}
                     </div>
