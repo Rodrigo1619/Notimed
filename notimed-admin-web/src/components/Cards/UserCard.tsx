@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Divider } from "@mui/material";
+import Link from "next/link";
 
 
 const UserCard: FC = () => {
@@ -88,12 +89,14 @@ const UserCard: FC = () => {
         </div>
       </section>
       <div className='flex flex-row w-full justify-end space-x-2 h-auto'>
-        <button className='flex justify-center items-center rounded-full border-[1px] 
+        <Link href='/users/update'>
+          <button className='flex justify-center items-center rounded-full border-[1px] 
             border-outline h-10 w-10 text-button text-onSurface-variant 
             hover:bg-onSurfaceVariantState-hover focus:bg-onSurfaceVariantState-focus'
-        >
-          <MdEdit size={24} />
-        </button>
+          >
+            <MdEdit size={24} />
+          </button>
+        </Link>
         <button className='flex justify-center items-center rounded-full border-[1px] 
             border-outline h-10 w-10 text-button text-onSurface-variant
             hover:bg-onSurfaceVariantState-hover focus:bg-onSurfaceVariantState-focus'

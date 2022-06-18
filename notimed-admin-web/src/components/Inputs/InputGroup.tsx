@@ -35,6 +35,8 @@ const InputGroup: FC<InputProps> = ({
                 minLength={minLenght ?? 0}
                 required={required ?? false}
                 type={type}
+                min="1920-01-01"
+                max="2018-12-31"
             />
             </div>
         </section>
