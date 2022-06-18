@@ -31,8 +31,28 @@
     <string name="ErrorforDropdown">Por favor selecciona uno</string>
     <string name="Welcome">Bienvenido</string>
     <string name="instructions">Ingresa a la actividad que desees realizar</string>
-    <string name="medicdates">Citas medicas</string>
+    <string name="appointment">Citas medicas</string>
     <string name="contacts">Contactos</string>
     <string name="profile">Perfil</string>
     <string name="reminder">Recordatorios</string>
+    <string name="Reminder_title">Recordatorios</string>
+    <string name="ReminderDefaultText">No tienes recordatorios guardados</string>
+    <string name="textContacts">Contactos médicos</string>
+    <string name="withoutcontact_text">No tienes contactos médicos guardados</string>
+    <string name="textAppointment">Citas médicas</string>
+    <string name="withoutAppointment_text">No tienes citas médicas guardadas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="AddReminder_title">Recordatorio</string>
+    <string name="addressTitle">Dirección de consultorio</string>
+    <string name="Date_hint">dd/mm/yyyy</string>
+    <string name="Datehour_hint">hh:mm</string>
+    <string name="Address_hint">Dirección</string>
+    <string name="doctor_hint">Doctor</string>
+    <string name="AppointmentName_hint">Cita por gripe</string>
+    <string name="Notes_hint">Sintomas...</string>
+    <string name="savebutton_text">Guardar</string>
+    <string name="cancelbutton_text">Cancelar</string>
+    <string name="addAppointment_text">Cita médica</string>
+
 </resources>

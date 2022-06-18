@@ -113,7 +113,7 @@
 
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/button_reminder"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:layout_marginStart="@dimen/button_marginleft"
@@ -126,7 +126,7 @@
             </Button>
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/button_profile"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:layout_marginTop="@dimen/button_marginTop"
@@ -139,7 +139,7 @@
             </Button>
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/button_contact"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:layout_marginStart="@dimen/button_marginleft"
@@ -147,12 +147,12 @@
                 android:backgroundTint="@color/button_contacts"
                 app:cornerRadius="@dimen/button_cornerRadius"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button1">
+                app:layout_constraintTop_toBottomOf="@+id/button_reminder">
 
             </Button>
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/button_appointment"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:layout_marginTop="@dimen/button_marginTop"
@@ -160,7 +160,7 @@
                 android:backgroundTint="@color/button_medicDates"
                 app:cornerRadius="@dimen/button_cornerRadius"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button2">
+                app:layout_constraintTop_toBottomOf="@+id/button_profile">
 
             </Button>
 
@@ -170,9 +170,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTop_icon"
                 android:drawableTop="@drawable/ic_alarm"
-                app:layout_constraintEnd_toEndOf="@+id/button1"
-                app:layout_constraintStart_toStartOf="@+id/button1"
-                app:layout_constraintTop_toTopOf="@+id/button1" />
+                app:layout_constraintEnd_toEndOf="@+id/button_reminder"
+                app:layout_constraintStart_toStartOf="@+id/button_reminder"
+                app:layout_constraintTop_toTopOf="@+id/button_reminder" />
 
             <TextView
                 android:id="@+id/reminder_text"
@@ -180,9 +180,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/marginbottom_text"
                 android:text="@string/reminder"
-                app:layout_constraintBottom_toBottomOf="@+id/button1"
-                app:layout_constraintEnd_toEndOf="@+id/button1"
-                app:layout_constraintStart_toStartOf="@+id/button1" />
+                app:layout_constraintBottom_toBottomOf="@+id/button_reminder"
+                app:layout_constraintEnd_toEndOf="@+id/button_reminder"
+                app:layout_constraintStart_toStartOf="@+id/button_reminder" />
 
             <TextView
                 android:id="@+id/profile_icon"
@@ -190,9 +190,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTop_icon"
                 android:drawableTop="@drawable/ic_profileicon"
-                app:layout_constraintEnd_toEndOf="@+id/button2"
-                app:layout_constraintStart_toStartOf="@+id/button2"
-                app:layout_constraintTop_toTopOf="@+id/button2" />
+                app:layout_constraintEnd_toEndOf="@+id/button_profile"
+                app:layout_constraintStart_toStartOf="@+id/button_profile"
+                app:layout_constraintTop_toTopOf="@+id/button_profile" />
 
             <TextView
                 android:id="@+id/profile_text"
@@ -200,9 +200,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/marginbottom_text"
                 android:text="@string/profile"
-                app:layout_constraintBottom_toBottomOf="@+id/button2"
-                app:layout_constraintEnd_toEndOf="@+id/button2"
-                app:layout_constraintStart_toStartOf="@+id/button2" />
+                app:layout_constraintBottom_toBottomOf="@+id/button_profile"
+                app:layout_constraintEnd_toEndOf="@+id/button_profile"
+                app:layout_constraintStart_toStartOf="@+id/button_profile" />
 
             <TextView
                 android:id="@+id/contact_icon"
@@ -210,9 +210,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTop_icon"
                 android:drawableTop="@drawable/ic_contact"
-                app:layout_constraintEnd_toEndOf="@+id/button3"
-                app:layout_constraintStart_toStartOf="@+id/button3"
-                app:layout_constraintTop_toTopOf="@+id/button3" />
+                app:layout_constraintEnd_toEndOf="@+id/button_contact"
+                app:layout_constraintStart_toStartOf="@+id/button_contact"
+                app:layout_constraintTop_toTopOf="@+id/button_contact" />
 
             <TextView
                 android:id="@+id/contact_text"
@@ -220,10 +220,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/marginbottom_text"
                 android:text="@string/contacts"
-                app:layout_constraintBottom_toBottomOf="@+id/button3"
-                app:layout_constraintEnd_toEndOf="@+id/button3"
+                app:layout_constraintBottom_toBottomOf="@+id/button_contact"
+                app:layout_constraintEnd_toEndOf="@+id/button_contact"
                 app:layout_constraintHorizontal_bias="0.511"
-                app:layout_constraintStart_toStartOf="@+id/button3" />
+                app:layout_constraintStart_toStartOf="@+id/button_contact" />
 
             <TextView
                 android:id="@+id/medicdate_icon"
@@ -231,19 +231,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTop_icon"
                 android:drawableTop="@drawable/ic_book"
-                app:layout_constraintEnd_toEndOf="@+id/button4"
-                app:layout_constraintStart_toStartOf="@+id/button4"
-                app:layout_constraintTop_toTopOf="@+id/button4" />
+                app:layout_constraintEnd_toEndOf="@+id/button_appointment"
+                app:layout_constraintStart_toStartOf="@+id/button_appointment"
+                app:layout_constraintTop_toTopOf="@+id/button_appointment" />
 
             <TextView
                 android:id="@+id/medicdate_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/marginbottom_text"
-                android:text="@string/medicdates"
-                app:layout_constraintBottom_toBottomOf="@+id/button4"
-                app:layout_constraintEnd_toEndOf="@+id/button4"
-                app:layout_constraintStart_toStartOf="@+id/button4" />
+                android:text="@string/appointment"
+                app:layout_constraintBottom_toBottomOf="@+id/button_appointment"
+                app:layout_constraintEnd_toEndOf="@+id/button_appointment"
+                app:layout_constraintStart_toStartOf="@+id/button_appointment" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

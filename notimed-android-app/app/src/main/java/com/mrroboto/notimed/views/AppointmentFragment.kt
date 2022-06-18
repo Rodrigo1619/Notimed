@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
+import com.mrroboto.notimed.databinding.FragmentAppointmentBinding
 import com.mrroboto.notimed.databinding.FragmentLoginBinding
 import com.mrroboto.notimed.databinding.FragmentMenuBinding
 import com.mrroboto.notimed.viewmodels.UserViewModel
@@ -23,13 +24,11 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [MenuFragment.newInstance] factory method to
+ * Use the [AppointmentFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MenuFragment : Fragment() {
-
-    private lateinit var binding: FragmentMenuBinding
-
+class AppointmentFragment : Fragment() {
+    private lateinit var binding: FragmentAppointmentBinding
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -46,7 +45,7 @@ class MenuFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointment, container, false)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -58,32 +57,28 @@ class MenuFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MenuFragment.
+         * @return A new instance of fragment AppointmentFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MenuFragment().apply {
+            AppointmentFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonReminder.setOnClickListener {
-            it.findNavController().navigate(R.id.action_menuFragment_to_reminderFragment)
+        binding.buttonBack.setOnClickListener {
+            it.findNavController().navigate(R.id.action_appointmentFragment_to_menuFragment)
         }
 
-        binding.buttonContact.setOnClickListener {
-            it.findNavController().navigate(R.id.action_menuFragment_to_contactFragment)
+        binding.buttonAddAppointment.setOnClickListener {
+            it.findNavController().navigate(R.id.action_appointmentFragment_to_addAppointmentFragment)
         }
 
-        binding.buttonAppointment.setOnClickListener {
-            it.findNavController().navigate(R.id.action_menuFragment_to_appointmentFragment)
-        }
     }
 }

@@ -59,5 +59,6 @@
     <color name="button_profile">#DDE1F9</color>
     <color name="button_contacts">#FFD7F8</color>
     <color name="button_medicDates">#FFDAD4</color>
+    <color name="addButton_backgroundTint">#2A56C8</color>
 
 </resources>

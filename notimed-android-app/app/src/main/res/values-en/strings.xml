@@ -30,8 +30,14 @@
     <string name="login">Sign In</string>
     <string name="Welcome">Welcome</string>
     <string name="instructions">Access the activity you want to do</string>
-    <string name="medicdates">Medic dates</string>
+    <string name="appointment">Appointment</string>
     <string name="contacts">Contacts</string>
     <string name="profile">Profile</string>
     <string name="reminder">Reminder</string>
+    <string name="Reminder_title">Reminders</string>
+    <string name="ReminderDefaultText">You do not have any reminder save</string>
+    <string name="textContacts">Medic contacts</string>
+    <string name="withoutcontact_text">You do not have any medic contact save</string>
+    <string name="textAppointment">Appointments</string>
+    <string name="withoutAppointment_text">You do not have any Appointment save</string>
 </resources>

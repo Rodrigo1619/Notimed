@@ -40,5 +40,76 @@
         android:id="@+id/menuFragment"
         android:name="com.mrroboto.notimed.views.MenuFragment"
         android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_appointmentFragment"
+            app:destination="@id/appointmentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reminderFragment"
+        android:name="com.mrroboto.notimed.views.ReminderFragment"
+        android:label="fragment_reminder"
+        tools:layout="@layout/fragment_reminder" >
+        <action
+            android:id="@+id/action_reminderFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_reminderFragment_to_addReminderFragment"
+            app:destination="@id/addReminderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.mrroboto.notimed.views.ContactFragment"
+        android:label="ContactFragment" >
+        <action
+            android:id="@+id/action_contactFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_contactFragment_to_addContactFragment"
+            app:destination="@id/addContactFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/appointmentFragment"
+        android:name="com.mrroboto.notimed.views.AppointmentFragment"
+        android:label="AppointmentFragment" >
+        <action
+            android:id="@+id/action_appointmentFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_appointmentFragment_to_addAppointmentFragment"
+            app:destination="@id/addAppointmentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addReminderFragment"
+        android:name="com.mrroboto.notimed.views.AddReminderFragment"
+        android:label="fragment_add_reminder"
+        tools:layout="@layout/fragment_add_reminder" >
+        <action
+            android:id="@+id/action_addReminderFragment_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addContactFragment"
+        android:name="com.mrroboto.notimed.views.AddContactFragment"
+        android:label="fragment_add_contact"
+        tools:layout="@layout/fragment_add_contact" >
+        <action
+            android:id="@+id/action_addContactFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAppointmentFragment"
+        android:name="com.mrroboto.notimed.views.AddAppointmentFragment"
+        android:label="fragment_add_appointment"
+        tools:layout="@layout/fragment_add_appointment" >
+        <action
+            android:id="@+id/action_addAppointmentFragment_to_appointmentFragment"
+            app:destination="@id/appointmentFragment" />
+    </fragment>
 </navigation>
