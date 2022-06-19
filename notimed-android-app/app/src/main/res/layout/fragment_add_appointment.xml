@@ -39,8 +39,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/backbutton_margintop"
+                    android:layout_marginBottom="2dp"
                     android:backgroundTint="#0000"
                     app:cornerRadius="@dimen/backbutton_borderradius"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textreminder"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,12 +95,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editDoctor"
+                    app:layout_constraintBottom_toTopOf="@+id/Doctor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@id/AppointmentName">
+
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -120,12 +123,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editBirthday"
+                    app:layout_constraintBottom_toTopOf="@+id/AppointmentDate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editName">
+                    app:layout_constraintTop_toBottomOf="@+id/Doctor">
+
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -143,16 +146,17 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editBirthday"
+                    android:id="@+id/editDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
-                    app:helperText="@string/helper_text"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editHour"
+                    app:layout_constraintBottom_toTopOf="@+id/AppointmentHour"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editDoctor">
+                    app:layout_constraintTop_toBottomOf="@+id/AppointmentDate">
+
+
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/text_input_birthday"
@@ -167,7 +171,6 @@
                         android:hint="@string/Date_hint"
                         android:inputType="text"
                         android:maxLines="1"
-
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -180,15 +183,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
-                    app:errorContentDescription="@string/labelBirthday"
-                    app:errorEnabled="true"
-                    app:errorTextColor="?colorError"
-                    app:helperText="@string/helper_text"
-
-                    app:layout_constraintBottom_toTopOf="@+id/address"
+                    app:layout_constraintBottom_toTopOf="@+id/AppointmentLocalization"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editBirthday">
+                    app:layout_constraintTop_toBottomOf="@+id/AppointmentHour">
+
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/text_input_hour"
@@ -203,7 +202,6 @@
                         android:hint="@string/Datehour_hint"
                         android:inputType="text"
                         android:maxLines="1"
-
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -215,14 +213,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
                     app:helperTextEnabled="true"
-
-
-                    app:layout_constraintBottom_toTopOf="@id/Notes"
+                    app:layout_constraintBottom_toTopOf="@id/AppointmentNotes"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/editHour">
+
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -242,14 +238,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
                     app:helperTextEnabled="true"
-
-
                     app:layout_constraintBottom_toTopOf="@id/saveButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/address">
+                    app:layout_constraintTop_toBottomOf="@id/AppointmentNotes">
+
+
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -263,13 +258,74 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+
+
+                <TextView
+                    android:id="@+id/AppointmentName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/EditName_helperText"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/editName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                <TextView
+                    android:id="@+id/Doctor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/editDoctor_helperText"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/editDoctor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editName"></TextView>
+
+                <TextView
+                    android:id="@+id/AppointmentDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/editDate_helperText"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/editDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editDoctor"></TextView>
+
+                <TextView
+                    android:id="@+id/AppointmentHour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/editHour_helperText"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/editHour"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editDate"></TextView>
+
+                <TextView
+                    android:id="@+id/AppointmentLocalization"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Address_helperText"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editHour"></TextView>
+
+                <TextView
+                    android:id="@+id/AppointmentNotes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Notes_helperText"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/Notes"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/address"></TextView>
                 <Button
                     android:id="@+id/saveButton"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="142dp"
-                    android:layout_height="50dp"
-                    android:backgroundTint="#DAE1FF"
-                    android:layout_marginStart="20dp"
+                    android:layout_width="@dimen/ButtonSave_width"
+                    android:layout_height="@dimen/ButtonCancel_height"
+                    android:backgroundTint="@color/buttonSave"
+                    android:layout_marginStart="@dimen/ButtonSave_marginLeft"
                     android:layout_marginTop="@dimen/margin_20dp"
                     android:text="@string/savebutton_text"
                     android:textColor="?colorPrimary"
@@ -279,11 +335,11 @@
                 <Button
                     android:id="@+id/cancelButton"
                     style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="142dp"
-                    android:layout_height="50dp"
-                    android:backgroundTint="#FFDAD4"
+                    android:layout_width="@dimen/ButtonCancel_width"
+                    android:layout_height="@dimen/ButtonCancel_height"
+                    android:backgroundTint="@color/buttonCancel"
                     android:layout_marginTop="@dimen/margin_20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="@dimen/ButtonCancel_marginRight"
                     android:text="@string/cancelbutton_text"
                     android:textColor="?colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
