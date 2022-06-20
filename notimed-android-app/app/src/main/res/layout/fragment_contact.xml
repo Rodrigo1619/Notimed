@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?colorSurface"
+        tools:context=".views.ContactFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Button
+                        android:id="@+id/button_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/backbutton_margintop"
+                        android:backgroundTint="#0000"
+                        app:cornerRadius="@dimen/backbutton_borderradius"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/back_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/backtext_margintop"
+                        android:layout_marginEnd="@dimen/backtext_marginend"
+                        android:drawableTop="@drawable/ic_back"
+                        app:layout_constraintBottom_toBottomOf="@+id/button_back"
+                        app:layout_constraintEnd_toEndOf="@+id/button_back"
+                        app:layout_constraintHorizontal_bias="0.535"
+                        app:layout_constraintStart_toStartOf="@+id/button_back"
+                        app:layout_constraintTop_toTopOf="@+id/button_back">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/textcontact"
+                        style="@style/TextAppearance.Material3.HeadlineSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/remindertext_margintop"
+                        android:text="@string/textContacts"
+                        app:layout_constraintStart_toEndOf="@+id/button_back"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/LayoutContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layoutContact_height"
+                    android:layout_marginBottom="@dimen/layoutContact_marginbottom"
+                    app:layout_constraintTop_toBottomOf="@id/layoutTitle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/icon_withoutcontact"
+                        android:layout_width="@dimen/icon_withoutAny_width"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:drawableTop="@drawable/ic_contactnotimed"
+                        android:hint="@string/withoutcontact_text"></TextView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/addbuttonlayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/addbuttonlayout_margintop"
+                    android:layout_marginEnd="@dimen/addbuttonlayout_marginend"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/LayoutContact">
+
+                    <Button
+                        android:id="@+id/button_addContact"
+                        android:layout_width="@dimen/buttonadd_width"
+                        android:layout_height="@dimen/buttonadd_height"
+                        android:backgroundTint="@color/addButton_backgroundTint"
+                        app:cornerRadius="@dimen/addButton_cornerRadius"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></Button>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/addButtonIcon_margintop"
+                        android:drawableTop="@drawable/ic_add_contact"
+                        app:layout_constraintBottom_toBottomOf="@id/button_addContact"
+                        app:layout_constraintEnd_toEndOf="@id/button_addContact"
+                        app:layout_constraintStart_toStartOf="@+id/button_addContact"
+                        app:layout_constraintTop_toTopOf="@+id/button_addContact">
+
+                    </TextView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>
