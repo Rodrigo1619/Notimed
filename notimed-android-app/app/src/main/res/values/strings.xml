@@ -54,5 +54,26 @@
     <string name="savebutton_text">Guardar</string>
     <string name="cancelbutton_text">Cancelar</string>
     <string name="addAppointment_text">Cita médica</string>
+    <string name="EditName_helperText">Nombre de cita médica:</string>
+    <string name="editDoctor_helperText">Nombre de médico:</string>
+    <string name="editDate_helperText">Fecha:</string>
+    <string name="Address_helperText">Dirección de consultorio:</string>
+    <string name="editHour_helperText">Hora:</string>
+    <string name="Notes_helperText">Notas adicionales:</string>
+    <string name="addContact_text">Contactos médico</string>
+    <string name="editPhone_text">Número de teléfono:</string>
+    <string name="Phone_hint">2222-3333</string>
+    <string name="contactDoctor_hint">Dr. Notimed</string>
+    <string name="Localization_text">Ubicación de consultorio:</string>
+    <string name="specialization_texthint">Especialización del médico:</string>
+    <string name="Schedule_hintText">Horarios de consulta:</string>
+    <string name="weekDays_hintText">Seleccione los días de consulta:</string>
+    <string name="Monday_text">Lunes</string>
+    <string name="Tuesday_text">Martes</string>
+    <string name="wednesday_text">Miércoles</string>
+    <string name="Thursday_text">Jueves</string>
+    <string name="Friday_text">Viernes</string>
+    <string name="Saturday_text">Sábado</string>
+    <string name="Sunday_text">Domingo</string>
 
 </resources>
