@@ -1,74 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:maxWidth="500dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
 
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?colorSurface"
         tools:context=".views.AddReminderFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/navbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:background="@drawable/ic_top"
-                android:maxHeight="199dp"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layoutTitle"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <Button
-                    android:id="@+id/button_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/backbutton_margintop"
-                    android:backgroundTint="#0000"
-                    app:cornerRadius="@dimen/backbutton_borderradius"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:navigationIcon="@drawable/ic_back"
+                    app:title="@string/AddReminder_title" />
 
-                <TextView
-                    android:id="@+id/back_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/backtext_margintop"
-                    android:layout_marginEnd="@dimen/backtext_marginend"
-                    android:drawableTop="@drawable/ic_back"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_back"
-                    app:layout_constraintEnd_toEndOf="@+id/button_back"
-                    app:layout_constraintHorizontal_bias="0.535"
-                    app:layout_constraintStart_toStartOf="@+id/button_back"
-                    app:layout_constraintTop_toTopOf="@+id/button_back">
-
-                </TextView>
-
-                <TextView
-                    android:id="@+id/textreminder"
-                    style="@style/TextAppearance.Material3.HeadlineSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/remindertext_margintop"
-                    android:text="@string/AddReminder_title"
-                    app:layout_constraintStart_toEndOf="@+id/button_back"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -76,13 +39,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_20dp"
-                android:layout_marginTop="@dimen/normalGap"
                 android:layout_marginEnd="@dimen/margin_20dp"
-                android:layout_marginBottom="@dimen/normalGap"
+                android:layout_marginTop="@dimen/normalGap"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
                 app:layout_constraintWidth_max="480dp">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -91,9 +53,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editLastName"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
+                    app:layout_constraintBottom_toTopOf="@+id/editTimesADay"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -101,177 +64,110 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_round_person_24"
+                        android:drawableStart="@drawable/ic_pill"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/labelName"
+                        android:hint="@string/medicine_hint"
                         android:inputType="text"
-
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editLastName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editEmail"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editName">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_round_person_24"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/labelLastName"
-                        android:inputType="text"
-
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editBirthday"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editLastName">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_outline_email_24"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/labelEmail"
-                        android:inputType="textEmailAddress"
-
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editBirthday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editPassword"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editEmail">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_input_birthday"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:cursorVisible="false"
-                        android:drawableStart="@drawable/ic_round_calendar"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:focusable="true"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/labelBirthday"
-                        android:inputType="text"
-                        android:maxLines="1"
-
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editPassword"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    app:endIconMode="password_toggle"
-                    app:errorContentDescription="@string/labelBirthday"
-                    app:errorEnabled="true"
-                    app:errorTextColor="?colorError"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/gender"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editBirthday">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_round_lock_24"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/labelPassword"
-                        android:inputType="textPassword"
-
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/gender"
+                    android:id="@+id/editTimesADay"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    android:hint="@string/labelGender"
+                    android:layout_marginBottom="16dp"
+                    android:hint="@string/times_a_day_hint"
                     app:errorEnabled="true"
-                    app:helperText="@string/helper_text"
-
+                    app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@id/registerButton"
+                    app:layout_constraintBottom_toTopOf="@+id/hour_label"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editPassword">
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <AutoCompleteTextView
-                        android:id="@+id/dropdownGender"
+                        android:id="@+id/dropdown_times"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none"
-                         />
+                        android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/registerButton"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="@dimen/margin_20dp"
-                    android:text="@string/registerText"
-                    android:textColor="?colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/gender" />
-
                 <TextView
-                    android:id="@+id/labelLogin"
-                    style="@style/TextAppearance.Material3.LabelSmall"
+                    android:id="@+id/hour_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="@string/loginNav"
-                    android:textAlignment="center"
-                    android:textColor="?colorOnPrimaryContainer"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="Hora"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    android:layout_marginEnd="@dimen/gap12dp"
+                    app:layout_constraintEnd_toStartOf="@+id/dose_label"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/registerButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/editTimesADay" />
+
+                <TextView
+                    android:id="@+id/dose_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    android:text="Dosis"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/hour_label"
+                    app:layout_constraintTop_toBottomOf="@+id/editTimesADay" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/hour_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/gap12dp"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
+                    app:hintEnabled="false"
+                    android:layout_marginTop="@dimen/smallGap"
+                    app:layout_constraintEnd_toStartOf="@+id/dose_edit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/hour_label">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_clock"
+                        android:drawablePadding="@dimen/smallGap"
+                        android:hint="@string/Datehour_hint"
+                        android:inputType="text"
+                        android:textColor="?colorOnSurface"
+                        android:textColorHint="?colorOnSurfaceVariant" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/dose_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
+                    app:hintEnabled="false"
+                    android:layout_marginTop="@dimen/smallGap"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/hour_edit"
+                    app:layout_constraintTop_toBottomOf="@+id/dose_label">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_clock"
+                        android:drawablePadding="@dimen/smallGap"
+                        android:hint="1.0"
+                        android:inputType="numberDecimal"
+                        android:textColor="?colorOnSurface"
+                        android:textColorHint="?colorOnSurfaceVariant" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

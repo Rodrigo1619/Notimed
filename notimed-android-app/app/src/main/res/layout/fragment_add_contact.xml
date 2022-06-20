@@ -5,9 +5,8 @@
     android:maxWidth="500dp">
 
 
-
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?colorSurface"
         tools:context=".views.AddAppointmentFragment">
@@ -16,62 +15,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="wrap_content"
-                android:layout_height="65dp"
-                android:backgroundTint="#0000"
-                android:maxHeight="70dp"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layoutTitle"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <Button
-                    android:id="@+id/button_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/backbutton_margintop"
-                    android:layout_marginBottom="2dp"
-                    android:backgroundTint="#0000"
-                    app:cornerRadius="@dimen/backbutton_borderradius"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textcontact"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:navigationIcon="@drawable/ic_back"
+                    app:title="@string/addContact_text" />
 
-                <TextView
-                    android:id="@+id/back_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/backtext_margintop"
-                    android:layout_marginEnd="@dimen/backtext_marginend"
-                    android:drawableTop="@drawable/ic_back"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_back"
-                    app:layout_constraintEnd_toEndOf="@+id/button_back"
-                    app:layout_constraintHorizontal_bias="0.535"
-                    app:layout_constraintStart_toStartOf="@+id/button_back"
-                    app:layout_constraintTop_toTopOf="@+id/button_back">
-
-                </TextView>
-
-                <TextView
-                    android:id="@+id/textcontact"
-                    style="@style/TextAppearance.Material3.HeadlineSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/remindertext_margintop"
-                    android:text="@string/addAppointment_text"
-                    app:layout_constraintStart_toEndOf="@+id/button_back"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,37 +44,34 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
                 app:layout_constraintWidth_max="480dp">
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editDoctorName"
+                    android:id="@+id/editDoctor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/PhoneNumber"
+                    app:layout_constraintBottom_toTopOf="@id/editPhone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/DoctorName">
-
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_person"
+                        android:drawableStart="@drawable/ic_doctor"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/contactDoctor_hint"
+                        android:hint="@string/doctor_hint"
                         android:inputType="text"
-
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editPhone"
@@ -123,305 +79,77 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/AddressLocal"
+                    app:layout_constraintBottom_toTopOf="@+id/editAddress"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/PhoneNumber">
-
+                    app:layout_constraintTop_toBottomOf="@id/editDoctor">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_call"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/Phone_hint"
-                        android:inputType="text"
-
+                        android:hint="Numero de teléfono"
+                        android:inputType="phone"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/Localization"
-                    android:layout_width="0dp"
+                    android:id="@+id/editAddress"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/Specialization_text"
+                    app:layout_constraintBottom_toTopOf="@+id/editSpecialization"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/AddressLocal">
-
-
+                    app:layout_constraintTop_toBottomOf="@id/editPhone">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_address"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/Address_hint"
+                        android:hint="Dirección de consultorio"
                         android:inputType="text"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/Specialization"
+                    android:id="@+id/editSpecialization"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
-                    android:hint="Especialización"
-                    app:layout_constraintBottom_toTopOf="@+id/Schedule"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Specialization_text">
 
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editAddress"
+                    app:startIconDrawable="@drawable/ic_address">
 
                     <AutoCompleteTextView
-                        android:id="@+id/dropdownGender"
+                        android:id="@+id/dropdown_specializations"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="@string/specialization_texthint"
                         android:inputType="none" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/OpenHour"
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    app:endIconMode="clear_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@id/week"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/Schedule">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="inicio"
-                        android:textSize="16dp"></TextView>
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_open_hour"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:cursorVisible="false"
-                        android:drawableStart="@drawable/ic_clock"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:focusable="true"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/Datehour_hint"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/CloseHour"
-                    android:layout_width="170dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    app:endIconMode="clear_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@id/week"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/Schedule">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="finalización"
-                        android:textSize="16dp"></TextView>
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_close_hour"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:cursorVisible="false"
-                        android:drawableStart="@drawable/ic_clock"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:focusable="true"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/Datehour_hint"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/week"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/weekDays_hintText"
-                    android:textSize="16dp"
-                    app:layout_constraintBottom_toTopOf="@id/chipWeekDays"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/OpenHour">
-                </TextView>
-
-                <TextView
-                    android:id="@+id/DoctorName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/editDoctor_helperText"
-                    android:textSize="16dp"
-                    app:layout_constraintBottom_toTopOf="@id/editDoctorName"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></TextView>
-
-                <TextView
-                    android:id="@+id/PhoneNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/editPhone_text"
-                    android:textSize="16dp"
-                    app:layout_constraintBottom_toTopOf="@id/editPhone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editDoctorName"></TextView>
-
-                <TextView
-                    android:id="@+id/AddressLocal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Localization_text"
-                    android:textSize="16dp"
-                    app:layout_constraintBottom_toTopOf="@id/Localization"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editPhone"></TextView>
-
-                <TextView
-                    android:id="@+id/Specialization_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/specialization_texthint"
-                    android:textSize="16dp"
-                    app:layout_constraintBottom_toTopOf="@id/Specialization"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/Localization"></TextView>
-
-                <TextView
-                    android:id="@+id/Schedule"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Schedule_hintText"
-                    android:textSize="16dp"
-                    app:layout_constraintBottom_toTopOf="@id/OpenHour"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/Specialization"></TextView>
-
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chipWeekDays"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/week">
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipMonday"
-                        android:text="@string/Monday_text"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="194dp"
-                        tools:layout_editor_absoluteY="516dp" />
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipTuesday"
-                        android:text="@string/Tuesday_text"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="194dp"
-                        tools:layout_editor_absoluteY="516dp" />
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipWednesday"
-                        android:text="@string/wednesday_text"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="194dp"
-                        tools:layout_editor_absoluteY="516dp" />
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipThursday"
-                        android:text="@string/Thursday_text"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="194dp"
-                        tools:layout_editor_absoluteY="516dp" />
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipFriday"
-                        android:text="@string/Friday_text"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="194dp"
-                        tools:layout_editor_absoluteY="516dp" />
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipSaturday"
-                        android:text="@string/Saturday_text"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="194dp"
-                        tools:layout_editor_absoluteY="516dp" />
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipSunday"
-                        android:text="@string/Sunday_text"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:layout_editor_absoluteX="194dp"
-                        tools:layout_editor_absoluteY="516dp" />
-                </com.google.android.material.chip.ChipGroup>
-
-
-                <Button
-                    android:id="@+id/saveButton"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="@dimen/ButtonSave_width"
-                    android:layout_height="@dimen/saveButton_height"
-                    android:backgroundTint="@color/buttonSave"
-                    android:layout_marginStart="@dimen/ButtonSave_marginLeft"
-                    android:layout_marginTop="@dimen/margin_20dp"
-                    android:text="@string/savebutton_text"
-                    android:textColor="?colorPrimary"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chipWeekDays" />
-
-                <Button
-                    android:id="@+id/cancelButton"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="@dimen/ButtonCancel_width"
-                    android:layout_height="@dimen/ButtonCancel_height"
-                    android:backgroundTint="@color/buttonCancel"
-                    android:layout_marginTop="@dimen/margin_20dp"
-                    android:layout_marginEnd="@dimen/ButtonCancel_marginRight"
-                    android:text="@string/cancelbutton_text"
-                    android:textColor="?colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chipWeekDays" />
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

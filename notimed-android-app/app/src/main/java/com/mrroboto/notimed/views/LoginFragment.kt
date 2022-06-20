@@ -65,7 +65,7 @@ class LoginFragment : Fragment() {
 
             viewModel.currentPassword.value = password.toString()
             viewModel.currentEmail.value = email.toString()
-            viewModel.onLogin(email.toString(), password.toString())
+            // viewModel.onLogin(email.toString(), password.toString())
             
 
 

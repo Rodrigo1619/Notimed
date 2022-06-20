@@ -67,7 +67,7 @@ class AddAppointmentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonBack.setOnClickListener {
+        binding.topAppBar.setNavigationOnClickListener {
             it.findNavController().navigate(R.id.action_addAppointmentFragment_to_appointmentFragment)
         }
 

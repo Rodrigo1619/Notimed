@@ -72,11 +72,11 @@ class ContactFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonBack.setOnClickListener {
+        binding.topAppBar.setNavigationOnClickListener {
             it.findNavController().navigate(R.id.action_contactFragment_to_menuFragment)
         }
 
-        binding.buttonAddContact.setOnClickListener {
+        binding.addContactFab.setOnClickListener {
             it.findNavController().navigate(R.id.action_contactFragment_to_addContactFragment)
         }
 
