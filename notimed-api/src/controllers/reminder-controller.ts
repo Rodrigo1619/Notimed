@@ -43,7 +43,28 @@ const deleteReminder = async(req:Request, res:Response)=>{
         reminderModel.deleteOne({_id: id});
         return res.status(204).json
     }catch(error){
-        console.log(error);
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
+    }
+}
+
+const updateReminder = async(req:Request, res:Response)=>{
+    try{
+        const{name,prescriptions,startDay,endDay,foodOption}=req.body;
+        const update = await Reminder.findByIdAndUpdate(req.params.id,{
+            name:name,
+            prescriptions:prescriptions,
+            startDay:startDay,
+            endDay:endDay,
+            foodOption:foodOption
+        })
+        res.status(201).send({update})
+
+    }catch(error){
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
     }
 }
 
@@ -58,6 +79,7 @@ const getReminder = async(req:Request, res:Response)=>{
 export{
     addReminder,
     deleteReminder,
+    updateReminder,
     getReminders,
     getReminder
 }

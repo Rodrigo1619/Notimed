@@ -52,14 +52,32 @@ const createContact = async(req: Request, res: Response)=>{
 const deleteContact = async(req: Request, res: Response)=>{
     const {id} = req.params;
     try{
-        contactModel.deleteOne({_id: id});
+        await contactModel.deleteOne({_id: id});
         return res.status(204).json
     }catch(error){
-        console.log(error);
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
     }
 }
 const updateContact = async(req:Request,res: Response )=>{
-
+    try{
+        const{name,phoneNumber,address,specialization,startHour,endHour,days}=req.body;
+        const update = await Contact.findByIdAndUpdate(req.params.id,{
+            name:name,
+            phoneNumber:phoneNumber,
+            adress: address,
+            specialization:specialization,
+            startHour:startHour,
+            endHour:endHour,
+            days:days
+        })
+        res.status(201).send({update})
+    }catch(error){
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
+    }
 } 
 
 const getContacts = async(req: Request, res: Response)=>{
@@ -74,6 +92,7 @@ const getContact =async (req:Request, res: Response) => {
 export{
     createContact,
     deleteContact,
+    updateContact,
     getContacts,
     getContact
 };
