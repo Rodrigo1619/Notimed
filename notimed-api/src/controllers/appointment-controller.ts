@@ -49,7 +49,7 @@ const createAppointment = async (req: Request, res: Response) => {
     }
 }
 const deleteAppointment = async(req:Request, res:Response)=>{
-    const {id} = req.body;
+    const {id} = req.params;
     try{
         appointmentModel.deleteOne({_id: id});
         return res.status(204).json

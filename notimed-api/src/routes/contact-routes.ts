@@ -10,5 +10,5 @@ router.get('/contact',getContact);
 router.post('/create',createContact);
 
 //delete
-router.delete('delete', deleteContact);
+router.delete('/delete', deleteContact);
 module.exports = router; 

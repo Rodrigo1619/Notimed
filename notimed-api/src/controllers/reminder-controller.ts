@@ -38,7 +38,7 @@ const addReminder = async(req: Request, res: Response)=>{
 
 }
 const deleteReminder = async(req:Request, res:Response)=>{
-    const {id} = req.body;
+    const {id} = req.params;
     try{
         reminderModel.deleteOne({_id: id});
         return res.status(204).json
