@@ -103,9 +103,9 @@ const getAllUsers = async (req: Request, res: Response) => {
 
 const getUser = async (req: Request, res: Response) => {
     try {
-        const { email } = req.body;
+        const { id } = req.params;
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ id });
 
         if (!user)
             return res.status(404).send({ message: "User not found" });
@@ -119,10 +119,31 @@ const getUser = async (req: Request, res: Response) => {
 
 }
 
+const updateUser = async (req: Request, res: Response) =>{
+    try {
+        const { name, lastName, birthday, gender } = req.body;
+        const update = await User.findByIdAndUpdate(req.params.id, {
+            name: name,
+            lastName: lastName,
+            birthday: birthday,
+            gender: gender
+        });
+
+    
+
+        res.status(201).send({update});
+    } catch (error) {
+        throw new Error(error);
+    }
+
+
+}
+
 export {
     register,
     login,
     getAllUsers,
-    getUser
+    getUser,
+    updateUser
 }
 

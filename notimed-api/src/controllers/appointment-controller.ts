@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import appointmentModel from '../models/appointment.model';
 import Appointment from '../models/appointment.model';
 
 const createAppointment = async (req: Request, res: Response) => {
@@ -47,6 +48,34 @@ const createAppointment = async (req: Request, res: Response) => {
             .json({ message: error.message ?? JSON.stringify(error) });
     }
 }
+const deleteAppointment = async(req:Request, res:Response)=>{
+    const {id} = req.params;
+    try{
+        appointmentModel.deleteOne({_id: id});
+        return res.status(204).json
+    }catch(error){
+        console.log(error);
+    }
+}
+const updateAppointment = async(req:Request, res:Response)=>{
+    try{
+        const{appointmentName, doctorName, appointmentDate, appointmentHour, adress,additionalNotes} = req.body;
+        const update = await Appointment.findByIdAndUpdate(req.params.id,{
+            appointmentName:appointmentName,
+            doctorName:doctorName,
+            appointmentDate:appointmentDate,
+            appointmentHour:appointmentHour,
+            adress:adress,
+            additionalNotes:additionalNotes
+        })
+        res.status(201).send({update})
+
+    }catch(error){
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
+    }
+}
 
 const getAppointments = async (req: Request, res: Response) => {
     return res.status(200).json(await Appointment.find());
@@ -58,6 +87,8 @@ const getAppointment = async (req: Request, res: Response) => {
 
 export {
     getAppointment,
+    deleteAppointment,
+    updateAppointment,
     getAppointments,
     createAppointment
 }

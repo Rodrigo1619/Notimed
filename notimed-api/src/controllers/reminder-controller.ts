@@ -1,4 +1,5 @@
 import express,{Request, Response} from 'express';
+import reminderModel from '../models/reminder.model';
 import Reminder from '../models/reminder.model';
 
 
@@ -36,6 +37,36 @@ const addReminder = async(req: Request, res: Response)=>{
     }
 
 }
+const deleteReminder = async(req:Request, res:Response)=>{
+    const {id} = req.params;
+    try{
+        reminderModel.deleteOne({_id: id});
+        return res.status(204).json
+    }catch(error){
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
+    }
+}
+
+const updateReminder = async(req:Request, res:Response)=>{
+    try{
+        const{name,prescriptions,startDay,endDay,foodOption}=req.body;
+        const update = await Reminder.findByIdAndUpdate(req.params.id,{
+            name:name,
+            prescriptions:prescriptions,
+            startDay:startDay,
+            endDay:endDay,
+            foodOption:foodOption
+        })
+        res.status(201).send({update})
+
+    }catch(error){
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
+    }
+}
 
 const getReminders = async(req: Request, res: Response)=>{
     return res.status(200).json(await Reminder.find());
@@ -43,8 +74,12 @@ const getReminders = async(req: Request, res: Response)=>{
 const getReminder = async(req:Request, res:Response)=>{
     return res.status(200).json(await Reminder.findOne());
 }
+
+
 export{
     addReminder,
+    deleteReminder,
+    updateReminder,
     getReminders,
     getReminder
 }
