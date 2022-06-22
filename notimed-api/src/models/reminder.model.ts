@@ -5,10 +5,18 @@ const Reminder: Schema = new Schema({
         type: String,
         required: true
     },
-    prescriptions: [{
-        dose: Number,
-        hour: String
-    }],
+    repeatEvery:{
+        type:Number,
+        required:true
+    },
+    hour:{
+        type: String,
+        required: true
+    },
+    dose:{
+        type: Number,
+        required: true
+    },
     startDay: {
         type: String,
         required: false
