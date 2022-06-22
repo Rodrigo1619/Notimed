@@ -69,7 +69,23 @@ const updateReminder = async(req:Request, res:Response)=>{
 }
 
 const getReminders = async(req: Request, res: Response)=>{
-    return res.status(200).json(await Reminder.find());
+    
+    const { limit = 5, skip = 0 } = req.query;
+
+    const query = { estado: true };
+
+
+    const [total, reminders] = await Promise.all([
+        Reminder.countDocuments(query),
+        Reminder.find(query)
+            .skip(Number(skip))
+            .limit(Number(limit))
+    ])
+
+    res.json({ total, reminders });
+    
+    
+    //return res.status(200).json(await Reminder.find());
 }
 const getReminder = async(req:Request, res:Response)=>{
     return res.status(200).json(await Reminder.findOne());

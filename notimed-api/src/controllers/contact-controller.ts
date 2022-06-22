@@ -81,7 +81,19 @@ const updateContact = async(req:Request,res: Response )=>{
 } 
 
 const getContacts = async(req: Request, res: Response)=>{
-    return res.status(200).json(await Contact.find());
+    const { limit = 5, skip = 0 } = req.query;
+
+    const query = { estado: true };
+
+
+    const [total, contacts] = await Promise.all([
+        Contact.countDocuments(query),
+        Contact.find(query)
+            .skip(Number(skip))
+            .limit(Number(limit))
+    ])
+
+    res.json({ total, contacts });
 };
 
 const getContact =async (req:Request, res: Response) => {

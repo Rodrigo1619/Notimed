@@ -78,7 +78,19 @@ const updateAppointment = async(req:Request, res:Response)=>{
 }
 
 const getAppointments = async (req: Request, res: Response) => {
-    return res.status(200).json(await Appointment.find());
+    const { limit = 5, skip = 0 } = req.query;
+
+    const query = { estado: true };
+
+
+    const [total, appointments] = await Promise.all([
+        Appointment.countDocuments(query),
+        Appointment.find(query)
+            .skip(Number(skip))
+            .limit(Number(limit))
+    ])
+
+    res.json({ total, appointments });
 };
 
 const getAppointment = async (req: Request, res: Response) => {
