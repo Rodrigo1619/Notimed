@@ -13,8 +13,6 @@
     <string name="loginNav">Already have an account? Sign In!</string>
     <string name="labelGender">Gender</string>
     <string name="helper_text">required</string>
-    <string name="placeholderName">John</string>
-    <string name="placeholderLastName">Smith</string>
     <string name="labelRecoverButton">Request password</string>
     <string name="labelRecover">Recover password</string>
     <string name="onErrorEmpty">This text field is required</string>
@@ -23,6 +21,9 @@
     <string name="ErrorforName">Are you sure you entered your name correctly?</string>
     <string name="ErrorforLastName">Are you sure you entered your lastname correctly?</string>
     <string name="ErrorforDropdown">Please select one</string>
+    <string name="ErrorForMinumunChars"> Enter a meaningful name </string>
+    <string name="ErrorForDate"> Select a date </string>
+    <string name="ErrorForHour"> Select a time </string>
     <string-array name="genders">
         <item>Male</item>
         <item>Female</item>
@@ -42,7 +43,6 @@
     <string name="withoutAppointment_text">You do not have any Appointment save</string>
     <string name="AddReminder_title">Reminder</string>
     <string name="addressTitle">Clinic address</string>
-    <string name="Date_hint">dd/mm/yyyy</string>
     <string name="Datehour_hint">hh:mm</string>
     <string name="Address_hint">Address</string>
     <string name="doctor_hint">Doctor</string>
@@ -51,20 +51,19 @@
     <string name="savebutton_text">Save</string>
     <string name="cancelbutton_text">Cancel</string>
     <string name="addAppointment_text">Appointment</string>
-    <string name="EditName_helperText">Appointment name:</string>
-    <string name="editDoctor_helperText">Doctor name:</string>
-    <string name="editDate_helperText">Date:</string>
-    <string name="Address_helperText">Clinic address:</string>
-    <string name="editHour_helperText">Hour:</string>
-    <string name="Notes_helperText">Additional notes:</string>
+    <string name="EditAppointment_label">Appointment name</string>
+    <string name="editDoctor_helperText">Doctor name</string>
+    <string name="editDate_helperText">Date</string>
+    <string name="Address_helperText">Clinic address</string>
+    <string name="Notes_helperText">Additional notes</string>
     <string name="addContact_text">Medical contacts</string>
-    <string name="editPhone_text">Phone number:</string>
+    <string name="editPhone_text">Phone number</string>
     <string name="Phone_hint">2222–3333</string>
     <string name="contactDoctor_hint">Dr. Notimed</string>
-    <string name="Localization_text">Location of the clinic:</string>
-    <string name="specialization_texthint">Specialization of the doctor</string>
-    <string name="Schedule_hintText">Consultation hours:</string>
-    <string name="weekDays_hintText">Select the days available:</string>
+    <string name="Localization_text">Clinic address</string>
+    <string name="specialization_texthint">Medical specialty</string>
+    <string name="Schedule_hintText">Consultation hours</string>
+    <string name="weekDays_hintText">Select the days available</string>
     <string name="Monday_text">Monday</string>
     <string name="Tuesday_text">Tuesday</string>
     <string name="wednesday_text">Wednesday</string>
@@ -72,15 +71,40 @@
     <string name="Friday_text">Friday</string>
     <string name="Saturday_text">Saturday</string>
     <string name="Sunday_text">Sunday</string>
-    <string name="start_text">Inicio</string>
+    <string name="start_text">Start</string>
     <string name="text_final">Ends</string>
     <string name="hint_general_specialization">General</string>
     <string name="medicine_hint">Medicine</string>
-    <string name="times_a_day_hint">How many times a day?</string>
+    <string name="times_a_day_hint">Repeat every</string>
     <string-array name="times">
-        <item>Once time a day</item>
-        <item>Twice times a day</item>
-        <item>Three times a day</item>
+        <item>Every 2 hours</item>
+        <item>Every 4 hours</item>
+        <item>Every 6 hours</item>
+        <item>Every 8 hours</item>
         <item>Custom</item>
     </string-array>
+    <string-array name="response_food">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string name="warning_title_appointment"> The appointment has not been saved! </string>
+    <string name="warning_body_appointment"> The appointment has not been saved, do you want to cancel it? </string>
+    <string name="warning_title_reminder"> The reminder has not been saved! </string>
+    <string name="warning_body_reminder"> The reminder has not been saved, do you want to cancel it? </string>
+    <string name="warning_title_contact"> The contact has not been saved! </string>
+    <string name="warning_body_contact"> The contact has not been saved, do you want to cancel it? </string>
+    <string name="no_response"> No </string>
+    <string name="yes_response"> Yes </string>
+    <string name="labelDose">Dose</string>
+    <string name="labelHour">Hour</string>
+    <string name="scheduleLabel">Medicine schedule</string>
+    <string name="startDate_label">Start date</string>
+    <string name="endDate_hint">Final date</string>
+    <string name="foodQuestionLabel">Should the medication be accompanied with a food?</string>
+    <string name="enter_date"> First select a start date </string>
+    <string name="option_food">Option</string>
+    <string name="DoseLessZero">Dose must be greater than 0</string>
+    <string name="labelStartHour">Initial hour</string>
+    <string name="DoseEmpty">Enter a dose</string>
 </resources>

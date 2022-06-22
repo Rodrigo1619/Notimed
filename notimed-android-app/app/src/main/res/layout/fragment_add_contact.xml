@@ -92,7 +92,7 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_call"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="Numero de teléfono"
+                        android:hint="@string/editPhone_text"
                         android:inputType="phone"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
@@ -118,7 +118,7 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_address"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="Dirección de consultorio"
+                        android:hint="@string/addressTitle"
                         android:inputType="text"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
@@ -130,8 +130,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
-
+                    app:endIconDrawable="@drawable/ic_arrow_down"
+                    app:endIconMode="dropdown_menu"
                     app:errorEnabled="true"
+                    app:endIconTint="?colorPrimary"
                     app:helperTextEnabled="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

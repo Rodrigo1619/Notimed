@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:maxWidth="500dp">
 
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +12,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
@@ -41,24 +40,28 @@
                 android:layout_marginStart="@dimen/margin_20dp"
                 android:layout_marginTop="@dimen/normalGap"
                 android:layout_marginEnd="@dimen/margin_20dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
                 app:layout_constraintWidth_max="480dp">
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editName"
+                    android:id="@+id/editAppointmentName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/Doctor"
+                    app:layout_constraintBottom_toTopOf="@+id/editDoctor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/AppointmentName">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:placeholderText="@string/AppointmentName_hint">
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -66,13 +69,11 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_appointment"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/AppointmentName_hint"
+                        android:hint="@string/EditAppointment_label"
                         android:inputType="text"
-
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editDoctor"
@@ -80,11 +81,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/AppointmentDate"
+                    app:layout_constraintBottom_toTopOf="@+id/editDate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Doctor">
+                    app:layout_constraintTop_toBottomOf="@id/editAppointmentName">
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -92,13 +95,11 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_doctor"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/doctor_hint"
+                        android:hint="@string/editDoctor_helperText"
                         android:inputType="text"
-
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editDate"
@@ -106,14 +107,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/AppointmentHour"
+                    app:errorTextColor="?colorError"
+                    app:errorEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/editHour"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/AppointmentDate">
-
+                    app:layout_constraintTop_toBottomOf="@+id/editDoctor">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_input_birthday"
+                        android:id="@+id/text_input_date"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clickable="true"
@@ -122,51 +124,53 @@
                         android:drawablePadding="@dimen/smallGap"
                         android:focusable="true"
                         android:focusableInTouchMode="false"
-                        android:hint="@string/Date_hint"
+                        android:hint="@string/editDate_helperText"
                         android:inputType="text"
                         android:maxLines="1"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editHour"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    app:layout_constraintBottom_toTopOf="@+id/AppointmentLocalization"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/AppointmentHour">
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_input_hour"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:cursorVisible="false"
-                        android:drawableStart="@drawable/ic_clock"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:focusable="true"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/Datehour_hint"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@id/AppointmentNotes"
+                    app:layout_constraintBottom_toTopOf="@+id/editAddress"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editDate">
+
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_edit_hour"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_clock"
+                        android:drawablePadding="@dimen/smallGap"
+                        android:hint="@string/labelHour"
+                        android:inputType="text"
+                        android:focusable="true"
+                        android:clickable="true"
+                        android:focusableInTouchMode="false"
+                        android:textColor="?colorOnSurface"
+                        android:textColorHint="?colorOnSurfaceVariant" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_20dp"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/editNotes"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/editHour">
@@ -177,24 +181,26 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_address"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/Address_hint"
+                        android:hint="@string/addressTitle"
                         android:inputType="text"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
-
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/Notes"
+                    android:id="@+id/editNotes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
+                    android:layout_marginBottom="20dp"
                     app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@id/saveButton"
+                    app:layout_constraintBottom_toTopOf="@+id/saveButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/AppointmentNotes">
+                    app:layout_constraintTop_toBottomOf="@id/editAddress"
+                    app:placeholderText="@string/Notes_hint">
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -202,75 +208,14 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_notes"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/Notes_hint"
+                        android:hint="@string/Notes_helperText"
                         android:inputType="text"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
-
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-                <TextView
-                    android:id="@+id/AppointmentName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/EditName_helperText"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                    app:layout_constraintBottom_toTopOf="@id/editName"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/Doctor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/editDoctor_helperText"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                    app:layout_constraintBottom_toTopOf="@id/editDoctor"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editName" />
-
-                <TextView
-                    android:id="@+id/AppointmentDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/editDate_helperText"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                    app:layout_constraintBottom_toTopOf="@id/editDate"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editDoctor" />
-
-                <TextView
-                    android:id="@+id/AppointmentHour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/editHour_helperText"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                    app:layout_constraintBottom_toTopOf="@id/editHour"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editDate" />
-
-                <TextView
-                    android:id="@+id/AppointmentLocalization"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Address_helperText"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                    app:layout_constraintBottom_toTopOf="@id/address"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editHour" />
-
-                <TextView
-                    android:id="@+id/AppointmentNotes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Notes_helperText"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                    app:layout_constraintBottom_toTopOf="@id/Notes"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/address" />
-
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/saveButton"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dp48"
@@ -282,7 +227,7 @@
                     android:textColor="?colorOnPrimaryContainer"
                     app:layout_constraintEnd_toStartOf="@+id/cancelButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Notes" />
+                    app:layout_constraintTop_toBottomOf="@+id/editNotes" />
 
                 <Button
                     android:id="@+id/cancelButton"
@@ -296,7 +241,7 @@
                     android:textColor="?colorOnErrorContainer"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/saveButton"
-                    app:layout_constraintTop_toBottomOf="@+id/Notes" />
+                    app:layout_constraintTop_toBottomOf="@+id/editNotes" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

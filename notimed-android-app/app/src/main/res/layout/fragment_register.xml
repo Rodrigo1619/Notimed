@@ -198,7 +198,7 @@
                     app:errorTextColor="?colorError"
                     app:helperText="@string/helper_text"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editSpecialization"
+                    app:layout_constraintBottom_toTopOf="@+id/gender"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editBirthday">
@@ -225,7 +225,8 @@
                     android:hint="@string/labelGender"
                     app:errorEnabled="true"
                     app:helperText="@string/helper_text"
-
+                    app:endIconTint="?colorPrimary"
+                    app:endIconDrawable="@drawable/ic_arrow_down"
                     app:helperTextEnabled="true"
                     app:layout_constraintBottom_toTopOf="@id/registerButton"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -251,7 +252,7 @@
                     android:textColor="?colorPrimary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editSpecialization" />
+                    app:layout_constraintTop_toBottomOf="@+id/gender" />
 
                 <TextView
                     android:id="@+id/labelLogin"

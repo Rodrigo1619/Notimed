@@ -77,6 +77,9 @@ class AppointmentFragment : Fragment() {
         }
 
 
+        binding.addAppointmentFab.setOnClickListener {
+            it.findNavController().navigate(R.id.action_appointmentFragment_to_addAppointmentFragment)
+        }
 
     }
 }

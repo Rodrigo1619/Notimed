@@ -104,14 +104,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/top_layout">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/reminder_button"
                 android:layout_width="148dp"
                 android:layout_height="180dp"
-
                 android:layout_marginBottom="32dp"
                 android:backgroundTint="?colorPrimaryContainer"
-                android:drawableTop="@drawable/ic_alarm"
+                app:icon="@drawable/ic_alarm"
+                app:iconGravity="textTop"
+                app:iconPadding="@dimen/margin_20dp"
+                app:iconSize="60dp"
+                app:iconTint="?colorOnPrimaryContainer"
                 android:drawablePadding="@dimen/margin_20dp"
                 android:paddingVertical="@dimen/margin_20dp"
                 android:text="@string/reminder"
@@ -122,16 +125,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/profile_button"
                 android:layout_width="148dp"
                 android:layout_height="180dp"
-
                 android:layout_marginBottom="32dp"
                 android:backgroundTint="?colorSecondaryContainer"
-                android:drawableTop="@drawable/ic_profileicon"
-                android:drawablePadding="@dimen/margin_20dp"
-                android:paddingVertical="@dimen/margin_20dp"
+                app:icon="@drawable/ic_profileicon"
+                app:iconTint="?colorOnSecondaryContainer"
+                app:iconPadding="@dimen/margin_20dp"
+                app:iconGravity="textTop"
+                app:iconSize="75dp"
                 android:text="@string/profile"
                 android:textColor="?colorOnPrimaryContainer"
                 app:cornerRadius="12dp"
@@ -140,15 +144,16 @@
                 app:layout_constraintStart_toEndOf="@+id/reminder_button"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/contact_button"
                 android:layout_width="148dp"
                 android:layout_height="180dp"
-
                 android:backgroundTint="?colorTertiaryContainer"
-                android:drawableTop="@drawable/ic_contact"
-                android:drawablePadding="@dimen/margin_20dp"
-                android:paddingVertical="@dimen/margin_20dp"
+                app:icon="@drawable/ic_contact"
+                app:iconTint="?colorOnTertiaryContainer"
+                app:iconPadding="@dimen/margin_20dp"
+                app:iconGravity="textTop"
+                app:iconSize="75dp"
                 android:text="@string/contacts"
                 android:textColor="?colorOnPrimaryContainer"
                 app:cornerRadius="12dp"
@@ -157,14 +162,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reminder_button" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/appointment_button"
                 android:layout_width="148dp"
                 android:layout_height="180dp"
-
                 android:backgroundTint="?colorErrorContainer"
-                android:drawableTop="@drawable/ic_book"
-                android:paddingVertical="@dimen/margin_20dp"
+                app:icon="@drawable/ic_book"
+                app:iconGravity="textTop"
+                app:iconPadding="@dimen/margin_20dp"
+                app:iconTint="?colorOnTertiaryContainer"
+                app:iconSize="75dp"
                 android:text="@string/appointment"
                 android:textColor="?colorOnErrorContainer"
                 app:cornerRadius="12dp"

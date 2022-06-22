@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,7 +27,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:navigationIcon="@drawable/ic_back"
-                    app:title="@string/AddReminder_title" />
+                    app:title="@string/AddReminder_title"
+                    />
 
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -39,8 +38,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_20dp"
-                android:layout_marginEnd="@dimen/margin_20dp"
                 android:layout_marginTop="@dimen/normalGap"
+                android:layout_marginEnd="@dimen/margin_20dp"
+                android:layout_marginBottom="@dimen/normalGap"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,10 +53,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
-                    app:helperTextEnabled="true"
                     app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
                     app:errorTextColor="?colorError"
-                    app:layout_constraintBottom_toTopOf="@+id/editTimesADay"
+                    app:layout_constraintBottom_toTopOf="@id/labelSchedule"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -72,73 +72,81 @@
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:id="@+id/labelSchedule"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scheduleLabel"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    app:layout_constraintBottom_toTopOf="@id/editTimesADay"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editName"
+                    />
+
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editTimesADay"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:hint="@string/times_a_day_hint"
+                    app:endIconDrawable="@drawable/ic_arrow_down"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?colorPrimary"
                     app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
+                    android:layout_marginTop="@dimen/smallGap"
                     app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/hour_label"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/labelSchedule"
+                    app:startIconDrawable="@drawable/ic_repeat">
 
                     <AutoCompleteTextView
                         android:id="@+id/dropdown_times"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
+                        android:inputType="none"
+                        tools:ignore="LabelFor" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/hour_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Hora"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:layout_marginEnd="@dimen/gap12dp"
-                    app:layout_constraintEnd_toStartOf="@+id/dose_label"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTimesADay" />
-
-                <TextView
-                    android:id="@+id/dose_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:text="Dosis"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/hour_label"
-                    app:layout_constraintTop_toBottomOf="@+id/editTimesADay" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/hour_edit"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginEnd="@dimen/gap12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    android:paddingVertical="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
                     app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
                     app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:hintEnabled="false"
-                    android:layout_marginTop="@dimen/smallGap"
+                    app:hintEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/startDate"
                     app:layout_constraintEnd_toStartOf="@+id/dose_edit"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hour_label">
+                    app:layout_constraintTop_toBottomOf="@id/editTimesADay">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
                         android:drawableStart="@drawable/ic_clock"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/Datehour_hint"
-                        android:inputType="text"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/labelStartHour"
+                        android:inputType="datetime"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -146,27 +154,150 @@
                     android:id="@+id/dose_edit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
                     app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
                     app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:hintEnabled="false"
-                    android:layout_marginTop="@dimen/smallGap"
+                    app:layout_constraintBottom_toTopOf="@id/startDate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/hour_edit"
-                    app:layout_constraintTop_toBottomOf="@+id/dose_label">
+                    app:layout_constraintTop_toBottomOf="@+id/editTimesADay">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_clock"
+                        android:drawableStart="@drawable/ic_dose"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="1.0"
+                        android:hint="@string/labelDose"
                         android:inputType="numberDecimal"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/startDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dose_edit">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_round_calendar"
+                        android:drawablePadding="@dimen/smallGap"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/startDate_label"
+                        android:inputType="date"
+                        android:textColor="?colorOnSurface"
+                        android:textColorHint="?colorOnSurfaceVariant" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/endDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/startDate">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_round_calendar"
+                        android:drawablePadding="@dimen/smallGap"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/endDate_hint"
+                        android:inputType="date"
+                        android:textColor="?colorOnSurface"
+                        android:textColorHint="?colorOnSurfaceVariant" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/header_option"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:text="@string/foodQuestionLabel"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/endDate" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editFoodOption"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:hint="@string/option_food"
+                    app:endIconDrawable="@drawable/ic_arrow_down"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?colorPrimary"
+                    app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/header_option"
+                    app:startIconDrawable="@drawable/ic_food_24">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdown_options"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        tools:ignore="LabelFor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/saveButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:text="@string/savebutton_text"
+                    android:textColor="?colorOnPrimaryContainer"
+                    app:backgroundTint="?colorPrimaryContainer"
+                    app:layout_constraintEnd_toStartOf="@id/cancelButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editFoodOption" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancelButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/smallGap"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:text="@string/cancelbutton_text"
+                    android:textColor="?colorOnErrorContainer"
+                    app:backgroundTint="?colorErrorContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/saveButton"
+                    app:layout_constraintTop_toBottomOf="@+id/editFoodOption" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

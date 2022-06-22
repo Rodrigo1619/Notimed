@@ -48,5 +48,7 @@ class MenuFragment : Fragment() {
         binding.appointmentButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_menuFragment_to_appointmentFragment)
         }
+
+
     }
 }

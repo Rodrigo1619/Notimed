@@ -12,11 +12,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
-import com.mrroboto.notimed.databinding.FragmentRegisterBinding
 import com.mrroboto.notimed.data.models.User
-import com.mrroboto.notimed.viewmodels.ViewModelFactory
-import com.mrroboto.notimed.views.datePickers.DatePickerFragment
+import com.mrroboto.notimed.databinding.FragmentRegisterBinding
 import com.mrroboto.notimed.viewmodels.UserViewModel
+import com.mrroboto.notimed.viewmodels.ViewModelFactory
 import java.util.*
 
 class RegisterFragment : Fragment() {
@@ -54,16 +53,34 @@ class RegisterFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.textInputBirthday.setOnClickListener {
-            val supportFragmentManager = requireActivity().supportFragmentManager
-            val newFragment = DatePickerFragment.newInstance(DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            // Obtenemos la instancia del calendario.
+            val c = Calendar.getInstance()
+            // Para setear como fecha minima, obtenemos el año actual para el año maximo que se muestre
+            // en el datepicker
+            val year = c.get(Calendar.YEAR)
+            var selected: String
+
+            // Creamos el datePickerDialog
+            val datePickerDialog = DatePickerDialog(requireActivity())
+
+            // Seteamos el año actual como el año maximo para una fecha de cumpleaños.
+            c.set(Calendar.YEAR, year)
+            datePickerDialog.datePicker.maxDate = c.timeInMillis
+            // Seteamos el año actual - 121 (años) como el año minimo para una fecha de cumpleaños.
+            c.set(Calendar.YEAR, year - 121)
+            datePickerDialog.datePicker.minDate = c.timeInMillis
+
+            datePickerDialog.show()
+
+            datePickerDialog.datePicker.setOnDateChangedListener {
+                    _, year, month, dayOfMonth ->
                 Calendar.getInstance().set(Calendar.YEAR, year)
                 Calendar.getInstance().set(Calendar.MONTH, month)
-                Calendar.getInstance().set(Calendar.DAY_OF_MONTH, day)
-                val selectedDate = day.toString() + " / " + (month + 1).toString() + " / " + year.toString()
-                binding.textInputBirthday.setText(selectedDate)
-            })
+                Calendar.getInstance().set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                selected = dayOfMonth.toString() + " / " + (month + 1).toString() + " / " + year.toString()
 
-            newFragment.show(supportFragmentManager, "datePicker")
+                binding.editBirthday.editText?.setText(selected)
+            }
 
         }
 
@@ -80,8 +97,6 @@ class RegisterFragment : Fragment() {
 
             // Validations when inputs are empty
             validationsInputs()
-
-
 
             val newUser = User(email, password, name, lastName, birthday)
 
