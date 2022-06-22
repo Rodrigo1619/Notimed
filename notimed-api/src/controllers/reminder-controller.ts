@@ -5,13 +5,15 @@ import Reminder from '../models/reminder.model';
 
 const addReminder = async(req: Request, res: Response)=>{
     try{
-        const {name, prescriptions, startDay, endDay, foodOption} = req.body;
-        if(name === '' || prescriptions === '' || startDay ==='' || endDay ==='' || foodOption === '')
+        const {name, repeatEvery,hour,dose, startDay, endDay, foodOption} = req.body;
+        if(name === '' || repeatEvery === '' || hour ==='' || dose==='' || startDay ==='' || endDay ==='' || foodOption === '')
         throw{ status:400, message: "All fields must be completed"}
 
         const newReminder = new Reminder({
             name: name,
-            prescriptions: prescriptions,
+            repeatEvery: repeatEvery,
+            hour:hour,
+            dose:dose,
             startDay: startDay,
             endDay: endDay,
             foodOption: foodOption
@@ -26,8 +28,6 @@ const addReminder = async(req: Request, res: Response)=>{
                 error
             })
         })
-
-
 
 
     }catch(error){
