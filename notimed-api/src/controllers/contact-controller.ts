@@ -52,7 +52,7 @@ const createContact = async(req: Request, res: Response)=>{
 const deleteContact = async(req: Request, res: Response)=>{
     const {id} = req.params;
     try{
-        await contactModel.deleteOne({_id: id});
+        await Contact.deleteOne({_id: id});
         return res.status(204).json
     }catch(error){
         return res
