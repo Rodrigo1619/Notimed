@@ -24,7 +24,7 @@ const Appointment: Schema = new Schema({
     },
     additionalNotes: {
         type: String,
-        required: true
+        required: false
     }
 });
 

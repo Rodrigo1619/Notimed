@@ -1,4 +1,5 @@
 import express,{Request, Response} from 'express';
+import { request } from 'http';
 import contactModel from '../models/contact.model';
 import Contact from '../models/contact.model';
 
@@ -49,26 +50,61 @@ const createContact = async(req: Request, res: Response)=>{
     }
 }
 const deleteContact = async(req: Request, res: Response)=>{
-    const {id} = req.body;
+    const {id} = req.params;
     try{
-        contactModel.deleteOne({_id: id});
+        await Contact.deleteOne({_id: id});
         return res.status(204).json
     }catch(error){
-        console.log(error);
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
     }
 }
+const updateContact = async(req:Request,res: Response )=>{
+    try{
+        const{name,phoneNumber,address,specialization,startHour,endHour,days}=req.body;
+        const update = await Contact.findByIdAndUpdate(req.params.id,{
+            name:name,
+            phoneNumber:phoneNumber,
+            adress: address,
+            specialization:specialization,
+            startHour:startHour,
+            endHour:endHour,
+            days:days
+        })
+        res.status(201).send({update})
+    }catch(error){
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
+    }
+} 
 
 const getContacts = async(req: Request, res: Response)=>{
-    return res.status(200).json(await Contact.find());
+    const { limit = 5, skip = 0 } = req.query;
+
+    const query = { estado: true };
+
+
+    const [total, contacts] = await Promise.all([
+        Contact.countDocuments(query),
+        Contact.find(query)
+            .skip(Number(skip))
+            .limit(Number(limit))
+    ])
+
+    res.json({ total, contacts });
 };
 
 const getContact =async (req:Request, res: Response) => {
     return res.status(200).json(await Contact.findOne());
 }
 
+
 export{
     createContact,
     deleteContact,
+    updateContact,
     getContacts,
     getContact
 };

@@ -3,7 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer html {
+body {
+  background-color: #fefbff;
+}
+
+
   .subhead1 {
     @apply text-subhead1 font-medium
   }
@@ -48,5 +52,8 @@
     line-height: 16px;
     letter-spacing: 0.5px;
   }
-}
 
+  .surface1 {
+    background: linear-gradient(0deg, rgba(42, 86, 200, 0.05), rgba(42, 86, 200, 0.05)), #FEFBFF;
+    border-radius: 0px 0px 0px 0px;
+  }
