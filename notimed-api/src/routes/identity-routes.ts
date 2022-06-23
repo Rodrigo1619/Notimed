@@ -1,11 +1,18 @@
-
+import {check} from 'express-validator';
 import express from 'express';
 import { login, register } from '../controllers/user-controller';
+import { existingEmail } from 'src/helpers/db-validators';
 
 
 const loginRouter = express();
 
-loginRouter.post("/signup",  register);
+
+
+loginRouter.post("/signup", [
+    check('password', 'El password tiene que tener 8 o más carácteres').isLength({min:8}),
+    check('correo', 'El correo no es válido').isEmail(),
+    check('correo').custom(existingEmail),
+], register);
 
 loginRouter.post("/signin", login);
 

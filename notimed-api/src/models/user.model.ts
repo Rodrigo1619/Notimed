@@ -2,7 +2,7 @@ import { Schema, model, Document} from 'mongoose';
 import bcrypt from 'bcrypt';
 
 // 1. Create an interface representing a document in MongoDB.
-/* interface IUser extends Document {
+ interface IUser extends Document {
   name: string;
   lastName: string;
   email: string;
@@ -10,10 +10,10 @@ import bcrypt from 'bcrypt';
   birthday: string;
   gender: string;
   rol: string;
-} */
+} 
 
 // 2. Create a Schema corresponding to the document interface.
-const UserSchema = new Schema({
+const UserSchema = new Schema<IUser>({
   name: { 
     type: String,
      required: true 
@@ -46,6 +46,15 @@ const UserSchema = new Schema({
     default: 'user',
     required: true }
   
+},
+{//Para que no aparezcan estos parámetros al hacer la petición
+  toJSON: {
+    transform(doc, ret) {
+      delete ret.password;
+      delete ret.__v;
+      delete ret.rol;
+    },
+  }
 });
 
 
