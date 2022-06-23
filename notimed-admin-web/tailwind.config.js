@@ -1,7 +1,7 @@
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     container: {
@@ -275,19 +275,19 @@ module.exports = {
         ],
         bodyLarge: [
           '16px', {
-            letterSpacing: '0.5x',
+            letterSpacing: '0.5px',
             lineHeight: '24px'
           }
         ],
         bodyMedium: [
           '14px', {
-            letterSpacing: '0.25x',
+            letterSpacing: '0.25px',
             lineHeight: '20px'
           }
         ],
         bodySmall: [
           '12px', {
-            letterSpacing: '0.4x',
+            letterSpacing: '0.4px',
             lineHeight: '16px'
           }
         ],
