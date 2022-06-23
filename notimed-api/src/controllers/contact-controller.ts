@@ -97,7 +97,20 @@ const getContacts = async(req: Request, res: Response)=>{
 };
 
 const getContact =async (req:Request, res: Response) => {
-    return res.status(200).json(await Contact.findOne());
+    try {
+        const { id } = req.params;
+
+        const contact = await Contact.findOne({ id });
+
+        if (!contact)
+            return res.status(404).send({ message: "Contact not found" });
+
+        res.send({ contact })
+    } catch (error) {
+        return res
+            .status(error.status as number ?? 400)
+            .json({ message: error.message ?? JSON.stringify(error) });
+    }
 }
 
 

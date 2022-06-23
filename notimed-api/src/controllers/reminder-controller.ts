@@ -88,7 +88,20 @@ const getReminders = async(req: Request, res: Response)=>{
     //return res.status(200).json(await Reminder.find());
 }
 const getReminder = async(req:Request, res:Response)=>{
-    return res.status(200).json(await Reminder.findOne());
+    try {
+        const { id } = req.params;
+
+        const reminder = await Reminder.findOne({ id });
+
+        if (!reminder)
+            return res.status(404).send({ message: "Reminder not found" });
+
+        res.send({ reminder })
+    } catch (error) {
+        return res
+            .status(error.status as number ?? 400)
+            .json({ message: error.message ?? JSON.stringify(error) });
+    }
 }
 
 

@@ -96,7 +96,20 @@ const getAppointments = async (req: Request, res: Response) => {
 };
 
 const getAppointment = async (req: Request, res: Response) => {
-    return res.status(200).json(await Appointment.findOne());
+    try {
+        const { id } = req.params;
+
+        const appointment = await Appointment.findOne({ id });
+
+        if (!appointment)
+            return res.status(404).send({ message: "appointment not found" });
+
+        res.send({ appointment })
+    } catch (error) {
+        return res
+            .status(error.status as number ?? 400)
+            .json({ message: error.message ?? JSON.stringify(error) });
+    }
 };
 
 export {
