@@ -1,6 +1,15 @@
 import { model, Schema } from "mongoose";
-
-const Appointment: Schema = new Schema({
+//1. creating interface
+interface IAppointment extends Document{
+    appointmentName:string,
+    doctorName:string,
+    appointmentDate:string,
+    appointmentHour:string,
+    address:string,
+    additionalNotes:string
+}
+//2.creating schema
+const Appointment: Schema = new Schema<IAppointment>({
     
     appointmentName: {
         type: String,
@@ -25,6 +34,14 @@ const Appointment: Schema = new Schema({
     additionalNotes: {
         type: String,
         required: false
+    }
+},
+{
+    //3.what we don't wanna show to user
+    toJSON:{
+        transform(doc,ret){
+            delete ret.__v
+        }
     }
 });
 

@@ -52,7 +52,7 @@ const Contact: Schema = new Schema<IContact>({
         }
     }
 },
-//3 getting away parameters not to show user
+//3 delete what we don't wanna show to user
 {
     toJSON:{
         transform(doc,ret){

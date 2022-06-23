@@ -5,7 +5,7 @@ import Appointment from '../models/appointment.model';
 const createAppointment = async (req: Request, res: Response) => {
     try {
         const { appointmentName, doctorName, appointmentDate, appointmentHour, address, additionalNotes } = req.body;
-        if (appointmentName === "" || doctorName === "" || appointmentDate === "" || appointmentHour === "" || address === "" || additionalNotes === "")
+        if (appointmentName === "" || doctorName === "" || appointmentDate === "" || appointmentHour === "" || address === "")
             throw { status: 400, message: "Fields are empty" }
 
         //if the appointment is already in the database
