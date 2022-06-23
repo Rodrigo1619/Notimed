@@ -52,8 +52,8 @@ const createContact = async(req: Request, res: Response)=>{
 const deleteContact = async(req: Request, res: Response)=>{
     const {id} = req.params;
     try{
-        await Contact.deleteOne({_id: id});
-        return res.status(204).json
+        const contact = await Contact.findByIdAndDelete(id);
+        return res.status(200).json({contact})
     }catch(error){
         return res
         .status(error.status as number ?? 400)

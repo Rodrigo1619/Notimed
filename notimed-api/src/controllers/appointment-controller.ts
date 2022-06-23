@@ -51,10 +51,12 @@ const createAppointment = async (req: Request, res: Response) => {
 const deleteAppointment = async(req:Request, res:Response)=>{
     const {id} = req.params;
     try{
-        Appointment.deleteOne({_id: id});
-        return res.status(204).json
+        const appointment = await Appointment.findByIdAndDelete(id);
+        return res.status(200).json({appointment})
     }catch(error){
-        console.log(error);
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
     }
 }
 const updateAppointment = async(req:Request, res:Response)=>{

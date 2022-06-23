@@ -40,8 +40,8 @@ const addReminder = async(req: Request, res: Response)=>{
 const deleteReminder = async(req:Request, res:Response)=>{
     const {id} = req.params;
     try{
-        Reminder.deleteOne({_id: id});
-        return res.status(204).json
+        const reminder = await Reminder.findByIdAndDelete(id);
+        return res.status(200).json({reminder})
     }catch(error){
         return res
         .status(error.status as number ?? 400)
