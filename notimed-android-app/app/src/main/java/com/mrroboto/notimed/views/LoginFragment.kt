@@ -53,22 +53,21 @@ class LoginFragment : Fragment() {
 
             if(email.toString().isEmpty()) {
                 binding.editEmail.error = getString(R.string.onErrorEmpty)
-            } else {
-                binding.editEmail.error = null
-            }
-
-            if(password.toString().isEmpty()) {
+            } else if(password.toString().isEmpty()) {
                 binding.editPassword.error = getString(R.string.onErrorEmpty)
-            } else {
+            }
+            else {
                 binding.editPassword.error = null
+                binding.editEmail.error = null
+                Toast.makeText(requireActivity(), "Estamos dentro", Toast.LENGTH_SHORT).show()
+                it.findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
             }
 
             viewModel.currentPassword.value = password.toString()
             viewModel.currentEmail.value = email.toString()
             viewModel.onLogin(email.toString(), password.toString())
             
-            Toast.makeText(requireActivity(), "Estamos dentro", Toast.LENGTH_SHORT).show()
-            it.findNavController()
+
 
         }
 

@@ -22,7 +22,7 @@ Asi mismo con las ramas se tiene estandar para los commits en el repositorio. Lo
 - `fix`: Solucionar un bug.
 - `docs`: Cambios en la documentación.
 - `refactor`: Refactorización del código como cambios de nombre de variables o funciones.
-- `chore`: Agregar una caracteristica.
+- `chore`: Actualizar sin afectar el uso (actualización de paquetes, cambio de mensajes en strings, etc)
 - `style`: Cambio en el formato del código (saltos de linea, indentacion, etc. que no implique cambio en funcionalidad).
 
 
