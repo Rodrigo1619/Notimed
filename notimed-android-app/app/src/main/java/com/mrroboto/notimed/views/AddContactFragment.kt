@@ -106,7 +106,7 @@ class AddContactFragment : Fragment() {
 
             timePicker.addOnPositiveButtonClickListener {
                 timePicker.hour
-                binding.startHour.editText!!.setText("%02d:%02d".format(timePicker.hour, timePicker.minute))
+                binding.endHour.editText!!.setText("%02d:%02d".format(timePicker.hour, timePicker.minute))
             }
         }
 
