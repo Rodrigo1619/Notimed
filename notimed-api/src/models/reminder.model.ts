@@ -1,6 +1,18 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Document } from "mongoose";
 
-const Reminder: Schema = new Schema({
+//1. creating interface
+interface IReminder extends Document{
+    name:string,
+    repeatEvery:number,
+    hour:string,
+    dose:number,
+    startDay:string,
+    endDay:string,
+    foodOption:boolean
+}
+
+//2. creating schema
+const Reminder: Schema = new Schema<IReminder>({
     name: {
         type: String,
         required: true
@@ -29,6 +41,13 @@ const Reminder: Schema = new Schema({
         type: Boolean,
         required: false
     },
+},
+{ //delete what we don't wanna show to user
+    toJSON:{
+        transform(doc,ret){
+            delete ret.__v
+        }
+    }
 });
 
 export default model('Reminder', Reminder);
