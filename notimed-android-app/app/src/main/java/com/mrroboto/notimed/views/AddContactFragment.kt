@@ -1,29 +1,23 @@
 package com.mrroboto.notimed.views
 
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.InputType
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.core.view.isEmpty
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.dialog.MaterialDialogs
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAddContactBinding
-import java.util.*
 
 class AddContactFragment : Fragment() {
     private lateinit var binding: FragmentAddContactBinding
@@ -71,8 +65,22 @@ class AddContactFragment : Fragment() {
             it.findNavController().navigate(R.id.action_addContactFragment_to_contactFragment)
         }
 
-        binding.dropdownSpecializations.setOnItemClickListener { parent, view1, position, id ->
-            DialogFragment.STYLE_NORMAL
+        binding.dropdownSpecializations.setOnItemClickListener { _, _, position, _ ->
+            val specializations = resources.getStringArray(R.array.specializations)
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, specializations)
+
+            // Si es la position 5 (es el input custom) se setea un helper-text para que el usuario sepa
+            // lo que debe ingresar
+            if (position == 5) {
+                binding.editSpecialization.helperText = getString(R.string.enter_specialization)
+                binding.editSpecialization.editText?.setText("")
+                binding.editSpecialization.editText?.inputType = InputType.TYPE_CLASS_TEXT
+            } else {
+                closeKeyboard()
+                binding.editSpecialization.editText?.inputType = InputType.TYPE_NULL
+                binding.editSpecialization.helperText = null
+                binding.dropdownSpecializations.setAdapter(arrayAdapter)
+            }
         }
 
         val timePicker = MaterialTimePicker.Builder()
@@ -135,11 +143,15 @@ class AddContactFragment : Fragment() {
         }
     }
 
+    private fun closeKeyboard() {
+        view?.hideKeyboard()
+    }
+
     private fun isValidDoctor(): Boolean {
         val doctor = binding.editDoctor
 
 
-        doctor.editText!!.doOnTextChanged { text, start, before, count ->
+        doctor.editText!!.doOnTextChanged { _, _, _, _ ->
             doctor.error = null
         }
 
@@ -164,7 +176,7 @@ class AddContactFragment : Fragment() {
     private fun isValidPhone(): Boolean {
         val phone = binding.editPhone
 
-        phone.editText!!.doOnTextChanged { text, start, before, count ->
+        phone.editText!!.doOnTextChanged { _, _, _, _ ->
             phone.error = null
         }
 
@@ -189,7 +201,7 @@ class AddContactFragment : Fragment() {
     private fun isValidAddress(): Boolean {
         val address = binding.editAddress
 
-        address.editText!!.doOnTextChanged { text, start, before, count ->
+        address.editText!!.doOnTextChanged { _, _, _, _ ->
             address.error = null
         }
 
@@ -216,7 +228,7 @@ class AddContactFragment : Fragment() {
     private fun isValidSpecialization(): Boolean {
         val specialization = binding.editSpecialization
 
-        specialization.editText!!.doOnTextChanged { text, start, before, count ->
+        specialization.editText!!.doOnTextChanged { _, _, _, _ ->
             specialization.error = null
         }
 
@@ -238,7 +250,7 @@ class AddContactFragment : Fragment() {
     private fun isValidStartHour(): Boolean {
         val startHour = binding.startHour
 
-        startHour.editText!!.doOnTextChanged { text, start, before, count ->
+        startHour.editText!!.doOnTextChanged { _, _, _, _ ->
             startHour.error = null
         }
 
@@ -251,7 +263,7 @@ class AddContactFragment : Fragment() {
     private fun isValidEndHour(): Boolean {
         val endHour = binding.endHour
 
-        endHour.editText!!.doOnTextChanged { text, start, before, count ->
+        endHour.editText!!.doOnTextChanged { _, _, _, _ ->
             endHour.error = null
         }
 
@@ -261,10 +273,4 @@ class AddContactFragment : Fragment() {
         } else true
     }
 
-    private fun getTimePickerListener(editText: EditText): TimePickerDialog.OnTimeSetListener {
-
-        return TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            editText.setText("%02d:%02d".format(hourOfDay, minute))
-        }
-    }
 }

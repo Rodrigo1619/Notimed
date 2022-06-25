@@ -1,34 +1,25 @@
 package com.mrroboto.notimed.views
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.text.InputType
-import android.view.*
-import android.view.inputmethod.InputMethodManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.core.util.Pair
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_TEXT
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAddReminderBinding
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 class AddReminderFragment : Fragment() {
 
@@ -82,7 +73,7 @@ class AddReminderFragment : Fragment() {
             it.findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
         }
 
-        binding.dropdownTimes.setOnItemClickListener { parent, view, position, id ->
+        binding.dropdownTimes.setOnItemClickListener { _, _, position, _ ->
 
             val times = resources.getStringArray(R.array.times)
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, times)
@@ -107,8 +98,8 @@ class AddReminderFragment : Fragment() {
 
         binding.cancelButton.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.warning_title_appointment)
-                .setMessage(R.string.warning_body_appointment)
+                .setTitle(R.string.warning_title_reminder)
+                .setMessage(R.string.warning_body_reminder)
                 .setNegativeButton(R.string.no_response) { dialog, _ ->
                     dialog.cancel()
                 }
@@ -180,7 +171,7 @@ class AddReminderFragment : Fragment() {
     private fun isValidMedicine(): Boolean {
         val medicine = binding.editName
 
-        medicine.editText!!.doOnTextChanged { text, start, before, count ->
+        medicine.editText!!.doOnTextChanged { _, _, _, _ ->
             medicine.error = null
         }
 
@@ -197,7 +188,7 @@ class AddReminderFragment : Fragment() {
     private fun isValidRepeat(): Boolean {
         val times = binding.editTimesADay
 
-        times.editText!!.doOnTextChanged { text, start, before, count ->
+        times.editText!!.doOnTextChanged { _, _, _, _ ->
             times.error = null
         }
 
@@ -212,7 +203,7 @@ class AddReminderFragment : Fragment() {
     private fun isValidHour(): Boolean {
         val hour = binding.hourEdit
 
-        hour.editText!!.doOnTextChanged { text, start, before, count ->
+        hour.editText!!.doOnTextChanged { _, _, _, _ ->
             hour.error = null
         }
 
@@ -225,7 +216,7 @@ class AddReminderFragment : Fragment() {
     private fun isValidDose(): Boolean {
         val dose = binding.doseEdit
 
-        dose.editText!!.doOnTextChanged { text, start, before, count ->
+        dose.editText!!.doOnTextChanged { _, _, _, _ ->
             dose.error = null
         }
 
@@ -241,7 +232,7 @@ class AddReminderFragment : Fragment() {
     private fun isValidRangeDate(): Boolean {
         val date = binding.rangeDate
 
-        date.editText!!.doOnTextChanged { text, start, before, count ->
+        date.editText!!.doOnTextChanged { _, _, _, _ ->
             date.error = null
         }
 
@@ -257,7 +248,7 @@ class AddReminderFragment : Fragment() {
     private fun isValidOption(): Boolean {
         val option = binding.editFoodOption
 
-        option.editText!!.doOnTextChanged { text, start, before, count ->
+        option.editText!!.doOnTextChanged { _, _, _, _ ->
             option.error = null
         }
 

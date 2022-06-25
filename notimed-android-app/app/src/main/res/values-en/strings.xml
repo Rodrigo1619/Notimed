@@ -10,6 +10,7 @@
     <string name="labelName">First name</string>
     <string name="labelLastName">Last name</string>
     <string name="labelBirthday">Birthday</string>
+    <string name="titleBirthday">Select your birthday</string>
     <string name="loginNav">Already have an account? Sign In!</string>
     <string name="labelGender">Gender</string>
     <string name="helper_text">required</string>

@@ -11,6 +11,7 @@
     <string name="labelName">Nombre</string>
     <string name="labelLastName">Apellido</string>
     <string name="labelBirthday">Fecha de nacimiento</string>
+    <string name="titleBirthday">Selecciona tu fecha de nacimiento</string>
     <string name="loginNav">¿Ya tienes una cuenta? ¡Inicia sesión!</string>
     <string name="labelGender">Género</string>
     <string name="helper_text">requerido</string>
