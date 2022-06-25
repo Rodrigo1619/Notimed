@@ -5,7 +5,7 @@ import Appointment from '../models/appointment.model';
 const createAppointment = async (req: Request, res: Response) => {
     try {
         const { appointmentName, doctorName, appointmentDate, appointmentHour, address, additionalNotes } = req.body;
-        if (appointmentName === "" || doctorName === "" || appointmentDate === "" || appointmentHour === "" || address === "" || additionalNotes === "")
+        if (appointmentName === "" || doctorName === "" || appointmentDate === "" || appointmentHour === "" || address === "")
             throw { status: 400, message: "Fields are empty" }
 
         //if the appointment is already in the database
@@ -51,10 +51,12 @@ const createAppointment = async (req: Request, res: Response) => {
 const deleteAppointment = async(req:Request, res:Response)=>{
     const {id} = req.params;
     try{
-        Appointment.deleteOne({_id: id});
-        return res.status(204).json
+        const appointment = await Appointment.findByIdAndDelete(id);
+        return res.status(200).json({appointment})
     }catch(error){
-        console.log(error);
+        return res
+        .status(error.status as number ?? 400)
+        .json({message: error.message ?? JSON.stringify(error)});
     }
 }
 const updateAppointment = async(req:Request, res:Response)=>{
@@ -94,7 +96,20 @@ const getAppointments = async (req: Request, res: Response) => {
 };
 
 const getAppointment = async (req: Request, res: Response) => {
-    return res.status(200).json(await Appointment.findOne());
+    try {
+        const { id } = req.params;
+
+        const appointment = await Appointment.findOne({ id });
+
+        if (!appointment)
+            return res.status(404).send({ message: "appointment not found" });
+
+        res.send({ appointment })
+    } catch (error) {
+        return res
+            .status(error.status as number ?? 400)
+            .json({ message: error.message ?? JSON.stringify(error) });
+    }
 };
 
 export {
