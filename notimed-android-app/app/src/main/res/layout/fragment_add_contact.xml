@@ -132,14 +132,14 @@
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconDrawable="@drawable/ic_arrow_down"
                     app:endIconMode="dropdown_menu"
-                    app:errorEnabled="true"
                     app:endIconTint="?colorPrimary"
+                    app:errorEnabled="true"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/labelSchedule"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/editAddress"
-                    app:startIconDrawable="@drawable/ic_address">
+                    app:startIconDrawable="@drawable/ic_search">
 
                     <AutoCompleteTextView
                         android:id="@+id/dropdown_specializations"
@@ -150,10 +150,185 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:id="@id/labelSchedule"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Schedule_hintText"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    app:layout_constraintTop_toBottomOf="@id/editSpecialization"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    />
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/startHour"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:layout_marginEnd="@dimen/gap12dp"
+                    android:layout_marginBottom="@dimen/margin_20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
+                    app:hintEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/weeklabel"
+                    app:layout_constraintEnd_toStartOf="@+id/end_hour"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelSchedule">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_clock"
+                        android:drawablePadding="@dimen/smallGap"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/labelStartHour"
+                        android:inputType="datetime"
+                        android:textColor="?colorOnSurface"
+                        android:textColorHint="?colorOnSurfaceVariant" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/end_hour"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:layout_marginBottom="@dimen/margin_20dp"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/weeklabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/startHour"
+                    app:layout_constraintTop_toBottomOf="@+id/labelSchedule">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_clock"
+                        android:drawablePadding="@dimen/smallGap"
+                        android:hint="@string/hour_final"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:inputType="datetime"
+                        android:textColor="?colorOnSurface"
+                        android:textColorHint="?colorOnSurfaceVariant" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/weeklabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weekDays_hintText"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    app:layout_constraintBottom_toTopOf="@id/chipWeekDays"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/end_hour" />
+
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipWeekDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/smallGap"
+                    app:chipSpacingHorizontal="@dimen/smallGap"
+                    app:chipSpacingVertical="@dimen/gap12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/weeklabel"
+                    app:selectionRequired="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipMonday"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/Monday_text" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipTuesday"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Tuesday_text" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipWednesday"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wednesday_text" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipThursday"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Thursday_text" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipFriday"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Friday_text" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSaturday"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Saturday_text" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSunday"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Sunday_text" />
+                </com.google.android.material.chip.ChipGroup>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/saveButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:text="@string/savebutton_text"
+                    android:textColor="?colorOnPrimaryContainer"
+                    app:backgroundTint="?colorPrimaryContainer"
+                    app:layout_constraintEnd_toStartOf="@id/cancelButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chipWeekDays" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancelButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/smallGap"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:text="@string/cancelbutton_text"
+                    android:textColor="?colorOnErrorContainer"
+                    app:backgroundTint="?colorErrorContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/saveButton"
+                    app:layout_constraintTop_toBottomOf="@+id/chipWeekDays" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

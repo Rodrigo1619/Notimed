@@ -43,7 +43,6 @@
     <string name="withoutAppointment_text">You do not have any Appointment save</string>
     <string name="AddReminder_title">Reminder</string>
     <string name="addressTitle">Clinic address</string>
-    <string name="Datehour_hint">hh:mm</string>
     <string name="Address_hint">Address</string>
     <string name="doctor_hint">Doctor</string>
     <string name="AppointmentName_hint">Flu Appointment</string>
@@ -88,6 +87,19 @@
         <item>No</item>
     </string-array>
 
+    <string-array name="specializations">
+        <item>General</item>
+        <item>Pediatrics</item>
+        <item>Physiotherapy</item>
+        <item>Psychology</item>
+        <item>Ophthalmology</item>
+        <item>Custom</item>
+    </string-array>
+
+    <string name="every_prefix"> Every: </string>
+    <string name="hour_suffix"> Hour(s) </string>
+    <string name="enter_specialization"> Enter a specialization of the doctor </string>
+    <string name="validHour"> Please enter a valid hour </string>
     <string name="warning_title_appointment"> The appointment has not been saved! </string>
     <string name="warning_body_appointment"> The appointment has not been saved, do you want to cancel it? </string>
     <string name="warning_title_reminder"> The reminder has not been saved! </string>
@@ -99,12 +111,14 @@
     <string name="labelDose">Dose</string>
     <string name="labelHour">Hour</string>
     <string name="scheduleLabel">Medicine schedule</string>
-    <string name="startDate_label">Start date</string>
-    <string name="endDate_hint">Final date</string>
+    <string name="dateRange_hint"> Date range </string>
+    <string name="dateRange_title"> Select a range of dates </string>
     <string name="foodQuestionLabel">Should the medication be accompanied with a food?</string>
     <string name="enter_date"> First select a start date </string>
     <string name="option_food">Option</string>
     <string name="DoseLessZero">Dose must be greater than 0</string>
     <string name="labelStartHour">Initial hour</string>
     <string name="DoseEmpty">Enter a dose</string>
+    <string name="ErrorPhone">Enter a valid phone number</string>
+    <string name="hour_final"> End hour </string>
 </resources>

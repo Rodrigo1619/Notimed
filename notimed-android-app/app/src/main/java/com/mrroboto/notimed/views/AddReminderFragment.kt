@@ -2,34 +2,37 @@ package com.mrroboto.notimed.views
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.text.InputType
+import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.core.util.Pair
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.MaterialDatePicker.INPUT_MODE_TEXT
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAddReminderBinding
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.Month
-import java.time.Year
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.time.Duration.Companion.days
 
 class AddReminderFragment : Fragment() {
 
     private lateinit var binding: FragmentAddReminderBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,8 +58,51 @@ class AddReminderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        binding.lifecycleOwner = viewLifecycleOwner
+
+
+        // Handler controlador de los gestos/click al boton de regresar del dispositivo
+        requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.warning_title_appointment)
+                .setMessage(R.string.warning_body_appointment)
+                .setNegativeButton(R.string.no_response) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(R.string.yes_response) { dialog, _ ->
+                    dialog.cancel()
+                    findNavController()
+                        .navigate(R.id.action_addReminderFragment_to_reminderFragment)
+                }
+                .show()
+        }
+
         binding.topAppBar.setNavigationOnClickListener {
             it.findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
+        }
+
+        binding.dropdownTimes.setOnItemClickListener { parent, view, position, id ->
+
+            val times = resources.getStringArray(R.array.times)
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, times)
+
+            // Si es la position 4 (es el input custom) se setean textos de suffix y prefix para
+            // que el usuario sepa que se le pide.
+            if (position == 4) {
+                binding.editTimesADay.suffixText = getString(R.string.hour_suffix)
+                binding.editTimesADay.prefixText = getString(R.string.every_prefix)
+                binding.editTimesADay.editText?.setText("")
+                binding.editTimesADay.editText?.inputType = InputType.TYPE_CLASS_NUMBER
+            }
+
+            if (position != 4) {
+                closeKeyboard()
+                binding.editTimesADay.editText?.inputType = InputType.TYPE_NULL
+                binding.editTimesADay.suffixText = null
+                binding.editTimesADay.prefixText = null
+                binding.dropdownTimes.setAdapter(arrayAdapter)
+            }
         }
 
         binding.cancelButton.setOnClickListener {
@@ -76,102 +122,58 @@ class AddReminderFragment : Fragment() {
 
         binding.saveButton.setOnClickListener {
             if (!(isValidRepeat() && isValidDose() && isValidHour() && isValidOption()
-                        && isValidMedicine() && isValidEndDate() && isValidStartDate())
+                        && isValidMedicine() && isValidRangeDate())
             ) {
                 isValidRepeat()
                 isValidDose()
                 isValidHour()
                 isValidOption()
                 isValidMedicine()
-                isValidStartDate()
-                isValidEndDate()
+                isValidRangeDate()
             } else {
                 it.findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
             }
         }
 
         binding.hourEdit.editText?.setOnClickListener {
-            val c = Calendar.getInstance()
-            val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
-            val minute = c.get(Calendar.MINUTE)
+            val timePicker = MaterialTimePicker.Builder()
+                .setTimeFormat(CLOCK_12H)
+                .setHour(12)
+                .setMinute(0)
+                .setTitleText(R.string.ErrorForHour)
+                .build()
 
-            val timeDialog = TimePickerDialog(
-                requireContext(),
-                getTimePickerListener(),
-                hourOfDay,
-                minute,
-                false
-            )
+            timePicker.show(childFragmentManager, "Tag")
 
-            timeDialog.show()
-        }
-
-        binding.startDate.editText?.setOnClickListener {
-            // Obtenemos la instancia del calendario.
-            val c = Calendar.getInstance()
-            // Para setear como fecha minima, obtenemos el dia de mes actual para el dia minimo que se muestre
-            // en el datepicker
-            val day = c.get(Calendar.DAY_OF_MONTH)
-
-            // Creamos el datePickerDialog
-            val datePickerDialog = DatePickerDialog(requireContext())
-
-            // Seteamos el dia actual como el dia minimo para un recordatorio.
-            c.set(Calendar.DAY_OF_MONTH, day)
-            datePickerDialog.datePicker.minDate = c.timeInMillis
-
-            datePickerDialog.show()
-
-            datePickerDialog.datePicker.setOnDateChangedListener { _, year, month, dayOfMonth ->
-                Calendar.getInstance().set(Calendar.YEAR, year)
-                Calendar.getInstance().set(Calendar.MONTH, month)
-                Calendar.getInstance().set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val selected =
-                    dayOfMonth.toString() + " / " + (month + 1).toString() + " / " + year.toString()
-
-                binding.startDate.editText?.setText(selected)
+            timePicker.addOnPositiveButtonClickListener {
+                timePicker.hour
+                binding.hourEdit.editText!!.setText(
+                    "%02d:%02d".format(
+                        timePicker.hour,
+                        timePicker.minute
+                    )
+                )
             }
         }
 
-        binding.endDate.editText?.setOnClickListener {
-            // Obtenemos la instancia del calendario.
-            val c = Calendar.getInstance()
+        binding.rangeDate.editText?.setOnClickListener {
+            // Limitamos la fecha para poder elegir un rango de medicamentos
+            val calendarConstraints =
+                CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now()).build()
 
-            val minDate = binding.startDate.editText?.text.toString()
+            // Instanciamos el MaterialDatePicker
+            val datePicker = MaterialDatePicker.Builder.dateRangePicker()
+                .setTitleText(R.string.dateRange_title)
+                .setCalendarConstraints(calendarConstraints)
+                .build()
 
-            if (minDate.isEmpty()) {
-                binding.startDate.error = getString(R.string.enter_date)
-            } else {
+            datePicker.show(childFragmentManager, "Tag")
 
-                binding.startDate.error = null
-
-                val date = LocalDate.parse(minDate, DateTimeFormatter.ofPattern("d / M / yyyy"))
-
-                // Creamos el datePickerDialog
-                val datePickerDialog = DatePickerDialog(requireContext())
-
-                // Seteamos el dia actual como el dia minimo para una recordatorio.
-                c.set(Calendar.DAY_OF_MONTH, date.dayOfMonth)
-                datePickerDialog.datePicker.minDate = c.timeInMillis
-
-                datePickerDialog.show()
-
-                datePickerDialog.datePicker.setOnDateChangedListener { _, year, month, dayOfMonth ->
-                    Calendar.getInstance().set(Calendar.YEAR, year)
-                    Calendar.getInstance().set(Calendar.MONTH, month)
-                    Calendar.getInstance().set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    val selected =
-                        dayOfMonth.toString() + " / " + (month + 1).toString() + " / " + year.toString()
-
-                    binding.endDate.editText?.setText(selected)
-                }
-
+            datePicker.addOnPositiveButtonClickListener {
+                binding.rangeDate.editText!!.setText(datePicker.headerText)
             }
-
         }
-
     }
-
 
 
     // FUNCIONES DE VALIDACIÓN DE INPUTS
@@ -188,12 +190,18 @@ class AddReminderFragment : Fragment() {
         } else true
     }
 
+    private fun closeKeyboard() {
+        view?.hideKeyboard()
+    }
+
     private fun isValidRepeat(): Boolean {
         val times = binding.editTimesADay
 
         times.editText!!.doOnTextChanged { text, start, before, count ->
             times.error = null
         }
+
+
 
         return if (times.editText?.text.toString().isEmpty()) {
             times.error = getString(R.string.ErrorforDropdown)
@@ -230,24 +238,8 @@ class AddReminderFragment : Fragment() {
         } else true
     }
 
-    private fun isValidStartDate(): Boolean {
-        val date = binding.startDate
-
-        date.editText!!.doOnTextChanged { text, start, before, count ->
-            date.error = null
-        }
-
-        return if (date.editText?.text.toString().isEmpty()) {
-            date.error =
-                getString(R.string.ErrorForDate)
-            false
-        } else {
-            true
-        }
-    }
-
-    private fun isValidEndDate(): Boolean {
-        val date = binding.endDate
+    private fun isValidRangeDate(): Boolean {
+        val date = binding.rangeDate
 
         date.editText!!.doOnTextChanged { text, start, before, count ->
             date.error = null
@@ -273,14 +265,6 @@ class AddReminderFragment : Fragment() {
             option.error = getString(R.string.ErrorforDropdown)
             false
         } else true
-    }
-
-
-    // Obtenemos y seteamos la hora en el editText de Hora, usando el formato de 24 horas
-    private fun getTimePickerListener(): TimePickerDialog.OnTimeSetListener {
-        return TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            binding.hourEdit.editText?.setText("%02d:%02d".format(hourOfDay, minute))
-        }
     }
 
 }

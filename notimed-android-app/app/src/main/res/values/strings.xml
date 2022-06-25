@@ -88,6 +88,21 @@
         <item>No</item>
     </string-array>
 
+    <string-array name="specializations">
+        <item>General</item>
+        <item>Pediatría</item>
+        <item>Fisioterapia</item>
+        <item>Psicologia</item>
+        <item>Oftalmología</item>
+        <item>Personalizado</item>
+    </string-array>
+
+    <string name="every_prefix"> Cada: </string>
+    <string name="hour_suffix"> Hora(s) </string>
+    <string name="dateRange_hint"> Rango de fechas </string>
+    <string name="dateRange_title"> Selecciona un rango de fechas </string>
+    <string name="enter_specialization"> Ingresa la especialización del médico </string>
+    <string name="validHour"> Ingresa una hora valida </string>
     <string name="warning_title_appointment"> ¡La cita no ha sido guardada! </string>
     <string name="warning_body_appointment"> La cita no se ha guardado, ¿deseas cancelarla? </string>
     <string name="warning_title_reminder"> ¡El recordatorio no ha sido guardado! </string>
@@ -100,11 +115,11 @@
     <string name="labelStartHour">Hora inicial</string>
     <string name="labelHour">Hora</string>
     <string name="scheduleLabel">Horario de medicamento</string>
-    <string name="startDate_label">Fecha de inicio</string>
-    <string name="endDate_hint">Fecha final</string>
+    <string name="hour_final"> Hora final </string>
     <string name="foodQuestionLabel">¿El medicamento debe acompañarse con un alimento?</string>
     <string name="enter_date"> Primero selecciona una fecha de inicio </string>
     <string name="option_food">Opción</string>
     <string name="DoseLessZero">Dosis debe ser mayor a 0</string>
     <string name="DoseEmpty">Ingresa una dosis</string>
+    <string name="ErrorPhone">Ingresa un número de teléfono valido</string>
 </resources>

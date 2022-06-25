@@ -109,7 +109,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none"
-                        tools:ignore="LabelFor" />
+                        tools:ignore="LabelFor"
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,7 +130,7 @@
                     app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
                     app:hintEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/startDate"
+                    app:layout_constraintBottom_toTopOf="@+id/rangeDate"
                     app:layout_constraintEnd_toStartOf="@+id/dose_edit"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/editTimesADay">
@@ -160,7 +161,7 @@
                     app:errorIconTint="?colorError"
                     app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@id/startDate"
+                    app:layout_constraintBottom_toTopOf="@id/rangeDate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/hour_edit"
                     app:layout_constraintTop_toBottomOf="@+id/editTimesADay">
@@ -177,7 +178,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/startDate"
+                    android:id="@+id/rangeDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_20dp"
@@ -200,38 +201,12 @@
                         android:drawablePadding="@dimen/smallGap"
                         android:focusable="true"
                         android:focusableInTouchMode="false"
-                        android:hint="@string/startDate_label"
+                        android:hint="@string/dateRange_hint"
                         android:inputType="date"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/endDate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20dp"
-                    app:errorEnabled="true"
-                    app:errorIconTint="?colorError"
-                    app:errorTextColor="?colorError"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/startDate">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:drawableStart="@drawable/ic_round_calendar"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:focusable="true"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/endDate_hint"
-                        android:inputType="date"
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/header_option"
@@ -242,7 +217,7 @@
                     android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/endDate" />
+                    app:layout_constraintTop_toBottomOf="@id/rangeDate" />
 
 
                 <com.google.android.material.textfield.TextInputLayout

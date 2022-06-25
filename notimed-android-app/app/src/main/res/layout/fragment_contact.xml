@@ -23,7 +23,8 @@
                 android:contentDescription="@string/addContact_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_add_contact" />
+                app:srcCompat="@drawable/ic_add_contact"
+                app:tint="?colorOnPrimary"/>
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
@@ -60,8 +61,6 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/withoutcontact_text"
                     android:textAlignment="center"
-                    app:drawableTopCompat="@drawable/ic_contactnotimed"
-                    android:drawablePadding="@dimen/smallGap"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
