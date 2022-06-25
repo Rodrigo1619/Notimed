@@ -115,11 +115,13 @@
     <string name="dateRange_hint"> Date range </string>
     <string name="dateRange_title"> Select a range of dates </string>
     <string name="foodQuestionLabel">Should the medication be accompanied with a food?</string>
-    <string name="enter_date"> First select a start date </string>
+    <string name="first_start"> First enter the start time</string>
     <string name="option_food">Option</string>
     <string name="DoseLessZero">Dose must be greater than 0</string>
-    <string name="labelStartHour">Initial hour</string>
+    <string name="labelStartHour">Start hour</string>
     <string name="DoseEmpty">Enter a dose</string>
     <string name="ErrorPhone">Enter a valid phone number</string>
     <string name="hour_final"> End hour </string>
+    <string name="ErrorLessHour"> End time is less than start time </string>
+    <string name="ErrorStartHourHigher"> Start time is greater than end time  </string>
 </resources>

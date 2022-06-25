@@ -18,6 +18,9 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAddContactBinding
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class AddContactFragment : Fragment() {
     private lateinit var binding: FragmentAddContactBinding
@@ -67,7 +70,8 @@ class AddContactFragment : Fragment() {
 
         binding.dropdownSpecializations.setOnItemClickListener { _, _, position, _ ->
             val specializations = resources.getStringArray(R.array.specializations)
-            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, specializations)
+            val arrayAdapter =
+                ArrayAdapter(requireContext(), R.layout.dropdown_item, specializations)
 
             // Si es la position 5 (es el input custom) se setea un helper-text para que el usuario sepa
             // lo que debe ingresar
@@ -83,30 +87,76 @@ class AddContactFragment : Fragment() {
             }
         }
 
-        val timePicker = MaterialTimePicker.Builder()
-            .setTimeFormat(CLOCK_12H)
-            .setHour(12)
-            .setMinute(0)
-            .setTitleText(R.string.ErrorForHour)
-            .build()
-
         binding.startHour.editText?.setOnClickListener {
+            val endhour = binding.endHour
+            val timePicker = MaterialTimePicker.Builder()
+                .setTimeFormat(CLOCK_12H)
+                .setHour(12)
+                .setMinute(0)
+                .setTitleText(R.string.ErrorForHour)
+                .build()
 
             timePicker.show(childFragmentManager, "Tag")
 
             timePicker.addOnPositiveButtonClickListener {
-                timePicker.hour
-                binding.startHour.editText!!.setText("%02d:%02d".format(timePicker.hour, timePicker.minute))
+                if (endhour.editText?.text.toString().isNotEmpty()) {
+                    val endHourParsed = LocalTime.parse(
+                        endhour.editText!!.text.toString(),
+                        DateTimeFormatter.ofPattern("HH:mm")
+                    )
+
+                    if (timePicker.hour > endHourParsed.hour || timePicker.minute > endHourParsed.minute) {
+                        binding.startHour.error = getString(R.string.ErrorStartHourHigher)
+                    } else {
+                        binding.startHour.error = null
+                    }
+                }
+                binding.startHour.editText!!.setText(
+                    "%02d:%02d".format(
+                        timePicker.hour,
+                        timePicker.minute
+                    )
+                )
+
             }
 
         }
 
         binding.endHour.editText?.setOnClickListener {
-            timePicker.show(childFragmentManager, "Tag")
+            val timePicker = MaterialTimePicker.Builder()
+                .setTimeFormat(CLOCK_12H)
+                .setHour(12)
+                .setMinute(0)
+                .setTitleText(R.string.ErrorForHour)
+                .build()
 
-            timePicker.addOnPositiveButtonClickListener {
-                timePicker.hour
-                binding.endHour.editText!!.setText("%02d:%02d".format(timePicker.hour, timePicker.minute))
+            val startHour = binding.startHour
+
+            if (startHour.editText?.text.toString().isEmpty()) {
+                startHour.error = getString(R.string.first_start)
+            } else {
+                startHour.error = null
+
+                timePicker.show(childFragmentManager, "Tag")
+
+                timePicker.addOnPositiveButtonClickListener {
+                    val startHourParsed = LocalTime.parse(
+                        startHour.editText!!.text.toString(),
+                        DateTimeFormatter.ofPattern("HH:mm")
+                    )
+                    if (startHourParsed.hour > timePicker.hour) {
+                        binding.endHour.error = getString(R.string.ErrorLessHour)
+                    } else {
+                        binding.endHour.error = null
+                        binding.endHour.editText!!.setText(
+                            "%02d:%02d".format(
+                                timePicker.hour,
+                                timePicker.minute
+                            )
+                        )
+                    }
+
+                }
             }
         }
 
@@ -127,17 +177,18 @@ class AddContactFragment : Fragment() {
 
         binding.saveButton.setOnClickListener {
 
-            if (!(isValidDoctor() && isValidAddress() && isValidPhone() && isValidEndHour() && isValidStartHour() && isValidSpecialization())) {
+            if (!(isValidDoctor() && isValidAddress() && isValidPhone() && isValidEndHour()
+                        && isValidStartHour() && isValidSpecialization())
+            ) {
                 isValidDoctor()
                 isValidAddress()
                 isValidPhone()
                 isValidEndHour()
                 isValidStartHour()
                 isValidSpecialization()
+                isValidDays()
             } else {
-
                 Toast.makeText(requireContext(), "Se puede navegar", Toast.LENGTH_SHORT).show()
-
             }
 
         }
@@ -271,6 +322,19 @@ class AddContactFragment : Fragment() {
             endHour.error = getString(R.string.ErrorForHour)
             false
         } else true
+    }
+
+    private fun isValidDays(): Boolean {
+        val weekChips = binding.chipWeekDays
+
+        return if (weekChips.checkedChipIds.isEmpty()) {
+            weekChips.check(R.id.chipMonday)
+            println(weekChips.checkedChipIds)
+            true
+        } else {
+            weekChips.checkedChipIds
+            true
+        }
     }
 
 }

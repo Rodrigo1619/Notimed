@@ -118,9 +118,11 @@
     <string name="scheduleLabel">Horario de medicamento</string>
     <string name="hour_final"> Hora final </string>
     <string name="foodQuestionLabel">¿El medicamento debe acompañarse con un alimento?</string>
-    <string name="enter_date"> Primero selecciona una fecha de inicio </string>
+    <string name="first_start"> Primero selecciona una hora de inicio </string>
     <string name="option_food">Opción</string>
     <string name="DoseLessZero">Dosis debe ser mayor a 0</string>
     <string name="DoseEmpty">Ingresa una dosis</string>
     <string name="ErrorPhone">Ingresa un número de teléfono valido</string>
+    <string name="ErrorLessHour"> La hora final es menor a la de inicio </string>
+    <string name="ErrorStartHourHigher"> La hora inicial es mayor que la hora final  </string>
 </resources>
