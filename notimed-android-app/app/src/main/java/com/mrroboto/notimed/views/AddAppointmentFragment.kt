@@ -12,7 +12,12 @@ import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAddAppointmentBinding
 import java.text.DateFormat
@@ -36,49 +41,42 @@ class AddAppointmentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.textInputDate.setOnClickListener {
-            // Obtenemos la instancia del calendario.
-            val c = Calendar.getInstance()
-            // Para setear como fecha minima, obtenemos el dia de mes actual para el dia minimo que se muestre
-            // en el datepicker
-            val day = c.get(Calendar.DAY_OF_MONTH)
+            // Limitamos la fecha para poder elegir un rango de medicamentos
+            val calendarConstraints =
+                CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now()).build()
 
-            // Creamos el datePickerDialog
-            val datePickerDialog = DatePickerDialog(requireContext())
+            // Instanciamos el MaterialDatePicker
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText(R.string.dateRange_title)
+                .setCalendarConstraints(calendarConstraints)
+                .build()
 
-            // Seteamos el dia actual como el dia minimo para una cita.
-            c.set(Calendar.DAY_OF_MONTH, day)
-            datePickerDialog.datePicker.minDate = c.timeInMillis
+            datePicker.show(childFragmentManager, "Tag")
 
-            datePickerDialog.show()
-
-            datePickerDialog.datePicker.setOnDateChangedListener { _, year, month, dayOfMonth ->
-                Calendar.getInstance().set(Calendar.YEAR, year)
-                Calendar.getInstance().set(Calendar.MONTH, month)
-                Calendar.getInstance().set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val selected =
-                    dayOfMonth.toString() + " / " + (month + 1).toString() + " / " + year.toString()
-
-                binding.editDate.editText?.setText(selected)
+            datePicker.addOnPositiveButtonClickListener {
+                binding.editDate.editText!!.setText(datePicker.headerText)
             }
-
-
         }
 
         binding.textEditHour.setOnClickListener {
-            val c = Calendar.getInstance()
-            val hourOfDay = c.get(Calendar.HOUR_OF_DAY)
-            val minute = c.get(Calendar.MINUTE)
+            val timePicker = MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(12)
+                .setMinute(0)
+                .setTitleText(R.string.ErrorForHour)
+                .build()
 
-            val timeDialog =
-                TimePickerDialog(
-                    requireContext(),
-                    getTimePickerListener(),
-                    hourOfDay,
-                    minute,
-                    false
+            timePicker.show(childFragmentManager, "Tag")
+
+            timePicker.addOnPositiveButtonClickListener {
+                timePicker.hour
+                binding.editHour.editText!!.setText(
+                    "%02d:%02d".format(
+                        timePicker.hour,
+                        timePicker.minute
+                    )
                 )
-
-            timeDialog.show()
+            }
         }
 
         binding.topAppBar.setNavigationOnClickListener {
@@ -97,11 +95,6 @@ class AddAppointmentFragment : Fragment() {
         }
 
         binding.saveButton.setOnClickListener {
-            val doctor = binding.editDoctor
-            val date = binding.editDate
-            val hour = binding.editHour
-            val appointment = binding.editAppointmentName
-            val address = binding.editAddress
 
             if((isValidAppointment() && isValidHour() && isValidDoctor() && isValidDate() && isValidAddress()) == false) {
                 isValidAppointment()
@@ -131,17 +124,11 @@ class AddAppointmentFragment : Fragment() {
 
     }
 
-    // Obtenemos y seteamos la hora en el editText de Hora, usando el formato de 24 horas
-    private fun getTimePickerListener(): TimePickerDialog.OnTimeSetListener {
-        return TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-            binding.editHour.editText?.setText("%02d:%02d".format(hourOfDay, minute))
-        }
-    }
 
     private fun isValidAppointment(): Boolean {
         val appointment = binding.editAppointmentName
 
-        appointment.editText!!.doOnTextChanged { text, start, before, count ->
+        appointment.editText!!.doOnTextChanged { _, _, _, _ ->
             appointment.error = null
         }
 
@@ -168,7 +155,7 @@ class AddAppointmentFragment : Fragment() {
         val doctor = binding.editDoctor
 
 
-        doctor.editText!!.doOnTextChanged { text, start, before, count ->
+        doctor.editText!!.doOnTextChanged { _, _, _, _ ->
             doctor.error = null
         }
 
@@ -193,7 +180,7 @@ class AddAppointmentFragment : Fragment() {
     private fun isValidDate(): Boolean {
         val date = binding.editDate
 
-        date.editText!!.doOnTextChanged { text, start, before, count ->
+        date.editText!!.doOnTextChanged { _, _, _, _ ->
             date.error = null
         }
 
@@ -223,7 +210,7 @@ class AddAppointmentFragment : Fragment() {
     private fun isValidAddress(): Boolean {
         val address = binding.editAddress
 
-        address.editText!!.doOnTextChanged { text, start, before, count ->
+        address.editText!!.doOnTextChanged { _, _, _, _ ->
             address.error = null
         }
 
@@ -246,5 +233,4 @@ class AddAppointmentFragment : Fragment() {
         }
 
     }
-
 }
