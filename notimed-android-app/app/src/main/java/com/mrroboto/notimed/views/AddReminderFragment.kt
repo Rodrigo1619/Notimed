@@ -56,8 +56,8 @@ class AddReminderFragment : Fragment() {
         // Handler controlador de los gestos/click al boton de regresar del dispositivo
         requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.warning_title_appointment)
-                .setMessage(R.string.warning_body_appointment)
+                .setTitle(R.string.warning_title_reminder)
+                .setMessage(R.string.warning_body_reminder)
                 .setNegativeButton(R.string.no_response) { dialog, _ ->
                     dialog.cancel()
                 }

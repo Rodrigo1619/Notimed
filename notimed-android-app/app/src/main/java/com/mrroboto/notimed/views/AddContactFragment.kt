@@ -51,15 +51,15 @@ class AddContactFragment : Fragment() {
         // Handler controlador de los gestos/click al boton de regresar del dispositivo
         requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.warning_title_appointment)
-                .setMessage(R.string.warning_body_appointment)
+                .setTitle(R.string.warning_title_contact)
+                .setMessage(R.string.warning_body_contact)
                 .setNegativeButton(R.string.no_response) { dialog, _ ->
                     dialog.cancel()
                 }
                 .setPositiveButton(R.string.yes_response) { dialog, _ ->
                     dialog.cancel()
                     findNavController()
-                        .navigate(R.id.action_addReminderFragment_to_reminderFragment)
+                        .navigate(R.id.action_addContactFragment_to_contactFragment)
                 }
                 .show()
         }

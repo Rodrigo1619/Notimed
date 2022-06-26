@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.view.isEmpty
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -39,6 +41,24 @@ class AddAppointmentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        // Handler controlador de los gestos/click al boton de regresar del dispositivo
+        requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.warning_title_appointment)
+                .setMessage(R.string.warning_body_appointment)
+                .setNegativeButton(R.string.no_response) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(R.string.yes_response) { dialog, _ ->
+                    dialog.cancel()
+                    findNavController()
+                        .navigate(R.id.action_addAppointmentFragment_to_appointmentFragment)
+                }
+                .show()
+        }
 
         binding.textInputDate.setOnClickListener {
             // Limitamos la fecha para poder elegir un rango de medicamentos
