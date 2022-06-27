@@ -5,8 +5,8 @@ import { InputProps } from "../interfaces/props";
 const InputGroup: FC<InputProps> = ({
     className,
     placeholder,
-    maxLenght,
-    minLenght,
+    maxLength,
+    minLength,
     required,
     label,
     type, 
@@ -31,8 +31,8 @@ const InputGroup: FC<InputProps> = ({
                     ${className}`}
                 placeholder={placeholder}
                 name={identifier}
-                maxLength={maxLenght ?? 128}
-                minLength={minLenght ?? 0}
+                maxLength={maxLength ?? 128}
+                minLength={minLength ?? 0}
                 required={required ?? false}
                 type={type}
                 min="1920-01-01"
