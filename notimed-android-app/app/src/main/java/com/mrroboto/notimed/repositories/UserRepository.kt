@@ -5,7 +5,7 @@ import com.mrroboto.notimed.data.models.User
 import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.network.IdentityService
 import com.mrroboto.notimed.network.dto.LoginRequest
-import com.mrroboto.notimed.network.dto.UserDto
+import com.mrroboto.notimed.network.dto.LoginResponse
 import retrofit2.HttpException
 
 class UserRepository(private val UserDao: UserDao, private val api: IdentityService) {
@@ -21,12 +21,12 @@ class UserRepository(private val UserDao: UserDao, private val api: IdentityServ
         UserDao.insertUser(user)
     }
 
-    suspend fun login(email: String, password: String): ApiResponse<String> {
+    suspend fun login(email: String, password: String): ApiResponse<Any> {
         return try {
-            val response = api.login(LoginRequest(email, password))
+            val response = api.loginAsync(LoginRequest(email, password))
             ApiResponse.Success(response.token)
         } catch (err: HttpException) {
-            ApiResponse.Failure(err.code(), err.response()?.body().toString())
+            ApiResponse.Failure(err.code(), err.response().toString())
         }
     }
 }

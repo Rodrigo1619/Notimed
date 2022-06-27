@@ -1,22 +1,24 @@
 package com.mrroboto.notimed.views
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentRegisterBinding
-import com.mrroboto.notimed.data.models.User
-import com.mrroboto.notimed.viewmodels.ViewModelFactory
-import com.mrroboto.notimed.views.datePickers.DatePickerFragment
 import com.mrroboto.notimed.viewmodels.UserViewModel
+import com.mrroboto.notimed.viewmodels.ViewModelFactory
 import java.util.*
 
 class RegisterFragment : Fragment() {
@@ -54,17 +56,32 @@ class RegisterFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.textInputBirthday.setOnClickListener {
-            val supportFragmentManager = requireActivity().supportFragmentManager
-            val newFragment = DatePickerFragment.newInstance(DatePickerDialog.OnDateSetListener { _, year, month, day ->
-                Calendar.getInstance().set(Calendar.YEAR, year)
-                Calendar.getInstance().set(Calendar.MONTH, month)
-                Calendar.getInstance().set(Calendar.DAY_OF_MONTH, day)
-                val selectedDate = day.toString() + " / " + (month + 1).toString() + " / " + year.toString()
-                binding.textInputBirthday.setText(selectedDate)
-            })
+            // Declaramos la fecha minima a la cual se puede acceder
+            val calendar = Calendar.getInstance()
+            calendar.set(Calendar.YEAR, 1900)
 
-            newFragment.show(supportFragmentManager, "datePicker")
+            // Declaramos las restricciones de las fechas
+            val calendarConstraints =
+                CalendarConstraints.Builder()
+                    .setValidator(DateValidatorPointForward.from(calendar.timeInMillis))
+                    .setValidator(DateValidatorPointBackward.now())
+                    .build()
 
+            // Instanciamos el MaterialDatePicker
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText(R.string.titleBirthday)
+                .setCalendarConstraints(calendarConstraints)
+                .build()
+
+            datePicker.show(childFragmentManager, "Tag")
+
+            datePicker.addOnPositiveButtonClickListener {
+                binding.editBirthday.editText!!.setText(datePicker.headerText)
+            }
+
+            datePicker.addOnCancelListener {
+                binding.editBirthday.editText!!.setText("")
+            }
         }
 
         binding.labelLogin.setOnClickListener {
@@ -72,108 +89,188 @@ class RegisterFragment : Fragment() {
         }
 
         binding.registerButton.setOnClickListener {
-            val email = binding.editEmail.editText?.text.toString()
-            val password = binding.editPassword.editText?.text.toString()
-            val name = binding.editName.editText?.text.toString()
-            val lastName = binding.editLastName.editText?.text.toString()
-            val birthday = binding.editBirthday.editText?.text.toString()
-
-            // Validations when inputs are empty
-            validationsInputs()
-
-
-
-            val newUser = User(email, password, name, lastName, birthday)
-
-        }
-    }
-
-    private fun validationsInputs() {
-        val email = binding.editEmail
-        val password = binding.editPassword
-        val name = binding.editName
-        val lastName = binding.editLastName
-        val birthday = binding.editBirthday
-        val genderContainer = binding.gender
-
-        when {
-            email.editText?.text.toString().isEmpty() -> email.error = getString(R.string.onErrorEmpty)
-            email.editText?.text.toString().length < 3 -> email.error = getString(R.string.ErrorforEmail)
-            else -> email.error = null
-        }
-
-        when {
-            name.editText?.text.toString().isEmpty() -> name.error = getString(R.string.onErrorEmpty)
-            name.editText?.text.toString().length <= 2 -> name.error = getString(R.string.ErrorforName)
-            else -> name.error = null
-        }
-
-        when {
-            lastName.editText?.text.toString().isEmpty() -> lastName.error = getString(R.string.onErrorEmpty)
-            lastName.editText?.text.toString().length <= 2 -> lastName.error = getString(R.string.ErrorforLastName)
-            else -> lastName.error = null
-        }
-
-
-        when {
-            password.editText?.text.toString().isEmpty() -> password.error = getString(R.string.onErrorEmpty)
-            password.editText?.text.toString().length < 8 -> password.error = getString(R.string.minimunChars)
-            else -> password.error = null
-        }
-
-        when {
-            birthday.editText?.text.toString().isEmpty() -> birthday.error = getString(R.string.onErrorEmpty)
-            else -> birthday.error = null
-        }
-
-
-        when {
-            genderContainer.editText?.text.toString().isEmpty() -> genderContainer.error = getString(R.string.ErrorforDropdown)
-            else -> genderContainer.error = null
+            if (!(isValidName() && isValidLastname() && isValidEmail() && isValidBirthday() && isValidPassword() && isValidGender())) {
+                isValidName()
+                isValidLastname()
+                isValidEmail()
+                isValidBirthday()
+                isValidPassword()
+                isValidGender()
+            }
         }
 
     }
 
     override fun onPause() {
         super.onPause()
-        val email = binding.editEmail.editText?.text
-        val password = binding.editPassword.editText?.text
-        val name = binding.editName.editText?.text
-        val lastName = binding.editLastName.editText?.text
-        val birthday = binding.editBirthday.editText?.text
-        val genderContainer = binding.gender.editText?.text
+        val email = binding.editEmail.editText
+        val password = binding.editPassword.editText
+        val name = binding.editName.editText
+        val lastName = binding.editLastName.editText
+        val birthday = binding.editBirthday.editText
+        val genderContainer = binding.gender.editText
 
-        viewModel.currentEmail.value = email.toString()
-        viewModel.currentPassword.value = password.toString()
-        viewModel.currentBirthday.value = birthday.toString()
-        viewModel.currentLastname.value = lastName.toString()
-        viewModel.currentName.value = name.toString()
-        viewModel.currentGender.value = genderContainer.toString()
+        viewModel.currentEmail.value = email?.text.toString()
+        viewModel.currentPassword.value = password?.text.toString()
+        viewModel.currentBirthday.value = birthday?.text.toString()
+        viewModel.currentLastname.value = lastName?.text.toString()
+        viewModel.currentName.value = name?.text.toString()
+        viewModel.currentGender.value = genderContainer?.text.toString()
 
 
         viewModel.currentEmail.observe(viewLifecycleOwner) {
-            binding.editEmail.editText!!.setText(viewModel.currentEmail.value)
+            email!!.setText(it)
         }
 
         viewModel.currentPassword.observe(viewLifecycleOwner) {
-            binding.editPassword.editText!!.setText(viewModel.currentPassword.value)
+            password!!.setText(it)
         }
 
         viewModel.currentBirthday.observe(viewLifecycleOwner) {
-            binding.editBirthday.editText!!.setText(viewModel.currentBirthday.value)
+            birthday!!.setText(it)
         }
 
         viewModel.currentLastname.observe(viewLifecycleOwner) {
-            binding.editLastName.editText!!.setText(viewModel.currentLastname.value)
+            lastName!!.setText(it)
         }
 
         viewModel.currentName.observe(viewLifecycleOwner) {
-            binding.editName.editText!!.setText(viewModel.currentName.value)
+            name!!.setText(it)
         }
 
         viewModel.currentGender.observe(viewLifecycleOwner) {
-            binding.gender.editText!!.setText(viewModel.currentGender.value)
+            genderContainer!!.setText(it)
         }
+    }
+
+    private fun isValidName(): Boolean {
+        val name = binding.editName
+
+        name.editText!!.doOnTextChanged { _, _, _, _ ->
+            name.error = null
+        }
+
+        return when {
+            name.editText?.text.toString().isEmpty() -> {
+                name.error =
+                    getString(R.string.onErrorEmpty)
+                false
+            }
+            name.editText?.text.toString().length <= 2 -> {
+                name.error =
+                    getString(R.string.ErrorforName)
+                false
+            }
+            else -> {
+                name.error = null
+                true
+            }
+        }
+    }
+
+    private fun isValidLastname(): Boolean {
+        val lastName = binding.editLastName
+
+        lastName.editText!!.doOnTextChanged { _, _, _, _ ->
+            lastName.error = null
+        }
+
+        return when {
+            lastName.editText?.text.toString().isEmpty() -> {
+                lastName.error =
+                    getString(R.string.onErrorEmpty)
+                false
+            }
+            lastName.editText?.text.toString().length <= 2 -> {
+                lastName.error =
+                    getString(R.string.ErrorforLastName)
+                false
+            }
+            else -> {
+                lastName.error = null
+                true
+            }
+        }
+    }
+
+    private fun isValidEmail(): Boolean {
+        val email = binding.editEmail
+
+        email.editText!!.doOnTextChanged { _, _, _, _ ->
+            email.error = null
+        }
+
+        when {
+            email.editText?.text.toString().isEmpty() -> {
+                email.error =
+                    getString(R.string.onErrorEmpty)
+                return false
+            }
+            email.editText?.text.toString().length <= 2 -> {
+                email.error =
+                    getString(R.string.ErrorforEmail)
+                return false
+            }
+            else -> {
+                email.error = null
+                return true
+            }
+        }
+    }
+
+    private fun isValidBirthday(): Boolean {
+        val date = binding.editBirthday
+
+        date.editText!!.doOnTextChanged { _, _, _, _ ->
+            date.error = null
+        }
+
+        return if (date.editText?.text.toString().isEmpty()) {
+            date.error =
+                getString(R.string.ErrorForDate)
+            false
+        } else {
+            true
+        }
+    }
+
+    private fun isValidPassword(): Boolean {
+        val password = binding.editPassword
+
+        password.editText!!.doOnTextChanged { _, _, _, _ ->
+            password.error = null
+        }
+
+        return when {
+            password.editText?.text.toString().isEmpty() -> {
+                password.error =
+                    getString(R.string.onErrorEmpty)
+                false
+            }
+            password.editText?.text.toString().length < 8 -> {
+                password.error =
+                    getString(R.string.minimunChars)
+                false
+            }
+            else -> {
+                password.error = null
+                true
+            }
+        }
+
+    }
+
+    private fun isValidGender(): Boolean {
+        val gender = binding.gender
+
+        gender.editText!!.doOnTextChanged { _, _, _, _ ->
+            gender.error = null
+        }
+
+        return if (gender.editText?.text.toString().isEmpty()) {
+            gender.error = getString(R.string.ErrorforDropdown)
+            false
+        } else true
     }
 }
 

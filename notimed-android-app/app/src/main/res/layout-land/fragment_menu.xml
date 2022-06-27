@@ -14,32 +14,34 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="272dp"
+            android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <View
                 android:id="@+id/menu_view"
-                android:layout_width="wrap_content"
-                android:layout_height="272dp"
-                android:background="@drawable/ic_top"
-                android:maxHeight="272dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/ic_top_land"
+                android:rotation="0"
                 android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/label_welcome"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/menu_view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/menu_view"
-                app:layout_constraintTop_toTopOf="@+id/menu_view">
+                android:layout_marginBottom="16dp"
+                android:rotation="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/menu_view"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/label_menu"
@@ -69,11 +71,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/info"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/menu_view"
+                android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/menu_view"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/label_welcome">
 
                 <TextView
@@ -92,95 +95,116 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:rotation="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/top_layout">
+            app:layout_constraintStart_toEndOf="@+id/top_layout"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/reminder_button"
-                android:layout_width="148dp"
-                android:layout_height="180dp"
-                android:layout_marginBottom="32dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:backgroundTint="?colorPrimaryContainer"
-                app:icon="@drawable/ic_alarm"
-                app:iconGravity="textTop"
-                app:iconPadding="@dimen/margin_20dp"
-                app:iconSize="60dp"
-                app:iconTint="?colorOnPrimaryContainer"
-                android:drawablePadding="@dimen/margin_20dp"
-                android:paddingVertical="@dimen/margin_20dp"
                 android:text="@string/reminder"
                 android:textColor="?colorOnPrimaryContainer"
                 app:cornerRadius="12dp"
+                app:icon="@drawable/ic_alarm"
+                app:iconGravity="textStart"
+                app:iconPadding="@dimen/margin_20dp"
+                app:iconSize="@dimen/dp48"
+                app:iconTint="?colorOnPrimaryContainer"
                 app:layout_constraintBottom_toTopOf="@+id/contact_button"
                 app:layout_constraintEnd_toStartOf="@+id/profile_button"
+                app:layout_constraintHeight_max="200dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="250dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/profile_button"
-                android:layout_width="148dp"
-                android:layout_height="180dp"
-                android:layout_marginBottom="32dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
                 android:backgroundTint="?colorSecondaryContainer"
-                app:icon="@drawable/ic_profileicon"
-                app:iconTint="?colorOnSecondaryContainer"
-                app:iconPadding="@dimen/margin_20dp"
-                app:iconGravity="textTop"
-                app:iconSize="75dp"
                 android:text="@string/profile"
                 android:textColor="?colorOnPrimaryContainer"
                 app:cornerRadius="12dp"
-                app:layout_constraintBottom_toTopOf="@id/appointment_button"
+                app:icon="@drawable/ic_profileicon"
+                app:iconGravity="textStart"
+                app:iconPadding="@dimen/margin_20dp"
+                app:iconSize="@dimen/dp48"
+                app:iconTint="?colorOnSecondaryContainer"
+                app:layout_constraintBottom_toTopOf="@+id/appointment_button"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_max="200dp"
                 app:layout_constraintStart_toEndOf="@+id/reminder_button"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="250dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/contact_button"
-                android:layout_width="148dp"
-                android:layout_height="180dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
                 android:backgroundTint="?colorTertiaryContainer"
-                app:icon="@drawable/ic_contact"
-                app:iconTint="?colorOnTertiaryContainer"
-                app:iconPadding="@dimen/margin_20dp"
-                app:iconGravity="textTop"
-                app:iconSize="75dp"
                 android:text="@string/contacts"
                 android:textColor="?colorOnPrimaryContainer"
                 app:cornerRadius="12dp"
+                app:icon="@drawable/ic_contact"
+                app:iconGravity="textStart"
+                app:iconPadding="@dimen/margin_20dp"
+                app:iconTint="?colorOnTertiaryContainer"
+                app:iconSize="@dimen/dp48"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/appointment_button"
+                app:layout_constraintHeight_max="200dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reminder_button" />
+                app:layout_constraintTop_toBottomOf="@+id/reminder_button"
+                app:layout_constraintWidth_max="250dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/appointment_button"
-                android:layout_width="148dp"
-                android:layout_height="180dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="24dp"
                 android:backgroundTint="?colorErrorContainer"
                 app:icon="@drawable/ic_book"
-                app:iconGravity="textTop"
+                app:iconGravity="textStart"
                 app:iconPadding="@dimen/margin_20dp"
                 app:iconTint="?colorOnTertiaryContainer"
-                app:iconSize="75dp"
+                app:iconSize="@dimen/dp48"
                 android:text="@string/appointment"
                 android:textColor="?colorOnErrorContainer"
                 app:cornerRadius="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_max="200dp"
                 app:layout_constraintStart_toEndOf="@+id/contact_button"
-                app:layout_constraintTop_toBottomOf="@+id/profile_button" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@+id/profile_button"
+                app:layout_constraintWidth_max="250dp" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
