@@ -1,60 +1,261 @@
 package com.mrroboto.notimed.views
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.activity.addCallback
+import androidx.core.widget.doOnTextChanged
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
 import com.mrroboto.notimed.R
+import com.mrroboto.notimed.databinding.FragmentAddReminderBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AddReminderFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddReminderFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentAddReminderBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_reminder, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_add_reminder, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddReminderFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddReminderFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onResume() {
+        super.onResume()
+        val times = resources.getStringArray(R.array.times)
+        val foodOption = resources.getStringArray(R.array.response_food)
+        val arrayAdapterFood = ArrayAdapter(requireContext(), R.layout.dropdown_item, foodOption)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, times)
+
+        binding.dropdownTimes.setAdapter(arrayAdapter)
+        binding.dropdownOptions.setAdapter(arrayAdapterFood)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        binding.lifecycleOwner = viewLifecycleOwner
+
+
+        // Handler controlador de los gestos/click al boton de regresar del dispositivo
+        requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.warning_title_reminder)
+                .setMessage(R.string.warning_body_reminder)
+                .setNegativeButton(R.string.no_response) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(R.string.yes_response) { dialog, _ ->
+                    dialog.cancel()
+                    findNavController()
+                        .navigate(R.id.action_addReminderFragment_to_reminderFragment)
+                }
+                .show()
+        }
+
+        binding.topAppBar.setNavigationOnClickListener {
+            it.findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
+        }
+
+        binding.dropdownTimes.setOnItemClickListener { _, _, position, _ ->
+
+            val times = resources.getStringArray(R.array.times)
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, times)
+
+            // Si es la position 4 (es el input custom) se setean textos de suffix y prefix para
+            // que el usuario sepa que se le pide.
+            if (position == 4) {
+                binding.editTimesADay.suffixText = getString(R.string.hour_suffix)
+                binding.editTimesADay.prefixText = getString(R.string.every_prefix)
+                binding.editTimesADay.editText?.setText("")
+                binding.editTimesADay.editText?.inputType = InputType.TYPE_CLASS_NUMBER
+            }
+
+            if (position != 4) {
+                closeKeyboard()
+                binding.editTimesADay.editText?.inputType = InputType.TYPE_NULL
+                binding.editTimesADay.suffixText = null
+                binding.editTimesADay.prefixText = null
+                binding.dropdownTimes.setAdapter(arrayAdapter)
+            }
+        }
+
+        binding.cancelButton.setOnClickListener {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.warning_title_reminder)
+                .setMessage(R.string.warning_body_reminder)
+                .setNegativeButton(R.string.no_response) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(R.string.yes_response) { dialog, _ ->
+                    dialog.cancel()
+                    it.findNavController()
+                        .navigate(R.id.action_addReminderFragment_to_reminderFragment)
+                }
+                .show()
+        }
+
+        binding.saveButton.setOnClickListener {
+            if (!(isValidRepeat() && isValidDose() && isValidHour() && isValidOption()
+                        && isValidMedicine() && isValidRangeDate())
+            ) {
+                isValidRepeat()
+                isValidDose()
+                isValidHour()
+                isValidOption()
+                isValidMedicine()
+                isValidRangeDate()
+            } else {
+                it.findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
+            }
+        }
+
+        binding.hourEdit.editText?.setOnClickListener {
+            val timePicker = MaterialTimePicker.Builder()
+                .setTimeFormat(CLOCK_12H)
+                .setHour(12)
+                .setMinute(0)
+                .setTitleText(R.string.ErrorForHour)
+                .build()
+
+            timePicker.show(childFragmentManager, "Tag")
+
+            timePicker.addOnPositiveButtonClickListener {
+                timePicker.hour
+                binding.hourEdit.editText!!.setText(
+                    "%02d:%02d".format(
+                        timePicker.hour,
+                        timePicker.minute
+                    )
+                )
+            }
+        }
+
+        binding.rangeDate.editText?.setOnClickListener {
+            // Limitamos la fecha para poder elegir un rango de medicamentos
+            val calendarConstraints =
+                CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now()).build()
+
+            // Instanciamos el MaterialDatePicker
+            val datePicker = MaterialDatePicker.Builder.dateRangePicker()
+                .setTitleText(R.string.dateRange_title)
+                .setCalendarConstraints(calendarConstraints)
+                .build()
+
+            datePicker.show(childFragmentManager, "Tag")
+
+            datePicker.addOnPositiveButtonClickListener {
+                binding.rangeDate.editText!!.setText(datePicker.headerText)
+            }
+        }
+    }
+
+
+    // FUNCIONES DE VALIDACIÓN DE INPUTS
+    private fun isValidMedicine(): Boolean {
+        val medicine = binding.editName
+
+        medicine.editText!!.doOnTextChanged { _, _, _, _ ->
+            medicine.error = null
+        }
+
+        return if (medicine.editText?.text.toString().isEmpty()) {
+            medicine.error = getString(R.string.onErrorEmpty)
+            false
+        } else true
+    }
+
+    private fun closeKeyboard() {
+        view?.hideKeyboard()
+    }
+
+    private fun isValidRepeat(): Boolean {
+        val times = binding.editTimesADay
+
+        times.editText!!.doOnTextChanged { _, _, _, _ ->
+            times.error = null
+        }
+
+
+
+        return if (times.editText?.text.toString().isEmpty()) {
+            times.error = getString(R.string.ErrorforDropdown)
+            false
+        } else true
+    }
+
+    private fun isValidHour(): Boolean {
+        val hour = binding.hourEdit
+
+        hour.editText!!.doOnTextChanged { _, _, _, _ ->
+            hour.error = null
+        }
+
+        return if (hour.editText?.text.toString().isEmpty()) {
+            hour.error = getString(R.string.ErrorForHour)
+            false
+        } else true
+    }
+
+    private fun isValidDose(): Boolean {
+        val dose = binding.doseEdit
+
+        dose.editText!!.doOnTextChanged { _, _, _, _ ->
+            dose.error = null
+        }
+
+        return if (dose.editText?.text.toString().isEmpty()) {
+            dose.error = getString(R.string.DoseEmpty)
+            false
+        } else if (dose.editText!!.text.toString().toFloat() <= 0) {
+            dose.error = getString(R.string.DoseLessZero)
+            false
+        } else true
+    }
+
+    private fun isValidRangeDate(): Boolean {
+        val date = binding.rangeDate
+
+        date.editText!!.doOnTextChanged { _, _, _, _ ->
+            date.error = null
+        }
+
+        return if (date.editText?.text.toString().isEmpty()) {
+            date.error =
+                getString(R.string.ErrorForDate)
+            false
+        } else {
+            true
+        }
+    }
+
+    private fun isValidOption(): Boolean {
+        val option = binding.editFoodOption
+
+        option.editText!!.doOnTextChanged { _, _, _, _ ->
+            option.error = null
+        }
+
+        return if (option.editText?.text.toString().isEmpty()) {
+            option.error = getString(R.string.ErrorforDropdown)
+            false
+        } else true
+    }
+
 }

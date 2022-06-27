@@ -8,11 +8,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?colorSurface"
-        tools:context=".views.ReminderFragment">
+        tools:context=".views.ReminderFragment"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_reminder_fab"
+                style="?attr/floatingActionButtonLargeStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/smallGap"
+                android:backgroundTint="?colorPrimary"
+                android:contentDescription="@string/AddReminder_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_add_alarm"
+                app:tint="?colorOnPrimary"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -22,107 +37,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layoutTitle"
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBarLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <Button
-                        android:id="@+id/button_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/backbutton_margintop"
-                        android:backgroundTint="#0000"
-                        app:cornerRadius="@dimen/backbutton_borderradius"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/topAppBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:navigationIcon="@drawable/ic_back"
+                        app:title="@string/reminder" />
 
-                    <TextView
-                        android:id="@+id/back_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/backtext_margintop"
-                        android:layout_marginEnd="@dimen/backtext_marginend"
-                        android:drawableTop="@drawable/ic_back"
-                        app:layout_constraintBottom_toBottomOf="@+id/button_back"
-                        app:layout_constraintEnd_toEndOf="@+id/button_back"
-                        app:layout_constraintHorizontal_bias="0.535"
-                        app:layout_constraintStart_toStartOf="@+id/button_back"
-                        app:layout_constraintTop_toTopOf="@+id/button_back">
-
-                    </TextView>
-
-                    <TextView
-                        android:id="@+id/textreminder"
-                        style="@style/TextAppearance.Material3.HeadlineSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/remindertext_margintop"
-                        android:text="@string/Reminder_title"
-                        app:layout_constraintStart_toEndOf="@+id/button_back"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/LayoutReminder"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/LayoutReminder_height"
-                    android:layout_marginBottom="@dimen/LayoutReminder_marginbottom"
-                    app:layout_constraintTop_toBottomOf="@id/layoutTitle"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <TextView
-                        android:id="@+id/icon_withoutreminder"
-                        android:layout_width="@dimen/icon_withoutAny_width"
-                        android:textAlignment="center"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:drawableTop="@drawable/ic_remindernotimed"
-                        android:hint="@string/ReminderDefaultText"></TextView>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/addbuttonlayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/addbuttonlayout_margintop"
-                    android:layout_marginEnd="@dimen/addbuttonlayout_marginend"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/LayoutReminder">
-
-                    <Button
-                        android:id="@+id/button_addalarm"
-                        android:layout_width="@dimen/buttonadd_width"
-                        android:layout_height="@dimen/buttonadd_height"
-                        android:backgroundTint="@color/addButton_backgroundTint"
-                        app:cornerRadius="@dimen/addButton_cornerRadius"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"></Button>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/addButtonIcon_margintop"
-                        android:drawableTop="@drawable/ic_add_alarm"
-                        app:layout_constraintBottom_toBottomOf="@id/button_addalarm"
-                        app:layout_constraintEnd_toEndOf="@id/button_addalarm"
-                        app:layout_constraintStart_toStartOf="@+id/button_addalarm"
-                        app:layout_constraintTop_toTopOf="@+id/button_addalarm">
-
-                    </TextView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.appbar.AppBarLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

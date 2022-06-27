@@ -225,7 +225,8 @@
                     android:hint="@string/labelGender"
                     app:errorEnabled="true"
                     app:helperText="@string/helper_text"
-
+                    app:endIconTint="?colorPrimary"
+                    app:endIconDrawable="@drawable/ic_arrow_down"
                     app:helperTextEnabled="true"
                     app:layout_constraintBottom_toTopOf="@id/registerButton"
                     app:layout_constraintEnd_toEndOf="parent"

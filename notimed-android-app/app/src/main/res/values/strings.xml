@@ -11,16 +11,18 @@
     <string name="labelName">Nombre</string>
     <string name="labelLastName">Apellido</string>
     <string name="labelBirthday">Fecha de nacimiento</string>
+    <string name="titleBirthday">Selecciona tu fecha de nacimiento</string>
     <string name="loginNav">¿Ya tienes una cuenta? ¡Inicia sesión!</string>
     <string name="labelGender">Género</string>
     <string name="helper_text">requerido</string>
     <string name="labelRecover">Recuperar contraseña</string>
     <string name="placeholderEmail" translatable="false">mrroboto@gmail.com</string>
-    <string name="placeholderName">Juan</string>
-    <string name="placeholderLastName">Rodas</string>
     <string name="labelRecoverButton">Recuperar contraseña</string>
     <string name="onErrorEmpty">Este campo es requerido</string>
     <string name="minimunChars">Se requieren mínimo 8 caracteres</string>
+    <string name="ErrorForMinumunChars"> Ingresa un nombre significativo </string>
+    <string name="ErrorForDate"> Selecciona una fecha </string>
+    <string name="ErrorForHour"> Selecciona una hora </string>
     <string-array name="genders">
         <item>Masculino</item>
         <item>Femenino</item>
@@ -41,33 +43,28 @@
     <string name="withoutcontact_text">No tienes contactos médicos guardados</string>
     <string name="textAppointment">Citas médicas</string>
     <string name="withoutAppointment_text">No tienes citas médicas guardadas</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="AddReminder_title">Recordatorio</string>
     <string name="addressTitle">Dirección de consultorio</string>
-    <string name="Date_hint">dd/mm/yyyy</string>
-    <string name="Datehour_hint">hh:mm</string>
     <string name="Address_hint">Dirección</string>
     <string name="doctor_hint">Doctor</string>
     <string name="AppointmentName_hint">Cita por gripe</string>
-    <string name="Notes_hint">Sintomas...</string>
+    <string name="Notes_hint">Sintomas…</string>
     <string name="savebutton_text">Guardar</string>
     <string name="cancelbutton_text">Cancelar</string>
     <string name="addAppointment_text">Cita médica</string>
-    <string name="EditName_helperText">Nombre de cita médica:</string>
-    <string name="editDoctor_helperText">Nombre de médico:</string>
-    <string name="editDate_helperText">Fecha:</string>
-    <string name="Address_helperText">Dirección de consultorio:</string>
-    <string name="editHour_helperText">Hora:</string>
-    <string name="Notes_helperText">Notas adicionales:</string>
-    <string name="addContact_text">Contactos médico</string>
-    <string name="editPhone_text">Número de teléfono:</string>
-    <string name="Phone_hint">2222-3333</string>
+    <string name="EditAppointment_label">Nombre de cita médica</string>
+    <string name="editDoctor_helperText">Nombre de médico</string>
+    <string name="editDate_helperText">Fecha</string>
+    <string name="Address_helperText">Dirección de consultorio</string>
+    <string name="Notes_helperText">Notas adicionales</string>
+    <string name="addContact_text">Contacto médico</string>
+    <string name="editPhone_text">Número de teléfono</string>
+    <string name="Phone_hint">2222–3333</string>
     <string name="contactDoctor_hint">Dr. Notimed</string>
-    <string name="Localization_text">Ubicación de consultorio:</string>
-    <string name="specialization_texthint">Especialización del médico:</string>
-    <string name="Schedule_hintText">Horarios de consulta:</string>
-    <string name="weekDays_hintText">Seleccione los días de consulta:</string>
+    <string name="Localization_text">Ubicación de consultorio</string>
+    <string name="specialization_texthint">Especialización del médico</string>
+    <string name="Schedule_hintText">Horarios de consulta</string>
+    <string name="weekDays_hintText">Seleccione los días de consulta</string>
     <string name="Monday_text">Lunes</string>
     <string name="Tuesday_text">Martes</string>
     <string name="wednesday_text">Miércoles</string>
@@ -75,5 +72,57 @@
     <string name="Friday_text">Viernes</string>
     <string name="Saturday_text">Sábado</string>
     <string name="Sunday_text">Domingo</string>
+    <string name="start_text">Inicio</string>
+    <string name="text_final">Finaliza</string>
+    <string name="hint_general_specialization">General</string>
+    <string name="medicine_hint">Medicamento</string>
+    <string name="times_a_day_hint">Repetir cada</string>
+    <string-array name="times">
+        <item>Cada 2 horas</item>
+        <item>Cada 4 horas</item>
+        <item>Cada 6 horas</item>
+        <item>Cada 8 horas</item>
+        <item>Personalizado</item>
+    </string-array>
+    <string-array name="response_food">
+        <item>Sí</item>
+        <item>No</item>
+    </string-array>
 
+    <string-array name="specializations">
+        <item>General</item>
+        <item>Pediatría</item>
+        <item>Fisioterapia</item>
+        <item>Psicologia</item>
+        <item>Oftalmología</item>
+        <item>Personalizado</item>
+    </string-array>
+
+    <string name="every_prefix"> Cada: </string>
+    <string name="hour_suffix"> Hora(s) </string>
+    <string name="dateRange_hint"> Rango de fechas </string>
+    <string name="dateRange_title"> Selecciona un rango de fechas </string>
+    <string name="enter_specialization"> Ingresa la especialización del médico </string>
+    <string name="validHour"> Ingresa una hora valida </string>
+    <string name="warning_title_appointment"> ¡La cita no ha sido guardada! </string>
+    <string name="warning_body_appointment"> La cita no se ha guardado, ¿deseas cancelarla? </string>
+    <string name="warning_title_reminder"> ¡El recordatorio no ha sido guardado! </string>
+    <string name="warning_body_reminder"> El recordatorio no se ha guardado, ¿deseas cancelarlo? </string>
+    <string name="warning_title_contact"> ¡El contacto no ha sido guardado! </string>
+    <string name="warning_body_contact"> El contacto no se ha guardado, ¿deseas cancelarlo? </string>
+    <string name="no_response"> No </string>
+    <string name="yes_response"> Sí </string>
+    <string name="labelDose">Dosis</string>
+    <string name="labelStartHour">Hora inicial</string>
+    <string name="labelHour">Hora</string>
+    <string name="scheduleLabel">Horario de medicamento</string>
+    <string name="hour_final"> Hora final </string>
+    <string name="foodQuestionLabel">¿El medicamento debe acompañarse con un alimento?</string>
+    <string name="first_start"> Primero selecciona una hora de inicio </string>
+    <string name="option_food">Opción</string>
+    <string name="DoseLessZero">Dosis debe ser mayor a 0</string>
+    <string name="DoseEmpty">Ingresa una dosis</string>
+    <string name="ErrorPhone">Ingresa un número de teléfono valido</string>
+    <string name="ErrorLessHour"> La hora final es menor a la de inicio </string>
+    <string name="ErrorStartHourHigher"> La hora inicial es mayor que la hora final  </string>
 </resources>

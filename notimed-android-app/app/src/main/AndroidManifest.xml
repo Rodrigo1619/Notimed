@@ -4,13 +4,13 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:icon="@drawable/ic_notimed_dark"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_notimed_dark"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Notimed"
+        android:theme="@style/AppTheme"
         android:name=".NotiMedApplication">
         <activity
             android:name=".views.MainActivity"

@@ -27,6 +27,9 @@
     <color name="md_theme_light_inverseSurface">#303034</color>
     <color name="md_theme_light_inversePrimary">#B5C4FF</color>
     <color name="md_theme_light_shadow">#000000</color>
+    <color name="md_theme_light_surfaceTint">#2A56C8</color>
+    <color name="md_theme_light_surfaceTintColor">#2A56C8</color>
+    <color name="seed">#658BFF</color>
     <color name="md_theme_dark_primary">#B5C4FF</color>
     <color name="md_theme_dark_onPrimary">#00297B</color>
     <color name="md_theme_dark_primaryContainer">#003CAC</color>
@@ -54,16 +57,6 @@
     <color name="md_theme_dark_inverseSurface">#E4E2E6</color>
     <color name="md_theme_dark_inversePrimary">#2A56C8</color>
     <color name="md_theme_dark_shadow">#000000</color>
-    <color name="seed">#2a56c8</color>
-    <color name="Button_Reminders">#DAE1FF</color>
-    <color name="button_profile">#DDE1F9</color>
-    <color name="button_contacts">#FFD7F8</color>
-    <color name="button_medicDates">#FFDAD4</color>
-    <color name="addButton_backgroundTint">#2A56C8</color>
-    <color name="colorPrimary">#DAE1FF</color>
-    <color name="colorPrimaryDark">#9399AF</color>
-    <color name="colorAccent">#2A56C8</color>
-    <color name="buttonSave">#DAE1FF</color>
-    <color name="buttonCancel">#FFDAD4</color>
-
+    <color name="md_theme_dark_surfaceTint">#B5C4FF</color>
+    <color name="md_theme_dark_surfaceTintColor">#B5C4FF</color>
 </resources>
