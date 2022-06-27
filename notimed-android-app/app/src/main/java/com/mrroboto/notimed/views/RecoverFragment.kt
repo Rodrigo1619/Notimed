@@ -26,9 +26,6 @@ class RecoverFragment : Fragment() {
         viewModelFactory
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +62,7 @@ class RecoverFragment : Fragment() {
         viewModel.currentEmail.value = email.toString()
 
         viewModel.currentEmail.observe(viewLifecycleOwner) {
-            binding.editEmail.editText!!.setText(viewModel.currentEmail.value)
+            binding.editEmail.editText!!.setText(it)
         }
 
 
