@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
+import com.mrroboto.notimed.data.models.User
 import com.mrroboto.notimed.databinding.FragmentRegisterBinding
 import com.mrroboto.notimed.viewmodels.UserViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
@@ -89,6 +91,19 @@ class RegisterFragment : Fragment() {
         }
 
         binding.registerButton.setOnClickListener {
+            val email = binding.editEmail.editText
+            val password = binding.editPassword.editText
+            val name = binding.editName.editText
+            val lastName = binding.editLastName.editText
+            val birthday = binding.editBirthday.editText
+            val genderContainer = binding.gender.editText
+
+            viewModel.currentEmail.value = email?.text.toString()
+            viewModel.currentPassword.value = password?.text.toString()
+            viewModel.currentBirthday.value = birthday?.text.toString()
+            viewModel.currentLastname.value = lastName?.text.toString()
+            viewModel.currentName.value = name?.text.toString()
+            viewModel.currentGender.value = genderContainer?.text.toString()
             if (!(isValidName() && isValidLastname() && isValidEmail() && isValidBirthday() && isValidPassword() && isValidGender())) {
                 isValidName()
                 isValidLastname()
@@ -96,6 +111,8 @@ class RegisterFragment : Fragment() {
                 isValidBirthday()
                 isValidPassword()
                 isValidGender()
+            } else {
+                viewModel.register(requireContext())
             }
         }
 
