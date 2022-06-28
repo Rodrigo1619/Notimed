@@ -1,4 +1,4 @@
-package com.mrroboto.notimed.network.dto
+package com.mrroboto.notimed.network.responses.identity
 
 import com.google.gson.annotations.SerializedName
 

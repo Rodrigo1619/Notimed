@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.whenCreated
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentLoginBinding
+import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.viewmodels.UserViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
 
@@ -61,27 +63,21 @@ class LoginFragment : Fragment() {
                 binding.editEmail.error = null
 
                 viewModel.onLogin(email.toString(), password.toString(), requireContext())
+            }
+        }
 
-                when (viewModel.status.value) {
-                    null -> {
-                        Toast.makeText(requireContext(), "Toy cargando", Toast.LENGTH_SHORT)
-                            .show()
-                        Toast.makeText(
-                            requireContext(),
-                            "${viewModel.status.value}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    200 -> Toast.makeText(requireContext(), "Puedes navegar", Toast.LENGTH_SHORT)
-                        .show()
-                    else -> Toast.makeText(
-                        requireContext(),
-                        "${viewModel.status.value}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+        viewModel.loginResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is ApiResponse.Success -> {
+                    findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
                 }
-                //it.findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
-
+                is ApiResponse.Failure -> {
+                    if (it.errorCode == 404) {
+                        Toast.makeText(requireContext(), "Usuario no encontrado", Toast.LENGTH_SHORT).show()
+                    } else if (it.errorCode == 403) {
+                        Toast.makeText(requireContext(), "Revisa tus credenciales", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
 
