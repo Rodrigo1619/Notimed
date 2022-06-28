@@ -1,10 +1,8 @@
 package com.mrroboto.notimed.network
 
-import com.google.gson.annotations.SerializedName
-import com.mrroboto.notimed.network.dto.LoginRequest
-import com.mrroboto.notimed.network.dto.LoginResponse
-import com.mrroboto.notimed.network.dto.UserDto
-import kotlinx.coroutines.Deferred
+import com.mrroboto.notimed.network.responses.identity.LoginRequest
+import com.mrroboto.notimed.network.responses.identity.LoginResponse
+import com.mrroboto.notimed.network.responses.identity.RegisterRequest
 import retrofit2.http.*
 
 interface IdentityService {
@@ -13,4 +11,10 @@ interface IdentityService {
     suspend fun loginAsync(
         @Body credentials: LoginRequest
         ): LoginResponse
+
+    @Headers("Content-Type: application/json")
+    @POST("/identity/signup")
+    suspend fun registerAsync(
+        @Body credentials: RegisterRequest
+    )
 }
