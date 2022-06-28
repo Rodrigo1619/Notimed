@@ -132,11 +132,35 @@ const updateUser = async (req: Request, res: Response) =>{
     
 
         res.status(201).send({update});
-    } catch (error) {
-        throw new Error(error);
+    } catch (err: any) {
+        return res
+                .status(err.status as number ?? 400)
+                .json({ message: err.message ?? JSON.stringify(err) });
+        }
     }
 
+const whoami = async (req: Request, res: Response) => {
+    try {
+        const auth = req.headers['authorization']
 
+        if(!auth) throw { status: 403, message: 'Empty token'}
+
+        const [bearer, token] = auth.split(' ')
+
+        if(bearer !== "Bearer" || token === "")
+            throw { status: 401, message: "Invalid token"}
+
+        const payload: JwtPayload = 
+            jwt.verify(token, configEnv.secret_key as string) as JwtPayload
+        
+        const user = await User.findById({ _id: payload.id })
+
+        return res.status(200).json({ message: "Is authorized", content: user})
+    } catch (err: any) {
+        return res
+                .status(err.status as number ?? 400)
+                .json({ message: err.message ?? JSON.stringify(err) });
+    }
 }
 
 export {
@@ -144,6 +168,7 @@ export {
     login,
     getAllUsers,
     getUser,
-    updateUser
+    updateUser,
+    whoami
 }
 
