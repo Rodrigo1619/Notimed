@@ -125,6 +125,12 @@
                         android:text="Horarios de consulta:"
                         android:textSize="14sp"/>
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="De:"
+                        android:textSize="14sp"/>
+                    <TextView
                         android:id="@+id/startHour_contact"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -133,6 +139,14 @@
                         android:text="@{contact.startHour}"
                         android:textSize="14sp"
                         android:layout_marginLeft="4dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Hasta:"
+                        android:textSize="14sp"/>
+
                     <TextView
                         android:id="@+id/endHour_contact"
                         android:layout_width="wrap_content"
