@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.whenCreated
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentLoginBinding
+import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.viewmodels.UserViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
 
@@ -51,26 +54,32 @@ class LoginFragment : Fragment() {
             val email = binding.editEmail.editText?.text
             val password = binding.editPassword.editText?.text
 
-            if(email.toString().isEmpty()) {
+            if (email.toString().isEmpty()) {
                 binding.editEmail.error = getString(R.string.onErrorEmpty)
-            } else if(password.toString().isEmpty()) {
+            } else if (password.toString().isEmpty()) {
                 binding.editPassword.error = getString(R.string.onErrorEmpty)
-            }
-            else {
+            } else {
                 binding.editPassword.error = null
                 binding.editEmail.error = null
-                Toast.makeText(requireActivity(), "Estamos dentro", Toast.LENGTH_SHORT).show()
-                it.findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
+
+                viewModel.onLogin(email.toString(), password.toString(), requireContext())
             }
-
-            viewModel.currentPassword.value = password.toString()
-            viewModel.currentEmail.value = email.toString()
-            viewModel.onLogin(email.toString(), password.toString())
-            
-
-
         }
 
+        viewModel.loginResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is ApiResponse.Success -> {
+                    findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
+                }
+                is ApiResponse.Failure -> {
+                    if (it.errorCode == 404) {
+                        Toast.makeText(requireContext(), "Usuario no encontrado", Toast.LENGTH_SHORT).show()
+                    } else if (it.errorCode == 403) {
+                        Toast.makeText(requireContext(), "Revisa tus credenciales", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
 
         binding.registerButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -90,15 +99,12 @@ class LoginFragment : Fragment() {
         viewModel.currentPassword.value = password.toString()
 
         viewModel.currentEmail.observe(viewLifecycleOwner) {
-            binding.editEmail.editText!!.setText(viewModel.currentEmail.value)
+            binding.editEmail.editText!!.setText(it)
         }
 
         viewModel.currentPassword.observe(viewLifecycleOwner) {
-            binding.editPassword.editText!!.setText(viewModel.currentPassword.value)
+            binding.editPassword.editText!!.setText(it)
         }
-
-
-
     }
 
 }

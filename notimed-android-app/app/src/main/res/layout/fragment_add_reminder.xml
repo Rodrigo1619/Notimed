@@ -1,74 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:maxWidth="500dp">
-
-
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?colorSurface"
         tools:context=".views.AddReminderFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/navbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:background="@drawable/ic_top"
-                android:maxHeight="199dp"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layoutTitle"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <Button
-                    android:id="@+id/button_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/backbutton_margintop"
-                    android:backgroundTint="#0000"
-                    app:cornerRadius="@dimen/backbutton_borderradius"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:navigationIcon="@drawable/ic_back"
+                    app:title="@string/AddReminder_title"
+                    />
 
-                <TextView
-                    android:id="@+id/back_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/backtext_margintop"
-                    android:layout_marginEnd="@dimen/backtext_marginend"
-                    android:drawableTop="@drawable/ic_back"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_back"
-                    app:layout_constraintEnd_toEndOf="@+id/button_back"
-                    app:layout_constraintHorizontal_bias="0.535"
-                    app:layout_constraintStart_toStartOf="@+id/button_back"
-                    app:layout_constraintTop_toTopOf="@+id/button_back">
-
-                </TextView>
-
-                <TextView
-                    android:id="@+id/textreminder"
-                    style="@style/TextAppearance.Material3.HeadlineSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/remindertext_margintop"
-                    android:text="@string/AddReminder_title"
-                    app:layout_constraintStart_toEndOf="@+id/button_back"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,7 +44,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
                 app:layout_constraintWidth_max="480dp">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -91,9 +53,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editLastName"
+                    app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:layout_constraintBottom_toTopOf="@id/labelSchedule"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -101,177 +64,215 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_round_person_24"
+                        android:drawableStart="@drawable/ic_pill"
                         android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/labelName"
+                        android:hint="@string/medicine_hint"
                         android:inputType="text"
-
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editLastName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editEmail"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editName">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_round_person_24"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/labelLastName"
-                        android:inputType="text"
-
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editBirthday"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editLastName">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_outline_email_24"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/labelEmail"
-                        android:inputType="textEmailAddress"
-
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editBirthday"
+                <TextView
+                    android:id="@+id/labelSchedule"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editPassword"
+                    android:text="@string/scheduleLabel"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    app:layout_constraintBottom_toTopOf="@id/editTimesADay"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editEmail">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_input_birthday"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:cursorVisible="false"
-                        android:drawableStart="@drawable/ic_round_calendar"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:focusable="true"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/labelBirthday"
-                        android:inputType="text"
-                        android:maxLines="1"
-
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    app:layout_constraintTop_toBottomOf="@id/editName"
+                    />
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editPassword"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    app:endIconMode="password_toggle"
-                    app:errorContentDescription="@string/labelBirthday"
-                    app:errorEnabled="true"
-                    app:errorTextColor="?colorError"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/gender"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editBirthday">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_round_lock_24"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/labelPassword"
-                        android:inputType="textPassword"
-
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/gender"
+                    android:id="@+id/editTimesADay"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/smallGap"
                     android:layout_marginBottom="@dimen/margin_20dp"
-                    android:hint="@string/labelGender"
+                    android:hint="@string/times_a_day_hint"
+                    app:endIconDrawable="@drawable/ic_arrow_down"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?colorPrimary"
                     app:errorEnabled="true"
-                    app:helperText="@string/helper_text"
-
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@id/registerButton"
+                    app:layout_constraintBottom_toTopOf="@+id/hour_edit"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editPassword">
+                    app:layout_constraintTop_toBottomOf="@+id/labelSchedule"
+                    app:startIconDrawable="@drawable/ic_repeat">
 
                     <AutoCompleteTextView
-                        android:id="@+id/dropdownGender"
+                        android:id="@+id/dropdown_times"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none"
-                         />
+                        tools:ignore="LabelFor" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/registerButton"
-                    style="?attr/materialButtonOutlinedStyle"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/hour_edit"
                     android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="@dimen/margin_20dp"
-                    android:text="@string/registerText"
-                    android:textColor="?colorPrimary"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
+                    app:hintEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/dose_edit"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/gender" />
+                    app:layout_constraintTop_toBottomOf="@id/editTimesADay">
 
-                <TextView
-                    android:id="@+id/labelLogin"
-                    style="@style/TextAppearance.Material3.LabelSmall"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_clock"
+                        android:drawablePadding="@dimen/smallGap"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/labelStartHour"
+                        android:inputType="datetime"
+                        android:textColor="?colorOnSurface"
+                        android:textColorHint="?colorOnSurfaceVariant" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/dose_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:endIconMode="clear_text"
+                    app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@id/rangeDate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/hour_edit">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_dose"
+                        android:drawablePadding="@dimen/smallGap"
+                        android:hint="@string/labelDose"
+                        android:inputType="numberDecimal"
+                        android:textColor="?colorOnSurface"
+                        android:textColorHint="?colorOnSurfaceVariant" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/rangeDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_20dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="@string/loginNav"
-                    android:textAlignment="center"
-                    android:textColor="?colorOnPrimaryContainer"
+                    android:focusableInTouchMode="false"
+                    app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/registerButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/dose_edit">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_round_calendar"
+                        android:drawablePadding="@dimen/smallGap"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/dateRange_hint"
+                        android:inputType="date"
+                        android:textColor="?colorOnSurface"
+                        android:textColorHint="?colorOnSurfaceVariant" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/header_option"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:text="@string/foodQuestionLabel"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rangeDate" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editFoodOption"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:hint="@string/option_food"
+                    app:endIconDrawable="@drawable/ic_arrow_down"
+                    app:endIconMode="dropdown_menu"
+                    app:endIconTint="?colorPrimary"
+                    app:errorEnabled="true"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/header_option"
+                    app:startIconDrawable="@drawable/ic_food_24">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdown_options"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        tools:ignore="LabelFor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/saveButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:text="@string/savebutton_text"
+                    android:textColor="?colorOnPrimaryContainer"
+                    app:backgroundTint="?colorPrimaryContainer"
+                    app:layout_constraintEnd_toStartOf="@id/cancelButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editFoodOption" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancelButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/smallGap"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:text="@string/cancelbutton_text"
+                    android:textColor="?colorOnErrorContainer"
+                    app:backgroundTint="?colorErrorContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/saveButton"
+                    app:layout_constraintTop_toBottomOf="@+id/editFoodOption" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

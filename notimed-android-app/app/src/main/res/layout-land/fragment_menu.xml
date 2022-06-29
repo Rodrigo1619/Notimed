@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?colorSurface"
+        tools:context=".views.MenuFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_layout"
+            android:layout_width="272dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/menu_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/ic_top_land"
+                android:rotation="0"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/label_welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:rotation="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/menu_view"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/label_menu"
+                    style="@style/TextAppearance.Material3.HeadlineLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Welcome"
+                    android:textColor="?colorOnPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/menu_username"
+                    style="@style/TextAppearance.Material3.HeadlineLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MrRoboto"
+                    android:textColor="?colorOnPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label_menu">
+
+                </TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/info"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_welcome">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/instructions"
+                    android:textAlignment="center"
+                    android:textColor="?colorOnPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:rotation="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/top_layout"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/reminder_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="?colorPrimaryContainer"
+                android:text="@string/reminder"
+                android:textColor="?colorOnPrimaryContainer"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_alarm"
+                app:iconGravity="textStart"
+                app:iconPadding="@dimen/margin_20dp"
+                app:iconSize="@dimen/dp48"
+                app:iconTint="?colorOnPrimaryContainer"
+                app:layout_constraintBottom_toTopOf="@+id/contact_button"
+                app:layout_constraintEnd_toStartOf="@+id/profile_button"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="250dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/profile_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="?colorSecondaryContainer"
+                android:text="@string/profile"
+                android:textColor="?colorOnPrimaryContainer"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_profileicon"
+                app:iconGravity="textStart"
+                app:iconPadding="@dimen/margin_20dp"
+                app:iconSize="@dimen/dp48"
+                app:iconTint="?colorOnSecondaryContainer"
+                app:layout_constraintBottom_toTopOf="@+id/appointment_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintStart_toEndOf="@+id/reminder_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="250dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/contact_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="?colorTertiaryContainer"
+                android:text="@string/contacts"
+                android:textColor="?colorOnPrimaryContainer"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_contact"
+                app:iconGravity="textStart"
+                app:iconPadding="@dimen/margin_20dp"
+                app:iconTint="?colorOnTertiaryContainer"
+                app:iconSize="@dimen/dp48"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/appointment_button"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reminder_button"
+                app:layout_constraintWidth_max="250dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/appointment_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="?colorErrorContainer"
+                app:icon="@drawable/ic_book"
+                app:iconGravity="textStart"
+                app:iconPadding="@dimen/margin_20dp"
+                app:iconTint="?colorOnTertiaryContainer"
+                app:iconSize="@dimen/dp48"
+                android:text="@string/appointment"
+                android:textColor="?colorOnErrorContainer"
+                app:cornerRadius="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_max="200dp"
+                app:layout_constraintStart_toEndOf="@+id/contact_button"
+                app:layout_constraintTop_toBottomOf="@+id/profile_button"
+                app:layout_constraintWidth_max="250dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
