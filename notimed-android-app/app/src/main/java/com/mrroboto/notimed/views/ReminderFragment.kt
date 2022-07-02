@@ -11,17 +11,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.mrroboto.notimed.R
-import com.mrroboto.notimed.ReminderAdapter
+import com.mrroboto.notimed.views.adapters.ReminderAdapter
 import com.mrroboto.notimed.databinding.FragmentReminderBinding
 import com.mrroboto.notimed.repositories.ReminderRepository
 import com.mrroboto.notimed.viewmodels.ReminderViewModel
-import com.mrroboto.notimed.viewmodels.ReminderViewModelFactory
+import com.mrroboto.notimed.viewmodels.ViewModelFactory
 
 class ReminderFragment : Fragment() {
     private lateinit var binding: FragmentReminderBinding
     private val viewModelFactory by lazy{
         val repository = ReminderRepository()
-        ReminderViewModelFactory(repository)
+        ViewModelFactory(repository)
     }
     private val viewModel: ReminderViewModel by viewModels {
             viewModelFactory

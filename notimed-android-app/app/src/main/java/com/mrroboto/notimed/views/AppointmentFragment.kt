@@ -10,12 +10,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.mrroboto.notimed.AppointmentAdapter
+import com.mrroboto.notimed.views.adapters.AppointmentAdapter
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAppointmentBinding
 import com.mrroboto.notimed.repositories.AppointmentRepository
 import com.mrroboto.notimed.viewmodels.AppointmentViewModel
-import com.mrroboto.notimed.viewmodels.AppointmentViewModelFactory
+import com.mrroboto.notimed.viewmodels.ViewModelFactory
 
 
 class AppointmentFragment : Fragment() {
@@ -23,7 +23,7 @@ class AppointmentFragment : Fragment() {
 
     private val viewModelFactory by lazy{
         val repository = AppointmentRepository()
-        AppointmentViewModelFactory(repository)
+        ViewModelFactory(repository)
     }
     private val viewModel: AppointmentViewModel by viewModels {
         viewModelFactory

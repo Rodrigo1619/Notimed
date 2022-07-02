@@ -1,9 +1,10 @@
-package com.mrroboto.notimed
+package com.mrroboto.notimed.views.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.mrroboto.notimed.R
 import com.mrroboto.notimed.data.models.Appointment
 import com.mrroboto.notimed.databinding.CardappointmentLayoutBinding
 

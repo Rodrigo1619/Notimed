@@ -5,24 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.mrroboto.notimed.AppointmentAdapter
-import com.mrroboto.notimed.ContactAdapter
-import com.mrroboto.notimed.NotiMedApplication
+import com.mrroboto.notimed.views.adapters.ContactAdapter
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentContactBinding
-import com.mrroboto.notimed.databinding.FragmentLoginBinding
-import com.mrroboto.notimed.databinding.FragmentMenuBinding
 import com.mrroboto.notimed.repositories.ContactRepository
 import com.mrroboto.notimed.viewmodels.ContactViewModel
-import com.mrroboto.notimed.viewmodels.ContactViewModelFactory
-import com.mrroboto.notimed.viewmodels.UserViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
 
 class ContactFragment : Fragment() {
@@ -30,16 +22,11 @@ class ContactFragment : Fragment() {
 
     private val viewModelFactory by lazy{
         val repository = ContactRepository()
-        ContactViewModelFactory(repository)
+        ViewModelFactory(repository)
     }
     private val viewModel: ContactViewModel by viewModels{
         viewModelFactory
     }
-
-
-    //override fun onCreate(savedInstanceState: Bundle?) {
-      //  super.onCreate(savedInstanceState)
-    //}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
