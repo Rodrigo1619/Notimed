@@ -52,7 +52,7 @@ const UserSchema = new Schema<IUser>({
     transform(doc, ret) {
       delete ret.password;
       delete ret.__v;
-      delete ret.rol;
+      //delete ret.rol;
     },
   }
 });
