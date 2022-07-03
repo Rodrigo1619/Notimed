@@ -1,4 +1,8 @@
 package com.mrroboto.notimed.viewmodels
 
-class ContactViewModel {
+import androidx.lifecycle.ViewModel
+import com.mrroboto.notimed.repositories.ContactRepository
+
+class ContactViewModel(private val repository: ContactRepository ):ViewModel(){
+    val contacts = repository.contacts
 }
