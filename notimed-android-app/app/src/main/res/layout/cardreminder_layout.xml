@@ -8,190 +8,134 @@
             name="reminder"
             type="com.mrroboto.notimed.data.models.Reminder" />
     </data>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     android:id="@+id/cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:orientation="vertical">
-        <RelativeLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/smallGap">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/medicineText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Acetaminofen"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/timesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cada 6 horas"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/medicineText"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/expand_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_arrow_down"
+                style="@style/Widget.Material3.Button.IconButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:iconTint="?colorOnSurfaceVariant"
+                app:iconSize="24dp"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="6dp">
-            <LinearLayout
-                android:id="@+id/linearLayoutReminder"
-                android:layout_width="wrap_content"
+            android:layout_marginVertical="@dimen/gap12dp"/>
+
+        <TextView
+            android:id="@+id/nextReminderTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Proximo recordatorio: 16:30"
+            android:layout_marginBottom="@dimen/gap12dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+        <TextView
+            android:id="@+id/doseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dosis: 1.0"
+            android:layout_marginBottom="@dimen/gap12dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+        <TextView
+            android:id="@+id/optionsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Consideraciones:"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+        <TextView
+            android:id="@+id/optionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Debe tomarse al ingerir alimentos"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/gap12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editButtonReminder"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="2dp"
-                android:orientation="vertical"
-                android:layout_marginLeft="4dp">
-                <TextView
-                    android:id="@+id/reminder_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@{reminder.name}"
-                    android:textColor="@android:color/black"
-                    android:textSize="24sp"
-                    android:textStyle="normal"/>
-                <TextView
-                    android:id="@+id/repeat_reminder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@{reminder.repeat}"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="18sp"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:background="@drawable/line"/>
-            </LinearLayout>
+                app:icon="@drawable/ic_edit"
+                android:paddingHorizontal="@dimen/gap12dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                app:iconTint="?colorOnSurfaceVariant"
+                app:iconSize="24dp"
+                android:layout_marginHorizontal="8dp"
+                />
 
-            <LinearLayout
-                android:id="@+id/next_reminder"
-                android:layout_width="wrap_content"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteButtonReminder"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayoutReminder"
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="4dp"
-                android:orientation="horizontal"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Proximo recordatorio:"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:id="@+id/hour_reminder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@{reminder.hour}"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="4dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/dose_reminder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/next_reminder"
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="4dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Dosis:"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:id="@+id/doseOfReminder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@{reminder.dose}"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="4dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/considerations"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/dose_reminder"
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="4dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Consideraciones:"
-                    android:textSize="14sp"/>
-                <TextView
-                    android:id="@+id/Considerations_reminder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="@{reminder.considerations}"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="4dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/buttons_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/considerations"
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="4dp"
-                android:orientation="vertical">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:background="@drawable/line"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/buttons_reminder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/buttons_view"
-                android:layout_alignEnd="@+id/buttons_view"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="0dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/edit_reminder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginHorizontal="8dp"
-                    android:backgroundTint="?colorPrimary"
-                    android:contentDescription="edit reminder"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_edit"
-                    app:tint="?colorOnPrimary"/>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/delete_reminder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginHorizontal="8dp"
-                    android:backgroundTint="?colorPrimary"
-                    android:contentDescription="delete reminder"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_delete"
-                    app:tint="?colorOnPrimary"/>
-
-            </LinearLayout>
-
-        </RelativeLayout>
+                app:icon="@drawable/ic_delete"
+                app:iconSize="24dp"
+                android:paddingHorizontal="@dimen/gap12dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:iconTint="?colorOnSurfaceVariant"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+
+</com.google.android.material.card.MaterialCardView>
 </layout>

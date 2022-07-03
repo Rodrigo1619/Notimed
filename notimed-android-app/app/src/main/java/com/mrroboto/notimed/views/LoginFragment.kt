@@ -1,14 +1,13 @@
 package com.mrroboto.notimed.views
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.whenCreated
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.mrroboto.notimed.NotiMedApplication
@@ -62,7 +61,8 @@ class LoginFragment : Fragment() {
                 binding.editPassword.error = null
                 binding.editEmail.error = null
 
-                viewModel.onLogin(email.toString(), password.toString(), requireContext())
+                //viewModel.onLogin(email.toString(), password.toString(), requireContext())
+                it.findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
             }
         }
 
