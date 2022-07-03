@@ -12,6 +12,7 @@
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/add_appointment_fab"
                 android:layout_width="wrap_content"
+                style="@style/Widget.Material3.FloatingActionButton.Large.Primary"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/smallGap"
@@ -43,7 +44,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/smallGap"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                android:lineSpacingExtra="8dp"
                 app:layout_constraintBottom_toTopOf="@id/add_appointment_fab"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
