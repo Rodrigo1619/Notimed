@@ -1,5 +1,5 @@
 import express,{Request, Response} from 'express';
-import reminderModel from '../models/reminder.model';
+import User from '../models/user.model';
 import Reminder from '../models/reminder.model';
 
 
@@ -19,6 +19,7 @@ const addReminder = async(req: Request, res: Response)=>{
             foodOption: foodOption
         });
         await newReminder.save()
+        //await newReminder.populate('user','_id')
         .then((newReminder:any)=>{
             res.status(200).send(newReminder)
         })

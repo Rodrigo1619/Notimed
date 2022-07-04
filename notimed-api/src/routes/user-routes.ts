@@ -22,7 +22,7 @@ router.patch('/:id',  [
 
 
 
-router.post("/recover-password", recoverPassword);
+
 
 
 

@@ -31,6 +31,7 @@ const createContact = async(req: Request, res: Response)=>{
                 days: days
             });
             await newContact.save()
+            //await newContact.populate('user','_id')
             .then((newContact: any)=>{
                 res.status(200).send(newContact);
             })
