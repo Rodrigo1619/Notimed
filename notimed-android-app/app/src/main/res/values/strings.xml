@@ -125,4 +125,11 @@
     <string name="ErrorPhone">Ingresa un número de teléfono valido</string>
     <string name="ErrorLessHour"> La hora final es menor a la de inicio </string>
     <string name="ErrorStartHourHigher"> La hora inicial es mayor que la hora final  </string>
+
+    <string name="success_create_user"> ¡Usuario creado con exito! </string>
+    <string name="error_existing_user"> Este usuario ya existe :( </string>
+    <string name="error_400_register"> Revisa los datos </string>
+
+    <string name="not_found_user"> Usuario no encontrado </string>
+    <string name="credentials_error"> Revisa tus credenciales </string>
 </resources>

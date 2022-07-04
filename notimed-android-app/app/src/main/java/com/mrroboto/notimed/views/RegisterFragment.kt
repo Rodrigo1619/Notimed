@@ -122,22 +122,23 @@ class RegisterFragment : Fragment() {
                 is ApiResponse.Success -> {
                     Toast.makeText(
                         requireContext(),
-                        "Usuario creado con exito!",
+                        getString(R.string.success_create_user),
                         Toast.LENGTH_SHORT
                     ).show()
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
                 is ApiResponse.Failure -> {
                     if (it.errorCode == 400) {
+                        // TODO("cambiar 400 a 409")
                         Toast.makeText(
                             requireContext(),
-                            "El usuario ya existe",
+                            getString(R.string.error_existing_user),
                             Toast.LENGTH_SHORT
                         ).show()
                     } else if (it.errorCode == 400) {
                         Toast.makeText(
                             requireContext(),
-                            "Revisa los datos",
+                            getString(R.string.error_400_register),
                             Toast.LENGTH_SHORT
                         ).show()
                     }

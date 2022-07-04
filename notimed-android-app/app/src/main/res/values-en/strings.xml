@@ -124,4 +124,11 @@
     <string name="hour_final"> End hour </string>
     <string name="ErrorLessHour"> End time is less than start time </string>
     <string name="ErrorStartHourHigher"> Start time is greater than end time  </string>
+
+    <string name="success_create_user"> User created successfully! </string>
+    <string name="error_existing_user"> This user already exists :( </string>
+    <string name="error_400_register"> Check the data </string>
+
+    <string name="not_found_user"> User not found </string>
+    <string name="credentials_error"> Check your credentials </string>
 </resources>

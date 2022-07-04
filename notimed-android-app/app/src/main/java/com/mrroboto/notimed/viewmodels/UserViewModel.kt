@@ -34,6 +34,6 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
 
 
     fun whoami() = viewModelScope.launch {
-        repository.whoami()
+        apiResponse.value = repository.whoami()
     }
 }

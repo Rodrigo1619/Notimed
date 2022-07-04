@@ -75,9 +75,9 @@ class LoginFragment : Fragment() {
                 }
                 is ApiResponse.Failure -> {
                     if (it.errorCode == 404) {
-                        Toast.makeText(requireContext(), "Usuario no encontrado", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.not_found_user), Toast.LENGTH_SHORT).show()
                     } else if (it.errorCode == 403) {
-                        Toast.makeText(requireContext(), "Revisa tus credenciales", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.credentials_error), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

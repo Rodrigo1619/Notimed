@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentMenuBinding
+import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.viewmodels.UserViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
 
@@ -55,5 +56,16 @@ class MenuFragment : Fragment() {
         }
 
 
+        viewModel.apiResponse.observe(viewLifecycleOwner) {
+            when(it) {
+                is ApiResponse.Success -> {
+                    binding.menuUsername.text = it.data.toString()
+                }
+                is ApiResponse.Failure -> {
+
+                }
+            }
+
+        }
     }
 }
