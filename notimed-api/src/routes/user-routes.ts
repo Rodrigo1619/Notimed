@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {check} from 'express-validator'
 import { existingUserById } from 'src/helpers/db-validators';
 import validarCampos  from 'src/helpers/handling-errors';
-import {register, getAllUsers, getUser, updateUser} from "../controllers/user-controller"
+import {register, getAllUsers, getUser, updateUser, recoverPassword} from "../controllers/user-controller"
 
 
 const router = Router();
@@ -17,6 +17,9 @@ router.patch('/:id',  [
     check('id').custom(existingUserById),
     validarCampos
 ], updateUser);     
+
+router.post("/recover-password", recoverPassword);
+
 
 
 module.exports = router;

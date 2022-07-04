@@ -1,7 +1,7 @@
 import User from '../models/user.model';
 import { NextFunction, Request, Response } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
-
+import nodemailer from 'nodemailer';
 import bcrypt from 'bcrypt';
 import configEnv from '../config/config';
 
@@ -139,11 +139,44 @@ const updateUser = async (req: Request, res: Response) =>{
 
 }
 
+const recoverPassword = async (req: Request, res:Response) =>{
+
+    const { email} = req.body;
+
+   const transporter =  nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: 'notimed.med@gmail.com',
+            pass: 'semaqxsvotjusahz'
+        }
+    });
+
+    transporter.verify().then(()=>{
+        console.log('Ready for send emails')
+    });
+
+    const info = await transporter.sendMail({
+        from: "'Notimed' <notimed.med@gmail.com>",
+        to: `${email}`,
+        subject: 'Reset password☠️',
+        text: 'Recover link: '
+    });
+
+    
+
+    res.send('Received');
+
+
+}
+
 export {
     register,
     login,
     getAllUsers,
     getUser,
-    updateUser
+    updateUser,
+    recoverPassword
 }
 
