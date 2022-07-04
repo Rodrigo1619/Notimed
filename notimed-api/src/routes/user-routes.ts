@@ -3,7 +3,8 @@ import {check} from 'express-validator'
 import passport from 'passport';
 import { existingUserById } from 'src/helpers/db-validators';
 import validarCampos  from 'src/helpers/handling-errors';
-import {getAllUsers, getUser, updateUser } from "../controllers/user-controller"
+import {getAllUsers, getUser, updateUser, recoverPassword} from "../controllers/user-controller"
+
 
 
 const router = Router();
@@ -19,6 +20,9 @@ router.patch('/:id',  [
     validarCampos
 ], updateUser);
 
+
+
+router.post("/recover-password", recoverPassword);
 
 
 

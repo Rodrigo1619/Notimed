@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="reminder"
+            type="com.mrroboto.notimed.data.models.Reminder" />
+    </data>
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/cv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/smallGap">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/medicineText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Acetaminofen"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/timesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cada 6 horas"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/medicineText"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/expand_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_arrow_down"
+                style="@style/Widget.Material3.Button.IconButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:iconTint="?colorOnSurfaceVariant"
+                app:iconSize="24dp"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/gap12dp"/>
+
+        <TextView
+            android:id="@+id/nextReminderTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Proximo recordatorio: 16:30"
+            android:layout_marginBottom="@dimen/gap12dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+        <TextView
+            android:id="@+id/doseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dosis: 1.0"
+            android:layout_marginBottom="@dimen/gap12dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+        <TextView
+            android:id="@+id/optionsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Consideraciones:"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+        <TextView
+            android:id="@+id/optionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Debe tomarse al ingerir alimentos"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/gap12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editButtonReminder"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_edit"
+                android:paddingHorizontal="@dimen/gap12dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                app:iconTint="?colorOnSurfaceVariant"
+                app:iconSize="24dp"
+                android:layout_marginHorizontal="8dp"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteButtonReminder"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_delete"
+                app:iconSize="24dp"
+                android:paddingHorizontal="@dimen/gap12dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:iconTint="?colorOnSurfaceVariant"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
+</layout>

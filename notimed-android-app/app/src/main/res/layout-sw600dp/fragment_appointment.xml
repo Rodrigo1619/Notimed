@@ -7,11 +7,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?colorSurface"
-            tools:context=".views.ContactFragment">
+            tools:context=".views.AppointmentFragment">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_contact_fab"
+                android:id="@+id/add_appointment_fab"
                 android:layout_width="wrap_content"
+                style="@style/Widget.Material3.FloatingActionButton.Large.Primary"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/smallGap"
@@ -19,7 +20,7 @@
                 android:contentDescription="@string/addContact_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_add_contact"
+                app:srcCompat="@drawable/ic_add_appointment"
                 app:tint="?colorOnPrimary"/>
 
             <com.google.android.material.appbar.AppBarLayout
@@ -35,18 +36,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:navigationIcon="@drawable/ic_back"
-                    app:title="@string/contacts" />
+                    app:title="@string/appointment" />
 
             </com.google.android.material.appbar.AppBarLayout>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listContact"
+                android:id="@+id/listReminder"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/smallGap"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toTopOf="@id/add_contact_fab"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                android:lineSpacingExtra="8dp"
+                app:layout_constraintBottom_toTopOf="@id/add_appointment_fab"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
