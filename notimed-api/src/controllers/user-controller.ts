@@ -15,7 +15,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
         const existingUser = await User.findOne({ email: body.email });
 
         if (existingUser) {
-            throw { status: 400, message: "user already exists" }
+            throw { status: 409, message: "user already exists" }
         } else {
 
             const myPasssword = body.password;

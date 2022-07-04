@@ -17,9 +17,9 @@ const createContact = async(req: Request, res: Response)=>{
         const existingContact = await Contact.findOne({name: body.name});
 
         if(existingContact){
-            throw{ status: 400, message: "You have a contact with this name already"}
+            throw{ status: 409, message: "You have a contact with this name already"}
         }else if(existingNumber){
-            throw{ status: 400, message: "Phone number already exists"}
+            throw{ status: 409, message: "Phone number already exists"}
         }else{ 
             const newContact = new Contact({
                 name: name,

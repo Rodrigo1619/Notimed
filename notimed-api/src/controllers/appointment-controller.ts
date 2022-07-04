@@ -19,7 +19,7 @@ const createAppointment = async (req: Request, res: Response) => {
                 appointmentHour: body.appointmentHour
             });
         if (appointment) {
-            throw { status: 400, message: "Appointment already exists" }
+            throw { status: 409, message: "Appointment already exists" }
         }
         else {
             const newAppointment = new Appointment({

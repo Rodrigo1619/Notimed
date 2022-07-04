@@ -75,7 +75,6 @@ const getReminders = async(req: Request, res: Response)=>{
 
     const query = { estado: true };
 
-
     const [total, reminders] = await Promise.all([
         Reminder.countDocuments(query),
         Reminder.find(query)
@@ -92,7 +91,7 @@ const getReminder = async(req:Request, res:Response)=>{
     try {
         const { id } = req.params;
 
-        const reminder = await Reminder.findOne({ id });
+        const reminder = await Reminder.findOne({ id});
 
         if (!reminder)
             return res.status(404).send({ message: "Reminder not found" });
