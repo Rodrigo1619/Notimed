@@ -1,7 +1,6 @@
 package com.mrroboto.notimed.repositories
 
-import com.google.gson.annotations.SerializedName
-import com.mrroboto.notimed.data.dao.UserDao
+import com.mrroboto.notimed.data.AppDatabase
 import com.mrroboto.notimed.data.models.User
 import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.network.IdentityService
@@ -9,14 +8,9 @@ import com.mrroboto.notimed.network.responses.identity.LoginRequest
 import com.mrroboto.notimed.network.responses.identity.RegisterRequest
 import retrofit2.HttpException
 
-class UserRepository(private val UserDao: UserDao, private val api: IdentityService) {
-    suspend fun deleteUser(user: User) {
-        UserDao.deleteUser(user)
-    }
+class UserRepository(private val api: IdentityService, database: AppDatabase) {
 
-    suspend fun getInfoUser(email: String) {
-        UserDao.getUserInfo(email)
-    }
+    private val user = database.userDao()
 
     suspend fun register(
         name: String,
@@ -51,4 +45,25 @@ class UserRepository(private val UserDao: UserDao, private val api: IdentityServ
             ApiResponse.Failure(err.code(), err.response().toString())
         }
     }
+
+
+    suspend fun whoami(): ApiResponse<Any> {
+        return try {
+            val response = api.whoamiAsync()
+            user.insertUserInfo(
+                User(
+                    response.content._id,
+                    response.content.email,
+                    response.content.name,
+                    response.content.lastName,
+                    response.content.birthday,
+                    response.content.gender
+                )
+            )
+            ApiResponse.Success (response)
+        } catch (err: HttpException) {
+            ApiResponse.Failure(err.code(), err.response().toString())
+        }
+    }
+
 }

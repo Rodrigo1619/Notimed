@@ -18,10 +18,21 @@ class NotiMedApplication : Application() {
     }
 
     private fun getApiService() = with(RetrofitInstance) {
+        setToken(getToken())
         getIdentityServices()
     }
 
-    fun getUserRepository() = with(database) {
-        UserRepository(userDao(), getApiService())
+    fun getUserRepository() = UserRepository(getApiService(), database)
+
+    private fun getToken(): String = prefs.getString(USER_TOKEN, "")!!
+    fun saveAuthToken(token: String) {
+        val editor = prefs.edit()
+        editor.putString(USER_TOKEN, token)
+        editor.apply()
     }
+
+    companion object {
+        const val USER_TOKEN = "user_token"
+    }
+
 }

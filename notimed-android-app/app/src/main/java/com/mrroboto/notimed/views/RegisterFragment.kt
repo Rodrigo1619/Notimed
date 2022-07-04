@@ -11,14 +11,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
-import com.mrroboto.notimed.data.models.User
 import com.mrroboto.notimed.databinding.FragmentRegisterBinding
+import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.viewmodels.UserViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
 import java.util.*
@@ -112,10 +113,37 @@ class RegisterFragment : Fragment() {
                 isValidPassword()
                 isValidGender()
             } else {
-                viewModel.register(requireContext())
+                viewModel.register()
             }
         }
 
+        viewModel.apiResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is ApiResponse.Success -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Usuario creado con exito!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                }
+                is ApiResponse.Failure -> {
+                    if (it.errorCode == 400) {
+                        Toast.makeText(
+                            requireContext(),
+                            "El usuario ya existe",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else if (it.errorCode == 400) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Revisa los datos",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
     }
 
     override fun onPause() {

@@ -13,6 +13,12 @@ object RetrofitInstance {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
+    private var token = ""
+
+    fun setToken(value: String){
+        token = value
+    }
+
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(
@@ -23,6 +29,7 @@ object RetrofitInstance {
                         chain
                             .request()
                             .newBuilder()
+                            .addHeader("Authorization", "Bearer $token")
                             .build()
                     )
                 }.addInterceptor(interceptorLogging).build()
