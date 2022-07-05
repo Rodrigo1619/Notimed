@@ -26,5 +26,6 @@ export interface TopVector extends PropVector {
 }
 
 export interface ButtonProps extends PropVector {
-    text: string
+    text: string,
+    type: string | undefined,
 }
