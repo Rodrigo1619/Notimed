@@ -2,7 +2,7 @@ import express,{Request, Response} from 'express';
 import { request } from 'http';
 import contactModel from '../models/contact.model';
 import Contact from '../models/contact.model';
-
+import User from '../models/user.model';
 
 
 const createContact = async(req: Request, res: Response)=>{
@@ -13,6 +13,15 @@ const createContact = async(req: Request, res: Response)=>{
 
         //if the contact exists
         const body = req.body;
+
+         //Datos de usuario
+         const {id} = req.params;
+         const existingUser = await User.findOne({_id: id});
+         const userInfo = {
+             id: existingUser?._id,
+         }
+ 
+
         const existingNumber = await Contact.findOne({phoneNumber: body.phoneNumber});
         const existingContact = await Contact.findOne({name: body.name});
 
@@ -28,10 +37,11 @@ const createContact = async(req: Request, res: Response)=>{
                 specialization: specialization,
                 startHour: startHour,
                 endHour: endHour,
-                days: days
+                days: days,
+                user: userInfo.id
             });
             await newContact.save()
-            //await newContact.populate('user','_id')
+            await newContact.populate('user','_id')
             .then((newContact: any)=>{
                 res.status(200).send(newContact);
             })
@@ -51,9 +61,9 @@ const createContact = async(req: Request, res: Response)=>{
     }
 }
 const deleteContact = async(req: Request, res: Response)=>{
-    const {id} = req.params;
     try{
-        const contact = await Contact.findByIdAndDelete(id);
+        const {id, id2} = req.params;
+        const contact = await Contact.findByIdAndDelete({_id: id, user: id2});
         return res.status(200).json({contact})
     }catch(error){
         return res
@@ -63,8 +73,9 @@ const deleteContact = async(req: Request, res: Response)=>{
 }
 const updateContact = async(req:Request,res: Response )=>{
     try{
+        const {id, id2} = req.params;
         const{name,phoneNumber,address,specialization,startHour,endHour,days}=req.body;
-        const update = await Contact.findByIdAndUpdate(req.params.id,{
+        const update = await Contact.findByIdAndUpdate({_id: id, user: id2},{
             name:name,
             phoneNumber:phoneNumber,
             adress: address,
@@ -84,12 +95,12 @@ const updateContact = async(req:Request,res: Response )=>{
 const getContacts = async(req: Request, res: Response)=>{
     const { limit = 5, skip = 0 } = req.query;
 
-    const query = { estado: true };
+    const {id} = req.params;
 
 
     const [total, contacts] = await Promise.all([
-        Contact.countDocuments(query),
-        Contact.find(query)
+        Contact.countDocuments({user:id}),
+        Contact.find({user:id})
             .skip(Number(skip))
             .limit(Number(limit))
     ])
@@ -99,9 +110,9 @@ const getContacts = async(req: Request, res: Response)=>{
 
 const getContact =async (req:Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const {id, id2} = req.params;
 
-        const contact = await Contact.findOne({ id });
+        const contact = await Contact.findOne({_id: id, user: id2});
 
         if (!contact)
             return res.status(404).send({ message: "Contact not found" });

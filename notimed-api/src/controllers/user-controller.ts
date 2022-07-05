@@ -162,7 +162,7 @@ const whoami = async (req: Request, res: Response) => {
                 .status(err.status as number ?? 400)
                 .json({ message: err.message ?? JSON.stringify(err) });
     }
-}
+} 
 
 const resetPassword = async (req: Request, res: Response) => {
     const {id, token} = req.params;

@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { model, ObjectId, Schema } from "mongoose";
 //1. creating interface
 interface IAppointment extends Document{
     appointmentName:string,
@@ -6,7 +6,8 @@ interface IAppointment extends Document{
     appointmentDate:string,
     appointmentHour:string,
     address:string,
-    additionalNotes:string
+    additionalNotes:string,
+    user:ObjectId
 }
 //2.creating schema
 const Appointment: Schema = new Schema<IAppointment>({
@@ -34,6 +35,10 @@ const Appointment: Schema = new Schema<IAppointment>({
     additionalNotes: {
         type: String,
         required: false
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 },
 {

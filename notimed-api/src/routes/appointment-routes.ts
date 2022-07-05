@@ -5,18 +5,29 @@ import { getAppointment,deleteAppointment, updateAppointment,createAppointment, 
 
 const router = Router();
 
-router.post('/create', createAppointment);
+router.post('/create:id', [
+    check('id', 'No es un id valido').isMongoId()
+], createAppointment);
 
-router.get('/:id', getAppointment);
-router.get('/', getAppointments);
+router.get('/:id', [
+    check('id', 'No es un id valido').isMongoId()
+], getAppointments);
+router.get('/:id/:id2', [
+    check('id', 'No es un id valido').isMongoId(),
+    check('id2', 'No es un id valido').isMongoId()
+],  getAppointment);
 
 //delete
-router.delete('/delete/:id', deleteAppointment);
+router.delete('/delete/:id/:id2', [
+    check('id', 'No es un id valido').isMongoId(),
+    check('id2', 'No es un id valido').isMongoId()
+],deleteAppointment);
 
 //patch
-router.patch('/update/:id',[
+router.patch('/update/:id/:id2',[
     check('id', 'No es un id valido').isMongoId(),
-    validarCampos
+    check('id2', 'No es un id valido').isMongoId()
 ],updateAppointment);
 
 module.exports = router; 
+
