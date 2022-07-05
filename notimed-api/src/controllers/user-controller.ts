@@ -239,13 +239,13 @@ const forgotPassword = async (req: Request, res:Response) =>{
 
     const token = jwt.sign(payload, secret, {expiresIn: '15m'});
 
-    const link = `http://localhost:3000/identity/reset-password/${userInfo.id}/${token}`
+    const link = `https://notimed-api.me/identity/reset-password/${userInfo.id}/${token}`
 
     const info = await transporter.sendMail({
         from: `'Notimed' <${configEnv.user_mailer}>`,
         to: `${email}`,
-        subject: 'Reset password☠️',
-        text: `Recover link: ${link}`
+        subject: 'Reset password',
+        text: `Recover link: \n \n ${link}`
     });
 
     
