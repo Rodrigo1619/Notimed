@@ -4,6 +4,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
 import nodemailer from 'nodemailer';
 import bcrypt from 'bcrypt';
 import configEnv from '../config/config';
+import { config } from 'dotenv';
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -15,7 +16,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
         const existingUser = await User.findOne({ email: body.email });
 
         if (existingUser) {
-            throw { status: 400, message: "user already exists" }
+            throw { status: 409, message: "user already exists" }
         } else {
 
             const myPasssword = body.password;
@@ -161,38 +162,95 @@ const whoami = async (req: Request, res: Response) => {
                 .status(err.status as number ?? 400)
                 .json({ message: err.message ?? JSON.stringify(err) });
     }
+} 
+
+const resetPassword = async (req: Request, res: Response) => {
+    const {id, token} = req.params;
+    const existingUser = await User.findOne({_id: id});
+    const userInfo = {
+        id: existingUser?._id,
+        password: existingUser?.password
+    }
+    if (!userInfo.id) {
+        res.send('Invalid id');
+        return;
+        
+    }
+
+    const secret:string = configEnv.secret_key + userInfo.password!;
+
+    const {password, password2} = req.body;
+
+    try {
+        const payload = jwt.verify(token, secret);
+        if(password !== password2){
+            res.send("Passwords don't match");
+            return;
+        }
+
+        userInfo.password = password;
+
+        const myPasssword = userInfo.password;
+        const hash = bcrypt.hashSync(myPasssword!, bcrypt.genSaltSync(10));
+        const update = await User.findByIdAndUpdate(id, {
+            password: hash
+        });
+
+        res.send({update});  
+    } catch (err: any) {
+        return res
+                .status(err.status as number ?? 400)
+                .json({ message: err.message ?? JSON.stringify(err) });
+    }
+
+
 }
 
-const recoverPassword = async (req: Request, res:Response) =>{
+const forgotPassword = async (req: Request, res:Response) =>{
 
     const { email} = req.body;
+    const existingUser = await User.findOne({ email: email });
+    if(!existingUser)
+        return res.send("User not exist");
 
    const transporter =  nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
         auth: {
-            user: 'notimed.med@gmail.com',
-            pass: 'semaqxsvotjusahz'
+            user: `${configEnv.user_mailer}`,
+            pass: `${configEnv.pass_mailer}`
         }
     });
-
     transporter.verify().then(()=>{
         console.log('Ready for send emails')
     });
 
+    const userInfo = {
+        password: existingUser.password,
+        id: existingUser._id
+    }
+
+    const secret = configEnv.secret_key + userInfo.password;
+    const payload = {
+        email: email,
+        id: userInfo.id
+    }
+
+    const token = jwt.sign(payload, secret, {expiresIn: '15m'});
+
+    const link = `http://localhost:3000/identity/reset-password/${userInfo.id}/${token}`
+
     const info = await transporter.sendMail({
-        from: "'Notimed' <notimed.med@gmail.com>",
+        from: `'Notimed' <${configEnv.user_mailer}>`,
         to: `${email}`,
         subject: 'Reset password☠️',
-        text: 'Recover link: '
+        text: `Recover link: ${link}`
     });
 
     
 
-    res.send('Received');
-
-
+    res.send('Password reset link has been sent to your email!');
 }
 
 export {
@@ -201,7 +259,8 @@ export {
     getAllUsers,
     getUser,
     updateUser,
-    recoverPassword,
+    forgotPassword,
+    resetPassword,
     whoami
 }
 

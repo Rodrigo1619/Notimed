@@ -6,17 +6,17 @@ import { addReminder,deleteReminder,updateReminder,getReminders, getReminder } f
 const router = Router();
 
 //post
-router.post('/add', addReminder);
+router.post('/add/:id', addReminder);
 
 //get
-router.get('/', getReminders);
-router.get('/:id', getReminder);
+router.get('/:id', getReminders);
+router.get('/:id/id2', getReminder);
 
 //delete
-router.delete('/delete/:id', deleteReminder)
+router.delete('/delete/:id/:id2', deleteReminder)
 
 //patch
-router.patch('/update/:id',[
+router.patch('/update/:id/:id2',[
     check('id', 'No es un id valido').isMongoId(),
     validarCampos
 ],updateReminder);

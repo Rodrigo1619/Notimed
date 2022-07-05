@@ -1,15 +1,24 @@
 import express, { Request, Response } from 'express';
 import appointmentModel from '../models/appointment.model';
 import Appointment from '../models/appointment.model';
+import User from '../models/user.model';
 
 const createAppointment = async (req: Request, res: Response) => {
     try {
+        
         const { appointmentName, doctorName, appointmentDate, appointmentHour, address, additionalNotes } = req.body;
         if (appointmentName === "" || doctorName === "" || appointmentDate === "" || appointmentHour === "" || address === "")
             throw { status: 400, message: "Fields are empty" }
 
         //if the appointment is already in the database
         const body = req.body;
+        //Datos de usuario
+        const {id} = req.params;
+        const existingUser = await User.findOne({_id: id});
+        const userInfo = {
+            id: existingUser?._id,
+        }
+
         const appointment = await Appointment.findOne
             ({
                 appointmentName: body.appointmentName,
@@ -19,7 +28,7 @@ const createAppointment = async (req: Request, res: Response) => {
                 appointmentHour: body.appointmentHour
             });
         if (appointment) {
-            throw { status: 400, message: "Appointment already exists" }
+            throw { status: 409, message: "Appointment already exists" }
         }
         else {
             const newAppointment = new Appointment({
@@ -28,18 +37,11 @@ const createAppointment = async (req: Request, res: Response) => {
                 appointmentDate: appointmentDate,
                 appointmentHour: appointmentHour,
                 address: address,
-                additionalNotes: additionalNotes
+                additionalNotes: additionalNotes,
+                user: userInfo.id
             });
-            await newAppointment.save()
-                .then((newAppointment: any) => {
-                    res.status(200).send({ newAppointment });
-                })
-                .catch((err: any) => {
-                    res.status(400).send({
-                        message: 'Appointment cannot be added',
-                        err
-                    });
-                });
+            await newAppointment.save();
+            await newAppointment.populate('user', '_id - __v');
         }
 
     } catch (error) {
@@ -49,9 +51,9 @@ const createAppointment = async (req: Request, res: Response) => {
     }
 }
 const deleteAppointment = async(req:Request, res:Response)=>{
-    const {id} = req.params;
     try{
-        const appointment = await Appointment.findByIdAndDelete(id);
+        const {id, id2} = req.params;
+        const appointment = await Appointment.findByIdAndDelete({_id: id, user: id2});
         return res.status(200).json({appointment})
     }catch(error){
         return res
@@ -61,8 +63,9 @@ const deleteAppointment = async(req:Request, res:Response)=>{
 }
 const updateAppointment = async(req:Request, res:Response)=>{
     try{
+        const {id, id2} = req.params;
         const{appointmentName, doctorName, appointmentDate, appointmentHour, adress,additionalNotes} = req.body;
-        const update = await Appointment.findByIdAndUpdate(req.params.id,{
+        const update = await Appointment.findByIdAndUpdate({_id: id, user: id2},{
             appointmentName:appointmentName,
             doctorName:doctorName,
             appointmentDate:appointmentDate,
@@ -81,13 +84,11 @@ const updateAppointment = async(req:Request, res:Response)=>{
 
 const getAppointments = async (req: Request, res: Response) => {
     const { limit = 5, skip = 0 } = req.query;
-
-    const query = { estado: true };
-
+    const {id} = req.params;
 
     const [total, appointments] = await Promise.all([
-        Appointment.countDocuments(query),
-        Appointment.find(query)
+        Appointment.countDocuments({user:id}),
+        Appointment.find({user:id})
             .skip(Number(skip))
             .limit(Number(limit))
     ])
@@ -99,7 +100,7 @@ const getAppointment = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
 
-        const appointment = await Appointment.findOne({ id });
+        const appointment = await Appointment.findOne({user: id});
 
         if (!appointment)
             return res.status(404).send({ message: "appointment not found" });

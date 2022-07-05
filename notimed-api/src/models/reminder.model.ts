@@ -1,4 +1,4 @@
-import { model, Schema, Document } from "mongoose";
+import { model, Schema, Document, ObjectId } from "mongoose";
 
 //1. creating interface
 interface IReminder extends Document{
@@ -8,7 +8,8 @@ interface IReminder extends Document{
     dose:number,
     startDay:string,
     endDay:string,
-    foodOption:boolean
+    foodOption:boolean,
+    user: ObjectId
 }
 
 //2. creating schema
@@ -41,6 +42,10 @@ const Reminder: Schema = new Schema<IReminder>({
         type: Boolean,
         required: false
     },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 },
 { //delete what we don't wanna show to user
     toJSON:{
