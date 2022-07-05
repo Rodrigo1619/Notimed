@@ -10,6 +10,11 @@ import { MdLockOutline, MdOutlineCalendarToday, MdOutlineMailOutline, MdPerson }
 
 const Create: NextPage = () => {
 
+    const onSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+
+        console.log("Hola")
+    }
 
 
     return (
@@ -23,17 +28,17 @@ const Create: NextPage = () => {
                 isEnabled={false}
                 isBack={true} />
 
-            <form className='w-full h-full px-4 mt-4 mb-8 space-y-5 md:px-16 items-center flex flex-col justify-center'>
+            <form className='w-full h-full px-4 mt-4 mb-8 space-y-5 md:px-16 items-center flex flex-col justify-center' onSubmit={onSubmit}>
                 <InputGroup icon={<MdPerson className="absolute w-9 h-9 pl-3 text-onSurface-variant" />}
                     identifier="name"
-                    placeholder={'MrRoboto'} type={'text'} minLenght={3} required={true} label={'Nombre'} />
+                    placeholder={'MrRoboto'} type={'text'} minLength={3} required={true} label={'Nombre'} />
                 <InputGroup icon={<MdPerson className="absolute w-9 h-9 pl-3 text-onSurface-variant" />}
                     identifier="lastName"
-                    placeholder={''} type={'text'} minLenght={3} required={true} label={'Apellido'} />
+                    placeholder={''} type={'text'} minLength={3} required={true} label={'Apellido'} />
 
                 <InputGroup icon={<MdOutlineMailOutline className="absolute w-9 h-9 pl-3 text-onSurface-variant" />}
                     placeholder='mrroboto@gmail.com'
-                    identifier='email' type='email' minLenght={5} required={true} label="Correo electronico" />
+                    identifier='email' type='email' minLength={5} required={true} label="Correo electronico" />
 
                 <InputGroup icon={<MdOutlineCalendarToday className="absolute w-9 h-9 pl-3 text-onSurface-variant" />}
                     placeholder='mrroboto@gmail.com'
