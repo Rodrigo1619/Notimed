@@ -10,7 +10,7 @@ router.post('/add/:id', addReminder);
 
 //get
 router.get('/:id', getReminders);
-router.get('/:id/id2', getReminder);
+router.get('/:id/:id2', getReminder);
 
 //delete
 router.delete('/delete/:id/:id2', deleteReminder)
