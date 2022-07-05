@@ -1,6 +1,6 @@
 import {check} from 'express-validator';
 import express from 'express';
-import { login, register, whoami } from '../controllers/user-controller';
+import { login, register, whoami, forgotPassword, resetPassword} from '../controllers/user-controller';
 import { existingEmail } from 'src/helpers/db-validators';
 
 const loginRouter = express();
@@ -14,6 +14,9 @@ loginRouter.post("/signup", [
 loginRouter.post("/signin", login);
 
 loginRouter.get('/whoami', whoami);
+loginRouter.post("/forgot-password", forgotPassword);
+
+loginRouter.patch("/reset-password/:id/:token", resetPassword);
 
 module.exports = loginRouter;
 

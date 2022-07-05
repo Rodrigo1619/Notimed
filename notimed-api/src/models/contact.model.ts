@@ -1,4 +1,4 @@
-import { model, Schema, Document } from "mongoose";
+import { model, Schema, Document, ObjectId } from "mongoose";
 
 
 //1. creating an interface as a representation of a document
@@ -9,7 +9,8 @@ interface IContact extends Document{
     specialization:string,
     startHour:string,
     endHour:string,
-    days:object
+    days:object,
+    user:ObjectId
 }
 
 //2 creating schema corresponding to interface
@@ -50,6 +51,10 @@ const Contact: Schema = new Schema<IContact>({
             Saturday: Boolean,
             Sunday: Boolean,
         }
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 },
 //3 delete what we don't wanna show to user
