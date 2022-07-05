@@ -9,8 +9,8 @@ const router = Router();
 router.post('/add', addReminder);
 
 //get
-router.get('/reminders', getReminders);
-router.get('/reminder/:id', getReminder);
+router.get('/', getReminders);
+router.get('/:id', getReminder);
 
 //delete
 router.delete('/delete/:id', deleteReminder)

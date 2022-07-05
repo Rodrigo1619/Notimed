@@ -1,7 +1,7 @@
 import User from '../models/user.model';
 import { NextFunction, Request, Response } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
-
+import nodemailer from 'nodemailer';
 import bcrypt from 'bcrypt';
 import configEnv from '../config/config';
 
@@ -132,9 +132,65 @@ const updateUser = async (req: Request, res: Response) =>{
     
 
         res.status(201).send({update});
-    } catch (error) {
-        throw new Error(error);
+    } catch (err: any) {
+        return res
+                .status(err.status as number ?? 400)
+                .json({ message: err.message ?? JSON.stringify(err) });
+        }
     }
+
+const whoami = async (req: Request, res: Response) => {
+    try {
+        const auth = req.headers['authorization']
+
+        if(!auth) throw { status: 403, message: 'Empty token'}
+
+        const [bearer, token] = auth.split(' ')
+
+        if(bearer !== "Bearer" || token === "")
+            throw { status: 401, message: "Invalid token"}
+
+        const payload: JwtPayload = 
+            jwt.verify(token, configEnv.secret_key as string) as JwtPayload
+        
+        const user = await User.findById({ _id: payload.id })
+
+        return res.status(200).json({ message: "Is authorized", content: user})
+    } catch (err: any) {
+        return res
+                .status(err.status as number ?? 400)
+                .json({ message: err.message ?? JSON.stringify(err) });
+    }
+}
+
+const recoverPassword = async (req: Request, res:Response) =>{
+
+    const { email} = req.body;
+
+   const transporter =  nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: 'notimed.med@gmail.com',
+            pass: 'semaqxsvotjusahz'
+        }
+    });
+
+    transporter.verify().then(()=>{
+        console.log('Ready for send emails')
+    });
+
+    const info = await transporter.sendMail({
+        from: "'Notimed' <notimed.med@gmail.com>",
+        to: `${email}`,
+        subject: 'Reset password☠️',
+        text: 'Recover link: '
+    });
+
+    
+
+    res.send('Received');
 
 
 }
@@ -144,6 +200,8 @@ export {
     login,
     getAllUsers,
     getUser,
-    updateUser
+    updateUser,
+    recoverPassword,
+    whoami
 }
 
