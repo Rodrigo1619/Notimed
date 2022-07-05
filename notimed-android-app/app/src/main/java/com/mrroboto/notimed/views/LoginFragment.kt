@@ -62,18 +62,25 @@ class LoginFragment : Fragment() {
                 binding.editPassword.error = null
                 binding.editEmail.error = null
 
-                viewModel.onLogin(email.toString(), password.toString())
+                viewModel.onLogin(email.toString(), password.toString(), isLoading = true)
 
             }
         }
 
         viewModel.apiResponse.observe(viewLifecycleOwner) {
             when (it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.bringToFront()
+                }
                 is ApiResponse.Success -> {
+                    binding.progressBar.visibility = View.GONE
                     findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
+                    // Guardamos el token del usuario que recien inicia sesión
                     application.saveAuthToken(it.data as String)
                 }
                 is ApiResponse.Failure -> {
+                    binding.progressBar.visibility = View.GONE
                     if (it.errorCode == 404) {
                         Toast.makeText(requireContext(), getString(R.string.not_found_user), Toast.LENGTH_SHORT).show()
                     } else if (it.errorCode == 403) {

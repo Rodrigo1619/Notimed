@@ -22,6 +22,7 @@
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_food_24.xml" value="0.162" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_loginnotimed.xml" value="0.1" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_notes.xml" value="0.1" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_notimed_dark.xml" value="0.2285" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_outline_email_24.xml" value="0.1" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_outline_email_focused.xml" value="0.1935" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/drawable/ic_person.xml" value="0.1935" />
@@ -47,7 +48,7 @@
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout-sw600dp/fragment_contact.xml" value="0.12421875" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout-sw600dp/fragment_menu.xml" value="0.128" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout-sw600dp/fragment_reminder.xml" value="0.12421875" />
-        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/activity_main.xml" value="0.6" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/cardappointment_layout.xml" value="0.2039333048311244" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/cardcontact_layout.xml" value="0.2039333048311244" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/cardreminder_layout.xml" value="0.4" />
@@ -63,6 +64,8 @@
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_recover.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_register.xml" value="0.264" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/fragment_reminder.xml" value="0.176" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/loading_component.xml" value="0.536" />
+        <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/loading_layout.xml" value="0.2" />
         <entry key="..\:/Users/OMEN/Desktop/CICLOS/Ciclo05/Programacion moviles/proyecto-notimed/notimed-android-app/app/src/main/res/menu/top_app_bar.xml" value="0.264" />
         <entry key="..\:/Users/rodri/OneDrive/Desktop/proyecto_moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/cardcontact_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/rodri/OneDrive/Desktop/proyecto_moviles/proyecto-notimed/notimed-android-app/app/src/main/res/layout/cardreminder_layout.xml" value="0.16666666666666666" />

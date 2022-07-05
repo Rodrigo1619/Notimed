@@ -17,23 +17,35 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
 
     val apiResponse = MutableLiveData<ApiResponse<Any>>()
 
-    fun onLogin(email: String, password: String) = viewModelScope.launch {
-        apiResponse.value = repository.login(email, password)
+    fun onLogin(email: String, password: String, isLoading: Any) = viewModelScope.launch {
+        apiResponse.value = ApiResponse.Loading(isLoading)
+        apiResponse.postValue(
+            repository.login(email, password)
+        )
     }
 
-    fun register() = viewModelScope.launch {
-        apiResponse.value = repository.register(
+    fun register(isLoading: Any) = viewModelScope.launch {
+        apiResponse.value = ApiResponse.Loading(isLoading)
+
+        apiResponse.postValue(repository.register(
             currentName.value.toString(),
             currentLastname.value.toString(),
             currentEmail.value.toString(),
             currentPassword.value.toString(),
             currentBirthday.value.toString(),
             currentGender.value.toString().lowercase()
-        )
+        ))
+
+
     }
 
+    fun whoami(isLoading: Any) = viewModelScope.launch {
+        apiResponse.value = ApiResponse.Loading(isLoading)
+        apiResponse.postValue(repository.whoami())
+    }
 
-    fun whoami() = viewModelScope.launch {
-        apiResponse.value = repository.whoami()
+    fun recoverpassword(isLoading: Any) = viewModelScope.launch {
+        apiResponse.value = ApiResponse.Loading(isLoading)
+        apiResponse.postValue(repository.recoverPassword(currentEmail.value.toString()))
     }
 }

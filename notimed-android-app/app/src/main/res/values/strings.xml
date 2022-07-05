@@ -132,4 +132,14 @@
 
     <string name="not_found_user"> Usuario no encontrado </string>
     <string name="credentials_error"> Revisa tus credenciales </string>
+
+    <string name="needsFood"> Debe tomarse al ingerir alimentos </string>
+    <string name="noNeedsFood"> Puede tomarse sin alimentos </string>
+
+    <string name="recover_title_success"> La contraseña se envio al correo: </string>
+    <string name="recover_body_success"> Revisa tu correo si no lo encuentras revisa en el apartado Spam </string>
+
+    <string name="general_error"> Ocurrió un error inesperado… Intentalo nuevamente </string>
+
+    <string name="ok_response" translatable="false">@android:string/ok</string>
 </resources>

@@ -113,13 +113,19 @@ class RegisterFragment : Fragment() {
                 isValidPassword()
                 isValidGender()
             } else {
-                viewModel.register()
+                viewModel.register(isLoading = true)
             }
         }
 
         viewModel.apiResponse.observe(viewLifecycleOwner) {
+
             when (it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.bringToFront()
+                }
                 is ApiResponse.Success -> {
+                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.success_create_user),
@@ -128,8 +134,8 @@ class RegisterFragment : Fragment() {
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
                 is ApiResponse.Failure -> {
-                    if (it.errorCode == 400) {
-                        // TODO("cambiar 400 a 409")
+                    binding.progressBar.visibility = View.GONE
+                    if (it.errorCode == 409) {
                         Toast.makeText(
                             requireContext(),
                             getString(R.string.error_existing_user),

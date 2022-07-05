@@ -3,9 +3,10 @@ package com.mrroboto.notimed.repositories
 import com.mrroboto.notimed.data.AppDatabase
 import com.mrroboto.notimed.data.models.User
 import com.mrroboto.notimed.network.ApiResponse
-import com.mrroboto.notimed.network.IdentityService
 import com.mrroboto.notimed.network.responses.identity.LoginRequest
+import com.mrroboto.notimed.network.responses.identity.RecoverRequest
 import com.mrroboto.notimed.network.responses.identity.RegisterRequest
+import com.mrroboto.notimed.network.services.IdentityService
 import retrofit2.HttpException
 
 class UserRepository(private val api: IdentityService, database: AppDatabase) {
@@ -66,4 +67,12 @@ class UserRepository(private val api: IdentityService, database: AppDatabase) {
         }
     }
 
+    suspend fun recoverPassword(email: String): ApiResponse<Any> {
+        return try {
+            val response = api.recoverPassword(RecoverRequest(email))
+            ApiResponse.Success(response)
+        } catch (error: HttpException) {
+            ApiResponse.Failure(error.code(), error.message())
+        }
+    }
 }

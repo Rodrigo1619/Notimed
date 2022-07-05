@@ -4,7 +4,7 @@
     <string name="labelEmail">Email</string>
     <string name="labelPassword">Password</string>
     <string name="forgetPassword">Forgot your password?</string>
-    <string name="loginText">Log in</string>
+    <string name="loginText">Sign in</string>
     <string name="registerText">Sign Up</string>
     <string name="accountRegister">Don\'t have an account? Sign Up</string>
     <string name="labelName">First name</string>
@@ -131,4 +131,12 @@
 
     <string name="not_found_user"> User not found </string>
     <string name="credentials_error"> Check your credentials </string>
+
+    <string name="needsFood"> Must be taken with food </string>
+    <string name="noNeedsFood"> Can be taken without food </string>
+
+    <string name="recover_title_success"> The password was sent to the email: </string>
+    <string name="recover_body_success"> Check your email if you can\'t find it check the Spam section </string>
+
+    <string name="general_error"> An unexpected error occurred… Please try again </string>
 </resources>

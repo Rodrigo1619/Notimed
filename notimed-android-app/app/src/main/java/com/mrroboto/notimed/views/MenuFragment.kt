@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,7 +42,7 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.whoami()
+        viewModel.whoami(isLoading = true)
 
         binding.reminderButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_menuFragment_to_reminderFragment)
@@ -58,11 +59,17 @@ class MenuFragment : Fragment() {
 
         viewModel.apiResponse.observe(viewLifecycleOwner) {
             when(it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.bringToFront()
+                }
                 is ApiResponse.Success -> {
+                    binding.progressBar.visibility = View.GONE
                     binding.menuUsername.text = it.data.toString()
                 }
                 is ApiResponse.Failure -> {
-
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
                 }
             }
 
