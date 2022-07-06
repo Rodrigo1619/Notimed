@@ -4,13 +4,16 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
 import nodemailer from 'nodemailer';
 import bcrypt from 'bcrypt';
 import configEnv from '../config/config';
-import { config } from 'dotenv';
+import { validationResult } from 'express-validator';
+
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
         const { name, lastName, email, password, birthday, gender, rol } = req.body;
-        if (name === "" || email === "" || password === "" || lastName === "" || birthday === "" || gender === "")
-            throw { status: 400, message: "Fields are empty" }
 
         const body = req.body
         const existingUser = await User.findOne({ email: body.email });
@@ -54,6 +57,11 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 
 const login = async (req: Request, res: Response) => {
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
+
 
         const { email, password } = req.body;
 
@@ -104,6 +112,10 @@ const getAllUsers = async (req: Request, res: Response) => {
 
 const getUser = async (req: Request, res: Response) => {
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
         const { id } = req.params;
 
         const user = await User.findOne({ id });
@@ -122,6 +134,10 @@ const getUser = async (req: Request, res: Response) => {
 
 const updateUser = async (req: Request, res: Response) =>{
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
         const { name, lastName, birthday, gender } = req.body;
         const update = await User.findByIdAndUpdate(req.params.id, {
             name: name,
@@ -165,6 +181,10 @@ const whoami = async (req: Request, res: Response) => {
 } 
 
 const resetPassword = async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     const {id, token} = req.params;
     const existingUser = await User.findOne({_id: id});
     const userInfo = {
@@ -196,7 +216,7 @@ const resetPassword = async (req: Request, res: Response) => {
             password: hash
         });
 
-        res.send({update});  
+        res.status(200).json({update});  
     } catch (err: any) {
         return res
                 .status(err.status as number ?? 400)
@@ -207,7 +227,12 @@ const resetPassword = async (req: Request, res: Response) => {
 }
 
 const forgotPassword = async (req: Request, res:Response) =>{
-
+try {
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
     const { email} = req.body;
     const existingUser = await User.findOne({ email: email });
     if(!existingUser)
@@ -250,7 +275,10 @@ const forgotPassword = async (req: Request, res:Response) =>{
 
     
 
-    res.send('Password reset link has been sent to your email!');
+    res.status(200).json('Password reset link has been sent to your email!');
+} catch (error) {
+    
+}
 }
 
 export {

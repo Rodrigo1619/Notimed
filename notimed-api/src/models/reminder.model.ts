@@ -30,14 +30,6 @@ const Reminder: Schema = new Schema<IReminder>({
         type: Number,
         required: true
     },
-    startDay: {
-        type: String,
-        required: false
-    },
-    endDay: {
-        type: String,
-        required: false
-    },
     foodOption: {
         type: Boolean,
         required: false
@@ -51,6 +43,13 @@ const Reminder: Schema = new Schema<IReminder>({
     toJSON:{
         transform(doc,ret){
             delete ret.__v
+            delete ret.user.__v
+            delete ret.user.name
+            delete ret.user.lastName
+            delete ret.user.email
+            delete ret.user.rol
+            delete ret.user.birthday
+            delete ret.user.gender
         }
     }
 });

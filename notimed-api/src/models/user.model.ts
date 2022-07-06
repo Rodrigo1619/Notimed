@@ -44,7 +44,8 @@ const UserSchema = new Schema<IUser>({
     type: String,
     enum: ["user", "admin"],
     default: 'user',
-    required: true }
+    required: true 
+  }
   
 },
 {//Para que no aparezcan estos parámetros al hacer la petición

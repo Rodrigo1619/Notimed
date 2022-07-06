@@ -62,7 +62,13 @@ const Contact: Schema = new Schema<IContact>({
     toJSON:{
         transform(doc,ret){
             delete ret.__v
-            
+            delete ret.user.__v
+            delete ret.user.name
+            delete ret.user.lastName
+            delete ret.user.email
+            delete ret.user.rol
+            delete ret.user.birthday
+            delete ret.user.gender
         },
     }
 });

@@ -1,3 +1,4 @@
+import { check } from 'express-validator';
 import User from '../models/user.model';
 
  //Verificar si el correo existe
@@ -16,6 +17,7 @@ import User from '../models/user.model';
         throw new Error('El id no es válido');
     };
  }
+
 export  { 
     existingEmail,
     existingUserById
