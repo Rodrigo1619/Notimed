@@ -7,14 +7,11 @@ const addReminder = async(req: Request, res: Response)=>{
     try{
         const {id} = req.params;
         const {name, repeatEvery,hour,dose, startDay, endDay, foodOption} = req.body;
-        if(name === '' || repeatEvery === '' || hour ==='' || dose==='' || startDay ==='' || endDay ==='' || foodOption === '')
-        throw{ status:400, message: "All fields must be completed"}
 
         const existingUser = await User.findOne({_id: id});
         const userInfo = {
             id: existingUser?._id,
         }
-
         
         const newReminder = new Reminder({
             name: name,

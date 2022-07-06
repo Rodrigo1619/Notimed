@@ -1,6 +1,6 @@
 import configEnv from "../config/config";
 import mongoose, { ConnectOptions } from "mongoose";
-import '../pre-start';
+//import '../pre-start';
 
 
 //Conectar a mongoDB
