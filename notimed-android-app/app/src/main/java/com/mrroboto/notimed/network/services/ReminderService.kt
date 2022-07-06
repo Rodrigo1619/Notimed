@@ -16,6 +16,6 @@ interface ReminderService {
         @Body reminderBody: ReminderRequest
     )
 
-    @GET("/reminders/{id}")
+    @GET("/reminders/{id}?limit=10000")
     suspend fun getReminder(@Path("id") id: String) : ReminderResponse
 }

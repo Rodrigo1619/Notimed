@@ -15,12 +15,21 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
     var currentDose = MutableLiveData<String>()
     var currentStartDay = MutableLiveData<String>()
     var currentEndDay = MutableLiveData<String>()
-    var currentOption = MutableLiveData<Boolean>()
+    var currentOption = MutableLiveData<String>()
 
     val apiResponse = MutableLiveData<ApiResponse<Any>>()
     val listResponse = MutableLiveData<ApiResponse<List<Reminder>>>()
 
-    fun createReminder(isLoading: Boolean) = viewModelScope.launch {
+    fun createReminder(
+        isLoading: Boolean,
+        name: String,
+        startDate: String,
+        endDate: String,
+        dose: Float,
+        option: Boolean,
+        times: Int,
+        hour: String
+    ) = viewModelScope.launch {
         //Una Couroutine o Corrutina es un patron de diseño para simplificar codigo
         // en android.
 
@@ -31,13 +40,13 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
 
         apiResponse.postValue(
             repository.addReminder(
-                currentName.value.toString(),
-                currentEveryTimes.value!!.toInt(),
-                currentHour.value.toString(),
-                currentDose.value!!.toFloat(),
-                currentStartDay.value.toString(),
-                currentEndDay.value.toString(),
-                currentOption.value.toString().toBoolean()
+                name,
+                times,
+                hour,
+                dose,
+                startDate,
+                endDate,
+                option
             )
         )
     }

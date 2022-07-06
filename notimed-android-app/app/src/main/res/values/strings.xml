@@ -144,4 +144,5 @@
     <string name="ok_response" translatable="false">@android:string/ok</string>
     <string name="next_reminder_hint">Proximo recordatorio:</string>
     <string name="options_label">Consideraciones:</string>
+    <string name="reminder_created">¡Recordatorio creado!</string>
 </resources>

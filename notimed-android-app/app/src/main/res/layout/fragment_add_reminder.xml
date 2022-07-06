@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.mrroboto.notimed.viewmodels.ReminderViewModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,8 +54,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
                 app:layout_constraintWidth_max="480dp">
 
+                <ProgressBar
+                    android:id="@+id/progressBar3"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="gone"/>
+
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editName"
+                    android:id="@+id/editMedicineName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
@@ -68,8 +86,10 @@
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/medicine_hint"
                         android:inputType="text"
+                        android:text="@{viewModel.currentName}"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -81,37 +101,36 @@
                     app:layout_constraintBottom_toTopOf="@id/editTimesADay"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editName"
+                    app:layout_constraintTop_toBottomOf="@id/editMedicineName"
                     />
 
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editTimesADay"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/smallGap"
                     android:layout_marginBottom="@dimen/margin_20dp"
-                    android:hint="@string/times_a_day_hint"
-                    app:endIconDrawable="@drawable/ic_arrow_down"
-                    app:endIconMode="dropdown_menu"
-                    app:endIconTint="?colorPrimary"
+                    app:endIconMode="clear_text"
                     app:errorEnabled="true"
                     app:errorIconTint="?colorError"
                     app:errorTextColor="?colorError"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/hour_edit"
+                    app:layout_constraintBottom_toTopOf="@id/hour_edit"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:prefixText="@string/every_prefix"
+                    app:suffixText="@string/hour_suffix"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/labelSchedule"
-                    app:startIconDrawable="@drawable/ic_repeat">
+                    app:layout_constraintTop_toBottomOf="@+id/labelSchedule">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/dropdown_times"
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none"
-                        tools:ignore="LabelFor" />
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_repeat"
+                        android:drawablePadding="@dimen/smallGap"
+                        android:hint="@string/times_a_day_hint"
+                        android:text="@{viewModel.currentEveryTimes}"
+                        android:inputType="number"
+                        android:textColor="?colorOnSurface"
+                        android:textColorHint="?colorOnSurfaceVariant" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,6 +163,7 @@
                         android:focusable="true"
                         android:focusableInTouchMode="false"
                         android:hint="@string/labelStartHour"
+                        android:text="@{viewModel.currentHour}"
                         android:inputType="datetime"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
@@ -173,6 +193,7 @@
                         android:hint="@string/labelDose"
                         android:inputType="numberDecimal"
                         android:textColor="?colorOnSurface"
+                        android:text="@{viewModel.currentDose}"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -201,6 +222,7 @@
                         android:focusable="true"
                         android:focusableInTouchMode="false"
                         android:hint="@string/dateRange_hint"
+                        android:text="@{viewModel.currentStartDay}"
                         android:inputType="date"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />

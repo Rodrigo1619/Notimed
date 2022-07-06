@@ -1,11 +1,11 @@
 package com.mrroboto.notimed.views
 
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
@@ -22,6 +22,7 @@ import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAddReminderBinding
+import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.viewmodels.ReminderViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
 
@@ -50,17 +51,15 @@ class AddReminderFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val times = resources.getStringArray(R.array.times)
         val foodOption = resources.getStringArray(R.array.response_food)
         val arrayAdapterFood = ArrayAdapter(requireContext(), R.layout.dropdown_item, foodOption)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, times)
 
-        binding.dropdownTimes.setAdapter(arrayAdapter)
         binding.dropdownOptions.setAdapter(arrayAdapterFood)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = viewModel
 
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -84,29 +83,6 @@ class AddReminderFragment : Fragment() {
             it.findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
         }
 
-        binding.dropdownTimes.setOnItemClickListener { _, _, position, _ ->
-
-            val times = resources.getStringArray(R.array.times)
-            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, times)
-
-            // Si es la position 4 (es el input custom) se setean textos de suffix y prefix para
-            // que el usuario sepa que se le pide.
-            if (position == 4) {
-                binding.editTimesADay.suffixText = getString(R.string.hour_suffix)
-                binding.editTimesADay.prefixText = getString(R.string.every_prefix)
-                binding.editTimesADay.editText?.setText("")
-                binding.editTimesADay.editText?.inputType = InputType.TYPE_CLASS_NUMBER
-            }
-
-            if (position != 4) {
-                closeKeyboard()
-                binding.editTimesADay.editText?.inputType = InputType.TYPE_NULL
-                binding.editTimesADay.suffixText = null
-                binding.editTimesADay.prefixText = null
-                binding.dropdownTimes.setAdapter(arrayAdapter)
-            }
-        }
-
         binding.cancelButton.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.warning_title_reminder)
@@ -122,6 +98,15 @@ class AddReminderFragment : Fragment() {
                 .show()
         }
 
+        binding.dropdownOptions.setOnItemClickListener { _, _, position, _ ->
+            if(position == 0) {
+                viewModel.currentOption.value = true.toString()
+            } else {
+                viewModel.currentOption.value = false.toString()
+            }
+        }
+
+
         binding.saveButton.setOnClickListener {
             if (!(isValidRepeat() && isValidDose() && isValidHour() && isValidOption()
                         && isValidMedicine() && isValidRangeDate())
@@ -133,12 +118,38 @@ class AddReminderFragment : Fragment() {
                 isValidMedicine()
                 isValidRangeDate()
             } else {
-                viewModel.createReminder(true)
+                val name = binding.editMedicineName.editText?.text.toString()
+                val dose = binding.doseEdit.editText?.text.toString().toFloat()
+                val hour = binding.hourEdit.editText?.text.toString()
+                val startDate = binding.rangeDate.editText?.text.toString()
+                val endDate = binding.rangeDate.editText?.text.toString()
+                val option = viewModel.currentOption.value.toString().toBoolean()
+                val times = binding.editTimesADay.editText?.text.toString().toInt()
+
+                viewModel.createReminder(true, name, startDate, endDate, dose, option, times, hour)
             }
         }
 
         viewModel.apiResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar3.visibility = View.VISIBLE
+                    binding.progressBar3.bringToFront()
+                    findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
+                }
 
+                is ApiResponse.Success -> {
+                    binding.progressBar3.visibility = View.GONE
+                    Toast.makeText(requireContext(), R.string.reminder_created, Toast.LENGTH_SHORT).show()
+                }
+                is ApiResponse.Failure -> {
+                    binding.progressBar3.visibility = View.GONE
+                    when(it.errorCode) {
+                        400 -> Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
+                        else  -> Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
         binding.hourEdit.editText?.setOnClickListener {
@@ -183,41 +194,50 @@ class AddReminderFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        val name = binding.editMedicineName.editText
+        val dose = binding.doseEdit.editText
+        val startDate = binding.rangeDate.editText
+        val endDate = binding.rangeDate.editText
+        val option = binding.editFoodOption.editText
+        val times = binding.editTimesADay.editText
+        val hour = binding.hourEdit.editText
 
-        viewModel.currentName.value = binding.editName.editText?.text.toString()
-        viewModel.currentEveryTimes.value = binding.editTimesADay.editText?.text.toString()
-        viewModel.currentDose.value = binding.doseEdit.editText?.text.toString()
-        viewModel.currentHour.value = binding.hourEdit.editText?.text.toString()
-        viewModel.currentStartDay.value = binding.rangeDate.editText?.text.toString()
-        viewModel.currentEndDay.value = binding.rangeDate.editText?.text.toString()
+        viewModel.currentName.value = name?.text.toString()
+        viewModel.currentDose.value = dose?.text.toString()
+        viewModel.currentHour.value = hour?.text.toString()
+        viewModel.currentStartDay.value = startDate?.text.toString()
+        viewModel.currentEndDay.value = endDate?.text.toString()
+        viewModel.currentOption.value = option?.text.toString()
+        viewModel.currentEveryTimes.value = times?.text.toString()
 
         viewModel.currentName.observe(viewLifecycleOwner) {
-            binding.editName.editText?.setText(it)
+            name!!.setText(it)
         }
 
         viewModel.currentEveryTimes.observe(viewLifecycleOwner) {
-            binding.editTimesADay.editText?.setText(it)
+            times!!.setText(it)
         }
 
         viewModel.currentDose.observe(viewLifecycleOwner) {
-            binding.doseEdit.editText?.setText(it.toString())
+            dose!!.setText(it)
         }
 
         viewModel.currentHour.observe(viewLifecycleOwner) {
-            binding.hourEdit.editText?.setText(it)
+            hour!!.setText(it)
         }
 
         viewModel.currentStartDay.observe(viewLifecycleOwner) {
-            binding.rangeDate.editText?.setText(it)
+            startDate!!.setText(it)
         }
 
         viewModel.currentEndDay.observe(viewLifecycleOwner) {
-            binding.rangeDate.editText?.setText(it)
+            endDate!!.setText(it)
         }
     }
+
     // FUNCIONES DE VALIDACIÓN DE INPUTS
     private fun isValidMedicine(): Boolean {
-        val medicine = binding.editName
+        val medicine = binding.editMedicineName
 
         medicine.editText!!.doOnTextChanged { _, _, _, _ ->
             medicine.error = null
@@ -227,10 +247,6 @@ class AddReminderFragment : Fragment() {
             medicine.error = getString(R.string.onErrorEmpty)
             false
         } else true
-    }
-
-    private fun closeKeyboard() {
-        view?.hideKeyboard()
     }
 
     private fun isValidRepeat(): Boolean {

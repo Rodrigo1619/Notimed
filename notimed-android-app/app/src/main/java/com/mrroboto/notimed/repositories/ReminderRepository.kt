@@ -34,7 +34,6 @@ class ReminderRepository(private val api: ReminderService, database: AppDatabase
 
     suspend fun getReminders(): ApiResponse<List<Reminder>> {
         return try {
-            println(user_id)
             val response = api.getReminder(user_id)
 
             if (response.total > 0) {
