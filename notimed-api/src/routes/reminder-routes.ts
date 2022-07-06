@@ -1,16 +1,27 @@
 import { Router } from "express";
 import {check} from 'express-validator'
+import { exists } from "fs";
 import { addReminder,deleteReminder,updateReminder,getReminders, getReminder } from "../controllers/reminder-controller";
 
 const router = Router();
-// const {name, repeatEvery,hour,dose, startDay, endDay, foodOption} = req.body;
+// const {name, repeatEvery,hour,dose, foodOption} = req.body;
 //post
 router.post('/add/:id', [
     check('id', 'No es un id valido').isMongoId(),
-    check('repeatEvery', 'Ingrese el nombre del recordatorio').exists().not().isEmpty(),
     check('name', 'Ingrese el nombre del recordatorio').exists().not().isEmpty(),
-    check('name', 'Ingrese el nombre del recordatorio').exists().not().isEmpty(),
-    check('name', 'Ingrese el nombre del recordatorio').exists().not().isEmpty(),
+    check('name', 'Tiene que ser un string').exists().isString(),
+
+    check('repeatEvery', 'Ingrese el intervalo del recordatorio').exists().not().isEmpty(),
+    check('repeatEvery', 'Tiene que ser un entero').exists().isInt(),
+
+    check('hour', 'Ingrese la hora del recordatorio').exists().not().isEmpty(),
+    check('hour', 'Tiene que ser un string').exists().isString(),
+
+    check('dose', 'Ingrese la dósis').exists().not().isEmpty(),
+    check('dose', 'Tiene que ser un entero').exists().isInt(),
+
+    check('foodOption', 'Ingrese la opción de comida').exists().not().isEmpty(),
+    check('foodOption', 'Tiene que ser booleano').exists().isBoolean()
     
 ], addReminder);
 

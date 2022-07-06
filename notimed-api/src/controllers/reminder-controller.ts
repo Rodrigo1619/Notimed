@@ -1,10 +1,15 @@
 import express,{Request, Response} from 'express';
 import User from '../models/user.model';
 import Reminder from '../models/reminder.model';
+import { validationResult } from 'express-validator';
 
 
 const addReminder = async(req: Request, res: Response)=>{
     try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
         const {id} = req.params;
         const {name, repeatEvery,hour,dose, startDay, endDay, foodOption} = req.body;
 
@@ -37,6 +42,11 @@ const addReminder = async(req: Request, res: Response)=>{
 }
 const deleteReminder = async(req:Request, res:Response)=>{
     try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
         const {id, id2} = req.params;
         const reminder = await Reminder.findByIdAndDelete({_id: id, user: id2});
         return res.status(200).json({reminder})
@@ -49,6 +59,12 @@ const deleteReminder = async(req:Request, res:Response)=>{
 
 const updateReminder = async(req:Request, res:Response)=>{
     try{
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
+
         const {id, id2} = req.params;
         const{name,prescriptions,startDay,endDay,foodOption}=req.body;
         const update = await Reminder.findByIdAndUpdate({_id: id, user: id2},{
@@ -69,6 +85,11 @@ const updateReminder = async(req:Request, res:Response)=>{
 
 const getReminders = async(req: Request, res: Response)=>{
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
         const {id} = req.params;
     const { limit = 5, skip = 0 } = req.query;
 
@@ -88,6 +109,11 @@ const getReminders = async(req: Request, res: Response)=>{
 }
 const getReminder = async(req:Request, res:Response)=>{
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
         const { id, id2 } = req.params;
 
         const reminder = await Reminder.find({_id: id, user: id2});

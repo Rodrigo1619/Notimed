@@ -2,7 +2,6 @@ import { Router } from 'express';
 import {check} from 'express-validator'
 import passport from 'passport';
 import { existingUserById } from 'src/helpers/db-validators';
-import validarCampos  from 'src/helpers/handling-errors';
 import {getAllUsers, getUser, updateUser, } from "../controllers/user-controller"
 
 
@@ -17,7 +16,6 @@ router.get('/:id', getUser);
 router.patch('/:id',  [
     check('id', 'No es un id válido').isMongoId(),
     check('id').custom(existingUserById),
-    validarCampos
 ], updateUser);
 
 

@@ -1,6 +1,5 @@
 import { Router } from "express";
 import {createContact,deleteContact,updateContact,getContacts, getContact} from "../controllers/contact-controller"
-import validarCampos  from 'src/helpers/handling-errors';
 import {check} from 'express-validator'
 const router = Router();
 
