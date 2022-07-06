@@ -1,4 +1,5 @@
 import express,{Request, Response} from 'express';
+import { validationResult } from 'express-validator';
 import { request } from 'http';
 import contactModel from '../models/contact.model';
 import Contact from '../models/contact.model';
@@ -7,9 +8,12 @@ import User from '../models/user.model';
 
 const createContact = async(req: Request, res: Response)=>{
     try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
         const{name,phoneNumber,address,specialization,startHour,endHour,days} = req.body //destructuring model CONTACT
-        if(name === '' || phoneNumber === '' || address === '' || specialization === '' || startHour === '' || endHour === '' || days === '')
-        throw{ status:400, message: "All fields must be completed"};
+
 
         //if the contact exists
         const body = req.body;
@@ -62,6 +66,10 @@ const createContact = async(req: Request, res: Response)=>{
 }
 const deleteContact = async(req: Request, res: Response)=>{
     try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
         const {id, id2} = req.params;
         const contact = await Contact.findByIdAndDelete({_id: id, user: id2});
         return res.status(200).json({contact})
@@ -73,6 +81,10 @@ const deleteContact = async(req: Request, res: Response)=>{
 }
 const updateContact = async(req:Request,res: Response )=>{
     try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
         const {id, id2} = req.params;
         const{name,phoneNumber,address,specialization,startHour,endHour,days}=req.body;
         const update = await Contact.findByIdAndUpdate({_id: id, user: id2},{
@@ -93,6 +105,10 @@ const updateContact = async(req:Request,res: Response )=>{
 } 
 
 const getContacts = async(req: Request, res: Response)=>{
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     const { limit = 5, skip = 0 } = req.query;
 
     const {id} = req.params;
@@ -110,6 +126,10 @@ const getContacts = async(req: Request, res: Response)=>{
 
 const getContact =async (req:Request, res: Response) => {
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
         const {id, id2} = req.params;
 
         const contact = await Contact.findOne({_id: id, user: id2});
