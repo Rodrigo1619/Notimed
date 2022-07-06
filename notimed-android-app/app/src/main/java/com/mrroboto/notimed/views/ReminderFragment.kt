@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentReminderBinding
@@ -48,6 +49,8 @@ class ReminderFragment : Fragment() {
             adapter = reminderAdapter
         }
 
+        binding.lifecycleOwner = viewLifecycleOwner
+
         viewModel.getReminders(isLoading = true)
 
         viewModel.listResponse.observe(viewLifecycleOwner) {
@@ -67,8 +70,42 @@ class ReminderFragment : Fragment() {
             }
         }
 
+        reminderAdapter.getReminderId {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.deleteReminderTitle)
+                .setNegativeButton(R.string.no_response) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(R.string.yes_response) { dialog, _ ->
+                    viewModel.deleteReminder(it)
+                    dialog.cancel()
 
-        binding.lifecycleOwner = viewLifecycleOwner
+                    reminderAdapter.getPosition {
+                        reminderAdapter.notifyItemRemoved(it)
+                        reminderAdapter.notifyItemChanged(it)
+                    }
+                }
+                .show()
+        }
+
+        viewModel.apiResponse.observe(viewLifecycleOwner) { it ->
+            when (it) {
+                is ApiResponse.Loading -> {
+                    binding.progressReminders.visibility = View.VISIBLE
+                    binding.progressReminders.bringToFront()
+                }
+
+                is ApiResponse.Success -> {
+                    binding.progressReminders.visibility = View.GONE
+                    viewModel.getReminders(isLoading = true)
+                }
+                is ApiResponse.Failure -> {
+                    binding.progressReminders.visibility = View.GONE
+                    Toast.makeText(requireContext(), "${it.errorCode}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
 
         // Handler controlador de los gestos/click al boton de regresar del dispositivo
         requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
@@ -83,6 +120,5 @@ class ReminderFragment : Fragment() {
         binding.addReminderFab.setOnClickListener {
             it.findNavController().navigate(R.id.action_reminderFragment_to_addReminderFragment)
         }
-
     }
 }

@@ -145,4 +145,6 @@
     <string name="next_reminder_hint">Proximo recordatorio:</string>
     <string name="options_label">Consideraciones:</string>
     <string name="reminder_created">¡Recordatorio creado!</string>
+
+    <string name="deleteReminderTitle">¿Seguro que deseas eliminar este recordatorio?</string>
 </resources>

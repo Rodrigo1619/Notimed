@@ -135,12 +135,12 @@ class AddReminderFragment : Fragment() {
                 is ApiResponse.Loading -> {
                     binding.progressBar3.visibility = View.VISIBLE
                     binding.progressBar3.bringToFront()
-                    findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
                 }
 
                 is ApiResponse.Success -> {
                     binding.progressBar3.visibility = View.GONE
                     Toast.makeText(requireContext(), R.string.reminder_created, Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
                 }
                 is ApiResponse.Failure -> {
                     binding.progressBar3.visibility = View.GONE

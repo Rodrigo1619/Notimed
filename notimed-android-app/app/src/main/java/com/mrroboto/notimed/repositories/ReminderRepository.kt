@@ -46,4 +46,14 @@ class ReminderRepository(private val api: ReminderService, database: AppDatabase
             ApiResponse.Failure(err.code(), err.message())
         }
     }
+
+    suspend fun deleteReminder(cardId: String) : ApiResponse<Any> {
+        return try {
+            val response = api.deleteReminder(cardId, user_id)
+            reminderDao.removerReminder(cardId)
+            ApiResponse.Success(response)
+        } catch (err: HttpException) {
+            ApiResponse.Failure(err.code(), err.message())
+        }
+    }
 }

@@ -56,4 +56,10 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
 
         listResponse.postValue(repository.getReminders())
     }
+
+    fun deleteReminder(id: String) = viewModelScope.launch {
+        apiResponse.value = ApiResponse.Loading(isLoading = true)
+
+        apiResponse.postValue(repository.deleteReminder(id))
+    }
 }
