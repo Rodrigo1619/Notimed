@@ -91,9 +91,9 @@ const getReminders = async(req: Request, res: Response)=>{
 }
 const getReminder = async(req:Request, res:Response)=>{
     try {
-        const { id } = req.params;
+        const { id, id2 } = req.params;
 
-        const reminder = await Reminder.find({user: id});
+        const reminder = await Reminder.find({_id: id, user: id2});
 
         if (!reminder)
             return res.status(404).send({ message: "Reminder not found" });
