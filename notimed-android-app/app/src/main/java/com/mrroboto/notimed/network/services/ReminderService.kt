@@ -18,4 +18,7 @@ interface ReminderService {
 
     @DELETE("/reminders/delete/{idReminder}/{idUser}")
     suspend fun deleteReminder(@Path("idReminder") idReminder: String, @Path("idUser") idUser: String)
+
+    @PATCH("/reminders/updaye/{idReminder}/{idUser}")
+    suspend fun updateReminder(@Path("idReminder") idReminder: String, @Path("idUser") idUser: String, @Body credentials:  ReminderRequest)
 }

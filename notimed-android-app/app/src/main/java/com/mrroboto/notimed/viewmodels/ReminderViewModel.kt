@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.mrroboto.notimed.data.models.Reminder
 import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.repositories.ReminderRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ReminderViewModel(private val repository: ReminderRepository) : ViewModel() {
@@ -16,6 +17,7 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
     var currentStartDay = MutableLiveData<String>()
     var currentEndDay = MutableLiveData<String>()
     var currentOption = MutableLiveData<String>()
+    var currentCardId = MutableLiveData<String>()
 
     val apiResponse = MutableLiveData<ApiResponse<Any>>()
     val listResponse = MutableLiveData<ApiResponse<List<Reminder>>>()
@@ -61,5 +63,32 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
         apiResponse.value = ApiResponse.Loading(isLoading = true)
 
         apiResponse.postValue(repository.deleteReminder(id))
+    }
+
+    fun updateReminder(
+        id: String,
+        name: String,
+        startDate: String,
+        endDate: String,
+        dose: Float,
+        option: Boolean,
+        times: Int,
+        hour: String
+    ) {
+        apiResponse.value = ApiResponse.Loading(isLoading = true)
+        viewModelScope.launch(Dispatchers.IO) {
+            apiResponse.postValue(
+                repository.updateReminder(
+                    name,
+                    times,
+                    hour,
+                    dose,
+                    startDate,
+                    endDate,
+                    option,
+                    id
+                )
+            )
+        }
     }
 }

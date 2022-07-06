@@ -46,9 +46,23 @@ class NotiMedApplication : Application() {
         editor.apply()
     }
 
+    fun getCardId(): String = prefs.getString(CARD_ID, "")!!
+
+    fun saveCardId(id: String) {
+        val editor = prefs.edit()
+        editor.putString(CARD_ID, id)
+        editor.apply()
+    }
+
+    fun deleteCardId() {
+        val editor = prefs.edit()
+        editor.remove(CARD_ID)
+        editor.apply()
+    }
     companion object {
         const val USER_TOKEN = "user_token"
         const val USER_id = "user_id"
+        const val CARD_ID = "card_id"
     }
 
 }

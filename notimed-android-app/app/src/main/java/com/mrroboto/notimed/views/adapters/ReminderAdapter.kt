@@ -3,6 +3,7 @@ package com.mrroboto.notimed.views.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.data.models.Reminder
@@ -47,6 +48,17 @@ class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder>
                 it(position)
             }
         }
+
+        holder.binding.editButtonReminder.setOnClickListener {
+            onUpdateId?.let {
+                it(reminders?.get(position)?._id.toString())
+            }
+
+            onUpdatePosition?.let {
+                it(position)
+            }
+            holder.binding.root.findNavController().navigate(R.id.action_reminderFragment_to_updateReminder)
+        }
     }
 
 
@@ -61,11 +73,22 @@ class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder>
 
     private var onItemClickListener : ((id : String) -> Unit)? = null
     private var onItemListenerPosition : ((position: Int) -> Unit)? = null
+
+    private var onUpdateId : ((id : String) -> Unit)? = null
+    private var onUpdatePosition : ((position: Int) -> Unit)? = null
     fun getReminderId(listener: (id: String) -> Unit) {
         onItemClickListener = listener
     }
 
     fun getPosition(listener: (position: Int) -> Unit) {
         onItemListenerPosition = listener
+    }
+
+    fun getReminderIdforUpdate(listener: (id: String) -> Unit) {
+        onUpdateId = listener
+    }
+
+    fun getPositionforUpdate(listener: (position: Int) -> Unit) {
+        onUpdatePosition = listener
     }
 }

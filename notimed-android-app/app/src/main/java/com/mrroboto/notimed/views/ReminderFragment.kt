@@ -49,6 +49,8 @@ class ReminderFragment : Fragment() {
             adapter = reminderAdapter
         }
 
+        val app = requireActivity().application as NotiMedApplication
+
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel.getReminders(isLoading = true)
@@ -77,6 +79,7 @@ class ReminderFragment : Fragment() {
                     dialog.cancel()
                 }
                 .setPositiveButton(R.string.yes_response) { dialog, _ ->
+                    //savedInstanceState!!.putString("cardId", it)
                     viewModel.deleteReminder(it)
                     dialog.cancel()
 
@@ -109,16 +112,22 @@ class ReminderFragment : Fragment() {
 
         // Handler controlador de los gestos/click al boton de regresar del dispositivo
         requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
+            app.deleteCardId()
             findNavController()
                 .navigate(R.id.action_reminderFragment_to_menuFragment)
         }
 
         binding.topAppBar.setNavigationOnClickListener {
+            app.deleteCardId()
             it.findNavController().navigate(R.id.action_reminderFragment_to_menuFragment)
         }
 
         binding.addReminderFab.setOnClickListener {
             it.findNavController().navigate(R.id.action_reminderFragment_to_addReminderFragment)
+        }
+
+        reminderAdapter.getReminderIdforUpdate {
+            app.saveCardId(it)
         }
     }
 }

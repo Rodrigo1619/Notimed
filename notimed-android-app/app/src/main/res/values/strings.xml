@@ -147,4 +147,12 @@
     <string name="reminder_created">¡Recordatorio creado!</string>
 
     <string name="deleteReminderTitle">¿Seguro que deseas eliminar este recordatorio?</string>
+
+    <string name="deleteContactTitle">¿Seguro que deseas eliminar este contacto?</string>
+
+    <string name="deleteAppointmentTitle">¿Seguro que deseas eliminar esta cita?</string>
+
+    <string name="close_session_title">¿Deseas cerrar tu sesion?</string>
+
+    <string name="update_reminder_title"> Actualizar recordatorio </string>
 </resources>
