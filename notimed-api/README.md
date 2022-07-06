@@ -24,8 +24,9 @@ docker build -f Dockerfile.prod -t notimed/prod-api .
 ```
 
 2. Montar contenedor para producción o desarrollo. 
-    - puerto_contenedor para desarrollo: **5050**
+    - puerto_contenedor para desarrollo: **3000**
     - puerto_contenedor para producción: **5000**
+    - puerto_local para desarrollo: **5050**
 ```
 docker run -d -p <puerto_local>:<puerto_contenedor> --name <nombre_contenedor> <imagen>
 ```

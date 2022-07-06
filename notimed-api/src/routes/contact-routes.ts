@@ -5,17 +5,23 @@ import {check} from 'express-validator'
 const router = Router();
 
 //get
-router.get('/', getContacts);
-router.get('/:id',getContact);
+router.get('/:id', getContacts);
+router.get('/:id/:id2', [
+    check('id1', 'No es un id valido').isMongoId(),
+    check('id2', 'No es un id valido').isMongoId()
+], getContact);
 //post
-router.post('/create',createContact);
+router.post('/create/:id',createContact);
 
 //delete
-router.delete('/delete/:id', deleteContact);
+router.delete('/delete/:id/:id2', [
+    check('id1', 'No es un id valido').isMongoId(),
+    check('id2', 'No es un id valido').isMongoId()
+], deleteContact);
 //patch
-router.patch('/update/:id',[
-    check('id', 'No es un id valido').isMongoId(),
-    validarCampos
+router.patch('/update/:id/:id2',[
+    check('id1', 'No es un id valido').isMongoId(),
+    check('id2', 'No es un id valido').isMongoId()
 ],updateContact);
 
 module.exports = router; 

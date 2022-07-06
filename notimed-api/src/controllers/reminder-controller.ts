@@ -1,14 +1,21 @@
 import express,{Request, Response} from 'express';
-import reminderModel from '../models/reminder.model';
+import User from '../models/user.model';
 import Reminder from '../models/reminder.model';
 
 
 const addReminder = async(req: Request, res: Response)=>{
     try{
+        const {id} = req.params;
         const {name, repeatEvery,hour,dose, startDay, endDay, foodOption} = req.body;
         if(name === '' || repeatEvery === '' || hour ==='' || dose==='' || startDay ==='' || endDay ==='' || foodOption === '')
         throw{ status:400, message: "All fields must be completed"}
 
+        const existingUser = await User.findOne({_id: id});
+        const userInfo = {
+            id: existingUser?._id,
+        }
+
+        
         const newReminder = new Reminder({
             name: name,
             repeatEvery: repeatEvery,
@@ -16,19 +23,13 @@ const addReminder = async(req: Request, res: Response)=>{
             dose:dose,
             startDay: startDay,
             endDay: endDay,
-            foodOption: foodOption
+            foodOption: foodOption,
+            user: userInfo.id
         });
-        await newReminder.save()
-        .then((newReminder:any)=>{
-            res.status(200).send(newReminder)
-        })
-        .catch((error: any)=>{
-            res.status(400).send({
-                message: "Reminder cannot be added",
-                error
-            })
-        })
-
+        await newReminder.save();
+        await newReminder.populate('user','_id -__v');
+        
+       return res.status(201).json({content: newReminder});
 
     }catch(error){
         return res
@@ -38,9 +39,9 @@ const addReminder = async(req: Request, res: Response)=>{
 
 }
 const deleteReminder = async(req:Request, res:Response)=>{
-    const {id} = req.params;
     try{
-        const reminder = await Reminder.findByIdAndDelete(id);
+        const {id, id2} = req.params;
+        const reminder = await Reminder.findByIdAndDelete({_id: id, user: id2});
         return res.status(200).json({reminder})
     }catch(error){
         return res
@@ -51,8 +52,9 @@ const deleteReminder = async(req:Request, res:Response)=>{
 
 const updateReminder = async(req:Request, res:Response)=>{
     try{
+        const {id, id2} = req.params;
         const{name,prescriptions,startDay,endDay,foodOption}=req.body;
-        const update = await Reminder.findByIdAndUpdate(req.params.id,{
+        const update = await Reminder.findByIdAndUpdate({_id: id, user: id2},{
             name:name,
             prescriptions:prescriptions,
             startDay:startDay,
@@ -69,29 +71,29 @@ const updateReminder = async(req:Request, res:Response)=>{
 }
 
 const getReminders = async(req: Request, res: Response)=>{
-    
+    try {
+        const {id} = req.params;
     const { limit = 5, skip = 0 } = req.query;
 
-    const query = { estado: true };
-
-
     const [total, reminders] = await Promise.all([
-        Reminder.countDocuments(query),
-        Reminder.find(query)
+        Reminder.countDocuments({user:id}),
+        Reminder.find({user:id})
             .skip(Number(skip))
             .limit(Number(limit))
     ])
 
-    res.json({ total, reminders });
+    res.status(200).json({ total, reminders });
+        
+    } catch (error) {
+        console.log(error);
+    }
     
-    
-    //return res.status(200).json(await Reminder.find());
 }
 const getReminder = async(req:Request, res:Response)=>{
     try {
-        const { id } = req.params;
+        const { id, id2 } = req.params;
 
-        const reminder = await Reminder.findOne({ id });
+        const reminder = await Reminder.find({_id: id, user: id2});
 
         if (!reminder)
             return res.status(404).send({ message: "Reminder not found" });
