@@ -19,6 +19,7 @@ import com.mrroboto.notimed.viewmodels.ViewModelFactory
 class MenuFragment : Fragment() {
 
     private lateinit var binding: FragmentMenuBinding
+    private lateinit var application: NotiMedApplication
 
     private val viewModelFactory by lazy {
         val app = requireActivity().application as NotiMedApplication
@@ -44,6 +45,8 @@ class MenuFragment : Fragment() {
 
         viewModel.whoami(isLoading = true)
 
+        application = requireActivity().application as NotiMedApplication
+
         binding.reminderButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_menuFragment_to_reminderFragment)
         }
@@ -66,13 +69,30 @@ class MenuFragment : Fragment() {
                 is ApiResponse.Success -> {
                     binding.progressBar.visibility = View.GONE
                     binding.menuUsername.text = it.data.toString()
+                    viewModel.getId()
                 }
                 is ApiResponse.Failure -> {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
                 }
             }
+        }
 
+        viewModel.get.observe(viewLifecycleOwner) {
+            when(it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.bringToFront()
+                }
+                is ApiResponse.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    application.saveID(it.data.toString())
+                }
+                is ApiResponse.Failure -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }

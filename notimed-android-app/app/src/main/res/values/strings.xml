@@ -142,4 +142,6 @@
     <string name="general_error"> Ocurrió un error inesperado… Intentalo nuevamente </string>
 
     <string name="ok_response" translatable="false">@android:string/ok</string>
+    <string name="next_reminder_hint">Proximo recordatorio:</string>
+    <string name="options_label">Consideraciones:</string>
 </resources>

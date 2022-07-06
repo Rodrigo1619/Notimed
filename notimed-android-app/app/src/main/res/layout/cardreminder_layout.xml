@@ -27,7 +27,7 @@
                 android:id="@+id/medicineText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Acetaminofen"
+                android:text="@{reminder.name}"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +37,7 @@
                 android:id="@+id/timesText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cada 6 horas"
+                android:text='@{@string/times_a_day_hint + " " + reminder.repeatEvery + " " + @string/hour_suffix}'
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/medicineText"
@@ -66,7 +66,7 @@
             android:id="@+id/nextReminderTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Proximo recordatorio: 16:30"
+            android:text='@{@string/next_reminder_hint + " " + reminder.hour}'
             android:layout_marginBottom="@dimen/gap12dp"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
 
@@ -74,7 +74,7 @@
             android:id="@+id/doseText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dosis: 1.0"
+            android:text='@{@string/labelDose + ": " + reminder.dose}'
             android:layout_marginBottom="@dimen/gap12dp"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
 
@@ -82,14 +82,14 @@
             android:id="@+id/optionsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Consideraciones:"
+            android:text="@string/options_label"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
 
         <TextView
             android:id="@+id/optionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Debe tomarse al ingerir alimentos"
+            android:text='@{reminder.foodOption ? @string/needsFood : @string/noNeedsFood}'
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
 
         <com.google.android.material.divider.MaterialDivider

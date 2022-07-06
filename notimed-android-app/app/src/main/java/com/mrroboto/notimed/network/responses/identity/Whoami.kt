@@ -1,7 +1,5 @@
 package com.mrroboto.notimed.network.responses.identity
 
-data class WhoamiRequest(val token: String)
-
 data class WhoamiResponse(
     val message: String,
     val content: ContentWhoami,

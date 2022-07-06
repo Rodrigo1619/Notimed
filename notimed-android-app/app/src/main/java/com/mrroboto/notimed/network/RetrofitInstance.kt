@@ -1,6 +1,7 @@
 package com.mrroboto.notimed.network
 
 import com.mrroboto.notimed.network.services.IdentityService
+import com.mrroboto.notimed.network.services.ReminderService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -40,4 +41,10 @@ object RetrofitInstance {
     fun getIdentityServices() : IdentityService {
         return retrofit.create(IdentityService::class.java)
     }
+
+    fun getReminderServices() : ReminderService {
+        return retrofit.create(ReminderService::class.java)
+    }
+
+    // fun get<Service> : <Service> { return retro }
 }

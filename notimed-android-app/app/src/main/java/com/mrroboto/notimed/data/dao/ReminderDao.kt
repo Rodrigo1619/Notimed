@@ -4,14 +4,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.mrroboto.notimed.data.models.User
+import com.mrroboto.notimed.data.models.Reminder
 
 @Dao
-interface UserDao {
+interface ReminderDao {
     // Insertar usuario cuando se inicie sesion y sea exitoso
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertUserInfo(user: User)
+    suspend fun insertReminder(reminder: Reminder)
 
-    @Query("SELECT _id FROM user_table WHERE _id LIKE :id")
-    suspend fun getIdUser(id: String) : String
+    @Query("SELECT * FROM reminders_table")
+    suspend fun getAllReminders() : List<Reminder>
 }

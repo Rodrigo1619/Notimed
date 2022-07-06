@@ -10,6 +10,7 @@ import androidx.activity.addCallback
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
@@ -18,12 +19,24 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
+import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAddReminderBinding
+import com.mrroboto.notimed.viewmodels.ReminderViewModel
+import com.mrroboto.notimed.viewmodels.ViewModelFactory
 
 class AddReminderFragment : Fragment() {
 
     private lateinit var binding: FragmentAddReminderBinding
+
+    private val viewModelFactory by lazy {
+        val app = requireActivity().application as NotiMedApplication
+        ViewModelFactory(app.getReminderRepository())
+    }
+
+    private val viewModel: ReminderViewModel by viewModels {
+        viewModelFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,9 +62,7 @@ class AddReminderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.lifecycleOwner = viewLifecycleOwner
-
 
         // Handler controlador de los gestos/click al boton de regresar del dispositivo
         requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
@@ -122,8 +133,12 @@ class AddReminderFragment : Fragment() {
                 isValidMedicine()
                 isValidRangeDate()
             } else {
-                it.findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
+                viewModel.createReminder(true)
             }
+        }
+
+        viewModel.apiResponse.observe(viewLifecycleOwner) {
+
         }
 
         binding.hourEdit.editText?.setOnClickListener {
@@ -166,7 +181,40 @@ class AddReminderFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
 
+        viewModel.currentName.value = binding.editName.editText?.text.toString()
+        viewModel.currentEveryTimes.value = binding.editTimesADay.editText?.text.toString()
+        viewModel.currentDose.value = binding.doseEdit.editText?.text.toString()
+        viewModel.currentHour.value = binding.hourEdit.editText?.text.toString()
+        viewModel.currentStartDay.value = binding.rangeDate.editText?.text.toString()
+        viewModel.currentEndDay.value = binding.rangeDate.editText?.text.toString()
+
+        viewModel.currentName.observe(viewLifecycleOwner) {
+            binding.editName.editText?.setText(it)
+        }
+
+        viewModel.currentEveryTimes.observe(viewLifecycleOwner) {
+            binding.editTimesADay.editText?.setText(it)
+        }
+
+        viewModel.currentDose.observe(viewLifecycleOwner) {
+            binding.doseEdit.editText?.setText(it.toString())
+        }
+
+        viewModel.currentHour.observe(viewLifecycleOwner) {
+            binding.hourEdit.editText?.setText(it)
+        }
+
+        viewModel.currentStartDay.observe(viewLifecycleOwner) {
+            binding.rangeDate.editText?.setText(it)
+        }
+
+        viewModel.currentEndDay.observe(viewLifecycleOwner) {
+            binding.rangeDate.editText?.setText(it)
+        }
+    }
     // FUNCIONES DE VALIDACIÓN DE INPUTS
     private fun isValidMedicine(): Boolean {
         val medicine = binding.editName

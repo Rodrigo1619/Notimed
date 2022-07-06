@@ -139,4 +139,6 @@
     <string name="recover_body_success"> Check your email if you can\'t find it check the Spam section </string>
 
     <string name="general_error"> An unexpected error occurred… Please try again </string>
+    <string name="next_reminder_hint">Next reminder:</string>
+    <string name="options_label">Considerations:</string>
 </resources>

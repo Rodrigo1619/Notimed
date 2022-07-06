@@ -29,7 +29,7 @@ class UserRepository(private val api: IdentityService, database: AppDatabase) {
                     email,
                     password,
                     birthday,
-                    gender,
+                    gender
                 )
             )
             ApiResponse.Success(response)
@@ -61,11 +61,12 @@ class UserRepository(private val api: IdentityService, database: AppDatabase) {
                     response.content.gender
                 )
             )
-            ApiResponse.Success (response.content.name)
+            ApiResponse.Success(response.content.name)
         } catch (err: HttpException) {
             ApiResponse.Failure(err.code(), err.response().toString())
         }
     }
+
 
     suspend fun recoverPassword(email: String): ApiResponse<Any> {
         return try {
@@ -73,6 +74,15 @@ class UserRepository(private val api: IdentityService, database: AppDatabase) {
             ApiResponse.Success(response)
         } catch (error: HttpException) {
             ApiResponse.Failure(error.code(), error.message())
+        }
+    }
+
+    suspend fun getInfoUser() : ApiResponse<Any> {
+        return try {
+            val response = api.whoamiAsync()
+            ApiResponse.Success(response.content._id)
+        } catch (err: HttpException) {
+            ApiResponse.Failure(err.code(), err.response().toString())
         }
     }
 }

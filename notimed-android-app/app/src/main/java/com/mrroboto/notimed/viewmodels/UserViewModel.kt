@@ -16,6 +16,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
     var currentGender = MutableLiveData<String>()
 
     val apiResponse = MutableLiveData<ApiResponse<Any>>()
+    val get = MutableLiveData<ApiResponse<Any>>()
 
     fun onLogin(email: String, password: String, isLoading: Any) = viewModelScope.launch {
         apiResponse.value = ApiResponse.Loading(isLoading)
@@ -47,5 +48,11 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
     fun recoverpassword(isLoading: Any) = viewModelScope.launch {
         apiResponse.value = ApiResponse.Loading(isLoading)
         apiResponse.postValue(repository.recoverPassword(currentEmail.value.toString()))
+    }
+
+    fun getId() = viewModelScope.launch {
+        get.value = ApiResponse.Loading(isLoading = true)
+
+        get.postValue(repository.getInfoUser())
     }
 }

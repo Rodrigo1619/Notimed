@@ -63,7 +63,6 @@ class LoginFragment : Fragment() {
                 binding.editEmail.error = null
 
                 viewModel.onLogin(email.toString(), password.toString(), isLoading = true)
-
             }
         }
 
@@ -85,6 +84,8 @@ class LoginFragment : Fragment() {
                         Toast.makeText(requireContext(), getString(R.string.not_found_user), Toast.LENGTH_SHORT).show()
                     } else if (it.errorCode == 403) {
                         Toast.makeText(requireContext(), getString(R.string.credentials_error), Toast.LENGTH_SHORT).show()
+                    } else if (it.errorCode == 400) {
+                        Toast.makeText(requireContext(), getString(R.string.general_error), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
