@@ -66,13 +66,14 @@ const updateReminder = async (req: Request, res: Response) => {
         }
 
         const { id, id2 } = req.params;
-        const { name, hour, rangeDate, dose, foodOption, repeatEvery } = req.body;
+        const { name, hour, startDate, endDate, dose, foodOption, repeatEvery } = req.body;
         const update = await Reminder.findByIdAndUpdate({ _id: id, user: id2 }, {
             name: name,
             repeatEvery: repeatEvery,
             hour: hour,
             dose: dose,
-            rangeDate: rangeDate,
+            startDate: startDate,
+            endDate: endDate,
             foodOption: foodOption,
         })
         res.status(200).send({ update })
