@@ -1,6 +1,5 @@
 import { Router } from "express";
 import {check} from 'express-validator'
-import { exists } from "fs";
 import { addReminder,deleteReminder,updateReminder,getReminders, getReminder } from "../controllers/reminder-controller";
 
 const router = Router();

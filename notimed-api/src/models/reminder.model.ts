@@ -6,8 +6,7 @@ interface IReminder extends Document{
     repeatEvery:number,
     hour:string,
     dose:number,
-    startDay:string,
-    endDay:string,
+    rangeDate:string,
     foodOption:boolean,
     user: ObjectId
 }
@@ -28,6 +27,10 @@ const Reminder: Schema = new Schema<IReminder>({
     },
     dose:{
         type: Number,
+        required: true
+    },
+    rangeDate:{
+        type: String,
         required: true
     },
     foodOption: {
