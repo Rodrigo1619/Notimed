@@ -8,17 +8,17 @@ const createAppointment = async (req: Request, res: Response) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-        
-        const { appointmentName, doctorName, appointmentDate, 
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const { appointmentName, doctorName, appointmentDate,
             appointmentHour, address, additionalNotes } = req.body;
 
         //if the appointment is already in the database
         const body = req.body;
         //Datos de usuario
-        const {id} = req.params;
-        const existingUser = await User.findOne({_id: id});
+        const { id } = req.params;
+        const existingUser = await User.findOne({ _id: id });
         const userInfo = {
             id: existingUser?._id,
         }
@@ -55,57 +55,57 @@ const createAppointment = async (req: Request, res: Response) => {
             .json({ message: error.message ?? JSON.stringify(error) });
     }
 }
-const deleteAppointment = async(req:Request, res:Response)=>{
-    try{
+const deleteAppointment = async (req: Request, res: Response) => {
+    try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-        const {id, id2} = req.params;
-        const appointment = await Appointment.findByIdAndDelete({_id: id, user: id2});
-        return res.status(204).json({appointment})
-    }catch(error){
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const { id, id2 } = req.params;
+        const appointment = await Appointment.findByIdAndDelete({ _id: id, user: id2 });
+        return res.status(200).json({ message: "Deleted" })
+    } catch (error) {
         return res
-        .status(error.status as number ?? 400)
-        .json({message: error.message ?? JSON.stringify(error)});
+            .status(error.status as number ?? 400)
+            .json({ message: error.message ?? JSON.stringify(error) });
     }
 }
-const updateAppointment = async(req:Request, res:Response)=>{
-    try{
+const updateAppointment = async (req: Request, res: Response) => {
+    try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-        const {id, id2} = req.params;
-        const{appointmentName, doctorName, appointmentDate, appointmentHour, adress,additionalNotes} = req.body;
-        const update = await Appointment.findByIdAndUpdate({_id: id, user: id2},{
-            appointmentName:appointmentName,
-            doctorName:doctorName,
-            appointmentDate:appointmentDate,
-            appointmentHour:appointmentHour,
-            adress:adress,
-            additionalNotes:additionalNotes
+            return res.status(400).json({ errors: errors.array() });
+        }
+        const { id, id2 } = req.params;
+        const { appointmentName, doctorName, appointmentDate, appointmentHour, adress, additionalNotes } = req.body;
+        const update = await Appointment.findByIdAndUpdate({ _id: id, user: id2 }, {
+            appointmentName: appointmentName,
+            doctorName: doctorName,
+            appointmentDate: appointmentDate,
+            appointmentHour: appointmentHour,
+            adress: adress,
+            additionalNotes: additionalNotes
         })
-        res.status(200).send({update})
+        res.status(200).send({ update })
 
-    }catch(error){
+    } catch (error) {
         return res
-        .status(error.status as number ?? 400)
-        .json({message: error.message ?? JSON.stringify(error)});
+            .status(error.status as number ?? 400)
+            .json({ message: error.message ?? JSON.stringify(error) });
     }
 }
 
 const getAppointments = async (req: Request, res: Response) => {
     const errors = validationResult(req);
-        if (!errors.isEmpty()) {
+    if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
     const { limit = 5, skip = 0 } = req.query;
-    const {id} = req.params;
+    const { id } = req.params;
 
     const [total, appointments] = await Promise.all([
-        Appointment.countDocuments({user:id}),
-        Appointment.find({user:id})
+        Appointment.countDocuments({ user: id }),
+        Appointment.find({ user: id })
             .skip(Number(skip))
             .limit(Number(limit))
     ])
@@ -117,11 +117,11 @@ const getAppointment = async (req: Request, res: Response) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+            return res.status(400).json({ errors: errors.array() });
+        }
         const { id } = req.params;
 
-        const appointment = await Appointment.findOne({user: id});
+        const appointment = await Appointment.findOne({ user: id });
 
         if (!appointment)
             return res.status(404).send({ message: "appointment not found" });
