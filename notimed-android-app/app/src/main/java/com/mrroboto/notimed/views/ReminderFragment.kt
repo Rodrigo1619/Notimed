@@ -79,7 +79,6 @@ class ReminderFragment : Fragment() {
                     dialog.cancel()
                 }
                 .setPositiveButton(R.string.yes_response) { dialog, _ ->
-                    //savedInstanceState!!.putString("cardId", it)
                     viewModel.deleteReminder(it)
                     dialog.cancel()
 

@@ -3,6 +3,7 @@ package com.mrroboto.notimed.repositories
 import com.mrroboto.notimed.data.AppDatabase
 import com.mrroboto.notimed.data.models.Reminder
 import com.mrroboto.notimed.network.ApiResponse
+import com.mrroboto.notimed.network.responses.reminder.OneReminderResponse
 import com.mrroboto.notimed.network.responses.reminder.ReminderRequest
 import com.mrroboto.notimed.network.services.ReminderService
 import retrofit2.HttpException
@@ -20,15 +21,14 @@ class ReminderRepository(
         name: String,
         repeatEvery: Int,
         hour: String,
-        dose: Float,
-        startDay: String,
-        endDay: String,
+        dose: Int,
+        rangeDate: String,
         foodOption: Boolean
     ): ApiResponse<Any> {
         return try {
             val response = api.createReminder(
                 user_id,
-                ReminderRequest(name, repeatEvery, hour, dose, startDay, endDay, foodOption)
+                ReminderRequest(name, repeatEvery, hour, dose, rangeDate, foodOption)
             )
             ApiResponse.Success(response)
         } catch (err: HttpException) {
@@ -65,14 +65,22 @@ class ReminderRepository(
         name: String,
         repeatEvery: Int,
         hour: String,
-        dose: Float,
-        startDay: String,
-        endDay: String,
+        dose: Int,
+        rangeDate: String,
         foodOption: Boolean,
         cardId: String
     ): ApiResponse<Any> {
         return try {
-            val response = api.updateReminder(cardId, user_id, ReminderRequest(name, repeatEvery, hour, dose, startDay, endDay, foodOption))
+            val response = api.updateReminder(cardId, user_id, ReminderRequest(name, repeatEvery, hour, dose, rangeDate, foodOption))
+            ApiResponse.Success(response)
+        } catch (err: HttpException) {
+            ApiResponse.Failure(err.code(), err.message())
+        }
+    }
+
+    suspend fun getOneReminder(id: String) : ApiResponse<OneReminderResponse> {
+        return try {
+            val response = api.getOneReminder(id, user_id)
             ApiResponse.Success(response)
         } catch (err: HttpException) {
             ApiResponse.Failure(err.code(), err.message())

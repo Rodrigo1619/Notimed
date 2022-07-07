@@ -57,6 +57,7 @@ class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder>
             onUpdatePosition?.let {
                 it(position)
             }
+
             holder.binding.root.findNavController().navigate(R.id.action_reminderFragment_to_updateReminder)
         }
     }
