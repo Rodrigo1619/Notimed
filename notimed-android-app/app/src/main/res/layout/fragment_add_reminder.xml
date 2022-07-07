@@ -223,7 +223,7 @@
                         android:focusable="true"
                         android:focusableInTouchMode="false"
                         android:hint="@string/dateRange_hint"
-                        android:text="@{viewModel.currentStartDay}"
+                        android:text='@{viewModel.currentStartDay + " - " + viewModel.currentEndDay}'
                         android:inputType="date"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />

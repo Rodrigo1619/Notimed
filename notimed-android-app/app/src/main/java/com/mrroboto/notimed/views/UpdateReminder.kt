@@ -25,6 +25,7 @@ import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.viewmodels.ReminderViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
 import com.mrroboto.notimed.views.adapters.ReminderAdapter
+import java.text.SimpleDateFormat
 
 class UpdateReminder : Fragment() {
 
@@ -132,7 +133,7 @@ class UpdateReminder : Fragment() {
                         binding.editMedicineName.editText?.setText(it.name)
                         binding.doseEdit.editText?.setText(it.dose.toString())
                         binding.hourEdit.editText?.setText(it.hour)
-                        binding.rangeDate.editText?.setText(it.rangeDate)
+                        binding.rangeDate.editText?.setText("${it.startDate} - ${it.endDate}")
                         viewModel.currentOption.value = it.foodOption.toString()
                         binding.editTimesADay.editText?.setText(it.repeatEvery.toString())
                     }
@@ -151,26 +152,31 @@ class UpdateReminder : Fragment() {
             }
         }
 
-
+        var firstDate: String
+        var secondDate: String
 
         binding.saveButton.setOnClickListener {
             val name = binding.editMedicineName.editText?.text.toString()
             val dose = binding.doseEdit.editText?.text.toString()
             val hour = binding.hourEdit.editText?.text.toString()
-            val rangeDate = binding.rangeDate.editText?.text.toString()
+            val startDate = viewModel.currentStartDay.value.toString()
+            val endDate = viewModel.currentEndDay.value.toString()
             val option = viewModel.currentOption.value.toString().toBoolean()
             val times = binding.editTimesADay.editText?.text.toString()
 
             viewModel.updateReminder(
                 app.getCardId(),
                 name,
-                rangeDate,
+                startDate,
+                endDate,
                 dose.toInt(),
                 option,
                 times.toInt(),
                 hour
             )
         }
+
+
 
         viewModel.apiResponse.observe(viewLifecycleOwner) {
             when (it) {
@@ -181,9 +187,11 @@ class UpdateReminder : Fragment() {
 
                 is ApiResponse.Success -> {
                     binding.progressBar3.visibility = View.GONE
-                    Toast.makeText(requireContext(), R.string.reminder_created, Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), R.string.reminder_updated, Toast.LENGTH_SHORT)
                         .show()
+                    reminderAdapter.notifyDataSetChanged()
                     findNavController().navigate(R.id.action_updateReminder_to_reminderFragment)
+                    app.deleteCardId()
                 }
                 is ApiResponse.Failure -> {
                     binding.progressBar3.visibility = View.GONE
@@ -237,18 +245,30 @@ class UpdateReminder : Fragment() {
 
             datePicker.show(childFragmentManager, "Tag")
 
-            datePicker.addOnPositiveButtonClickListener {
-                binding.rangeDate.editText!!.setText(datePicker.headerText)
+            datePicker.addOnPositiveButtonClickListener { it ->
+
+                getDate(it.first, it.second).let {
+                    firstDate = it.first
+                    secondDate = it.second
+                    viewModel.currentStartDay.value = it.first
+                    viewModel.currentEndDay.value = it.second
+                }
+
+                binding.rangeDate.editText?.setText("$firstDate  - $secondDate")
             }
         }
+    }
+
+    private fun getDate(first: Long, second: Long) : Pair<String, String>{
+        val simpleDateFormat = SimpleDateFormat("dd/MMM")
+
+        return Pair(simpleDateFormat.format(first.plus(86400000)), simpleDateFormat.format(second.plus(86400000)))
     }
 
     override fun onPause() {
         super.onPause()
         val name = binding.editMedicineName.editText
         val dose = binding.doseEdit.editText
-        val startDate = binding.rangeDate.editText
-        val endDate = binding.rangeDate.editText
         val option = binding.editFoodOption.editText
         val times = binding.editTimesADay.editText
         val hour = binding.hourEdit.editText
@@ -256,8 +276,6 @@ class UpdateReminder : Fragment() {
         viewModel.currentName.value = name?.text.toString()
         viewModel.currentDose.value = dose?.text.toString()
         viewModel.currentHour.value = hour?.text.toString()
-        viewModel.currentStartDay.value = startDate?.text.toString()
-        viewModel.currentEndDay.value = endDate?.text.toString()
         viewModel.currentOption.value = option?.text.toString()
         viewModel.currentEveryTimes.value = times?.text.toString()
 
@@ -275,14 +293,6 @@ class UpdateReminder : Fragment() {
 
         viewModel.currentHour.observe(viewLifecycleOwner) {
             hour!!.setText(it)
-        }
-
-        viewModel.currentStartDay.observe(viewLifecycleOwner) {
-            startDate!!.setText(it)
-        }
-
-        viewModel.currentEndDay.observe(viewLifecycleOwner) {
-            endDate!!.setText(it)
         }
     }
 

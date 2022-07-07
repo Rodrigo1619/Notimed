@@ -128,5 +128,9 @@ class ReminderFragment : Fragment() {
         reminderAdapter.getReminderIdforUpdate {
             app.saveCardId(it)
         }
+
+        reminderAdapter.getPositionforUpdate {
+            app.savePositionCard(it)
+        }
     }
 }

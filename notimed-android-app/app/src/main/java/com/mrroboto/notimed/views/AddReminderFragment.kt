@@ -25,6 +25,7 @@ import com.mrroboto.notimed.databinding.FragmentAddReminderBinding
 import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.viewmodels.ReminderViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
+import java.text.SimpleDateFormat
 
 class AddReminderFragment : Fragment() {
 
@@ -56,6 +57,7 @@ class AddReminderFragment : Fragment() {
 
         binding.dropdownOptions.setAdapter(arrayAdapterFood)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -106,6 +108,9 @@ class AddReminderFragment : Fragment() {
             }
         }
 
+        var firstDate: String
+        var secondDate: String
+
 
         binding.saveButton.setOnClickListener {
             if (!(isValidRepeat() && isValidDose() && isValidHour() && isValidOption()
@@ -121,11 +126,12 @@ class AddReminderFragment : Fragment() {
                 val name = binding.editMedicineName.editText?.text.toString()
                 val dose = binding.doseEdit.editText?.text.toString()
                 val hour = binding.hourEdit.editText?.text.toString()
-                val rangeDate = binding.rangeDate.editText?.text.toString()
+                val startDate = viewModel.currentStartDay.value.toString()
+                val endDate = viewModel.currentEndDay.value.toString()
                 val option = viewModel.currentOption.value.toString().toBoolean()
                 val times = binding.editTimesADay.editText?.text.toString().toInt()
 
-                viewModel.createReminder(true, name, rangeDate, dose.toInt(), option, times, hour)
+                viewModel.createReminder(true, name, startDate, endDate, dose.toInt(), option, times, hour)
             }
         }
 
@@ -185,18 +191,31 @@ class AddReminderFragment : Fragment() {
 
             datePicker.show(childFragmentManager, "Tag")
 
-            datePicker.addOnPositiveButtonClickListener {
-                binding.rangeDate.editText!!.setText(datePicker.headerText)
+            datePicker.addOnPositiveButtonClickListener { it ->
+
+                getDate(it.first, it.second).let {
+                    firstDate = it.first
+                    secondDate = it.second
+                    viewModel.currentStartDay.value = it.first
+                    viewModel.currentEndDay.value = it.second
+                }
+
+                binding.rangeDate.editText?.setText("$firstDate  - $secondDate")
             }
         }
     }
+
+    private fun getDate(first: Long, second: Long) : Pair<String, String>{
+        val simpleDateFormat = SimpleDateFormat("dd/MMM")
+
+        return Pair(simpleDateFormat.format(first.plus(86400000)), simpleDateFormat.format(second.plus(86400000)))
+    }
+
 
     override fun onPause() {
         super.onPause()
         val name = binding.editMedicineName.editText
         val dose = binding.doseEdit.editText
-        val startDate = binding.rangeDate.editText
-        val endDate = binding.rangeDate.editText
         val option = binding.editFoodOption.editText
         val times = binding.editTimesADay.editText
         val hour = binding.hourEdit.editText
@@ -204,8 +223,6 @@ class AddReminderFragment : Fragment() {
         viewModel.currentName.value = name?.text.toString()
         viewModel.currentDose.value = dose?.text.toString()
         viewModel.currentHour.value = hour?.text.toString()
-        viewModel.currentStartDay.value = startDate?.text.toString()
-        viewModel.currentEndDay.value = endDate?.text.toString()
         viewModel.currentOption.value = option?.text.toString()
         viewModel.currentEveryTimes.value = times?.text.toString()
 
@@ -223,14 +240,6 @@ class AddReminderFragment : Fragment() {
 
         viewModel.currentHour.observe(viewLifecycleOwner) {
             hour!!.setText(it)
-        }
-
-        viewModel.currentStartDay.observe(viewLifecycleOwner) {
-            startDate!!.setText(it)
-        }
-
-        viewModel.currentEndDay.observe(viewLifecycleOwner) {
-            endDate!!.setText(it)
         }
     }
 
