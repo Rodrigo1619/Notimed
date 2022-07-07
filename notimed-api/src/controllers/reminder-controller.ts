@@ -11,7 +11,7 @@ const addReminder = async(req: Request, res: Response)=>{
         return res.status(400).json({ errors: errors.array() });
     }
         const {id} = req.params;
-        const {name, repeatEvery,hour,dose, startDay, endDay, foodOption} = req.body;
+        const {name, repeatEvery,hour,dose, rangeDate, foodOption} = req.body;
 
         const existingUser = await User.findOne({_id: id});
         const userInfo = {
@@ -23,8 +23,7 @@ const addReminder = async(req: Request, res: Response)=>{
             repeatEvery: repeatEvery,
             hour:hour,
             dose:dose,
-            startDay: startDay,
-            endDay: endDay,
+            rangeDate: rangeDate,
             foodOption: foodOption,
             user: userInfo.id
         });
@@ -49,7 +48,7 @@ const deleteReminder = async(req:Request, res:Response)=>{
 
         const {id, id2} = req.params;
         const reminder = await Reminder.findByIdAndDelete({_id: id, user: id2});
-        return res.status(200).json({reminder})
+        return res.status(204).json({reminder})
     }catch(error){
         return res
         .status(error.status as number ?? 400)
@@ -74,7 +73,7 @@ const updateReminder = async(req:Request, res:Response)=>{
             endDay:endDay,
             foodOption:foodOption
         })
-        res.status(201).send({update})
+        res.status(200).send({update})
 
     }catch(error){
         return res
