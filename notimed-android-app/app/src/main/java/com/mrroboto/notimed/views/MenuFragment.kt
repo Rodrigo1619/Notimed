@@ -47,6 +47,9 @@ class MenuFragment : Fragment() {
 
         application = requireActivity().application as NotiMedApplication
 
+        binding.profileButton.setOnClickListener {
+             it.findNavController().navigate(R.id.action_menuFragment_to_profileFragment)
+        }
         binding.reminderButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_menuFragment_to_reminderFragment)
         }
@@ -60,7 +63,7 @@ class MenuFragment : Fragment() {
         }
 
 
-        viewModel.apiResponse.observe(viewLifecycleOwner) {
+        viewModel.whoamiResponse.observe(viewLifecycleOwner) {
             when(it) {
                 is ApiResponse.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
@@ -68,25 +71,8 @@ class MenuFragment : Fragment() {
                 }
                 is ApiResponse.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.menuUsername.text = it.data.toString()
-                    viewModel.getId()
-                }
-                is ApiResponse.Failure -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        viewModel.get.observe(viewLifecycleOwner) {
-            when(it) {
-                is ApiResponse.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.progressBar.bringToFront()
-                }
-                is ApiResponse.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    application.saveID(it.data.toString())
+                    binding.menuUsername.text = it.data.content.name
+                    application.saveID(it.data.content._id)
                 }
                 is ApiResponse.Failure -> {
                     binding.progressBar.visibility = View.GONE

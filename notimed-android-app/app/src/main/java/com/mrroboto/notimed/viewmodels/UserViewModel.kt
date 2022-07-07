@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mrroboto.notimed.network.ApiResponse
+import com.mrroboto.notimed.network.responses.identity.WhoamiResponse
 import com.mrroboto.notimed.repositories.UserRepository
 import kotlinx.coroutines.launch
 
@@ -16,7 +17,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
     var currentGender = MutableLiveData<String>()
 
     val apiResponse = MutableLiveData<ApiResponse<Any>>()
-    val get = MutableLiveData<ApiResponse<Any>>()
+    val whoamiResponse = MutableLiveData<ApiResponse<WhoamiResponse>>()
 
     fun onLogin(email: String, password: String, isLoading: Any) = viewModelScope.launch {
         apiResponse.value = ApiResponse.Loading(isLoading)
@@ -42,7 +43,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
 
     fun whoami(isLoading: Any) = viewModelScope.launch {
         apiResponse.value = ApiResponse.Loading(isLoading)
-        apiResponse.postValue(repository.whoami())
+        whoamiResponse.postValue(repository.whoami())
     }
 
     fun recoverpassword(isLoading: Any) = viewModelScope.launch {
@@ -50,9 +51,19 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
         apiResponse.postValue(repository.recoverPassword(currentEmail.value.toString()))
     }
 
-    fun getId() = viewModelScope.launch {
-        get.value = ApiResponse.Loading(isLoading = true)
+    fun updateUser(id: String) = viewModelScope.launch {
+        apiResponse.value = ApiResponse.Loading(isLoading = true)
 
-        get.postValue(repository.getInfoUser())
+        apiResponse.postValue(repository.updateUser(
+            id,
+            currentName.value.toString(),
+            currentBirthday.value.toString(),
+            currentLastname.value.toString(),
+            currentGender.value.toString().lowercase()
+        ))
+    }
+
+    fun deleteAllReminders() = viewModelScope.launch {
+        repository.deleteReminders()
     }
 }

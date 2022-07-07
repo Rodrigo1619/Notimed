@@ -148,4 +148,8 @@
     <string name="deleteAppointmentTitle">Are you sure you want to delete this appointment?</string>
     <string name="close_session_title">Do you want to close your session?</string>
     <string name="update_reminder_title">Update reminder</string>
+    <string name="EditProfile">Update profile</string>
+    <string name="logout_title">Log out</string>
+    <string name="logout_message">If you log out your reminders will be discarded. Do you want to log out?</string>
+    <string name="success_user_update">User upgraded successfully!</string>
 </resources>
