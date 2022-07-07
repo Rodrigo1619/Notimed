@@ -63,7 +63,7 @@ const deleteAppointment = async(req:Request, res:Response)=>{
     }
         const {id, id2} = req.params;
         const appointment = await Appointment.findByIdAndDelete({_id: id, user: id2});
-        return res.status(200).json({appointment})
+        return res.status(204).json({appointment})
     }catch(error){
         return res
         .status(error.status as number ?? 400)
@@ -86,7 +86,7 @@ const updateAppointment = async(req:Request, res:Response)=>{
             adress:adress,
             additionalNotes:additionalNotes
         })
-        res.status(201).send({update})
+        res.status(200).send({update})
 
     }catch(error){
         return res
