@@ -2,9 +2,9 @@
   "name": "notimed-api",
   "version": "0.0.0",
   "scripts": {
-    "build": "./node_modules/.bin/ts-node build.ts",
+    "start": "npm run build && nodemon ./build/index.js",
+    "build": "rimraf ./build && tsc",
     "lint": "eslint . --ext .ts",
-    "start": "node -r module-alias/register ./dist --env=production",
     "start:dev": "nodemon",
     "test": "nodemon --config ./spec/nodemon.json",
     "test:no-reloading": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./spec"

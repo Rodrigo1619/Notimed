@@ -1,18 +1,32 @@
-FROM node:latest
-# Preconfigura el contenedor con la imagen de Node con la ultima versión.
+FROM node:16-alpine as development
 
-WORKDIR /app
+RUN mkdir -p /usr/src/app
 
-# Copia los elementos que son necesarios para construir la aplicación a contener.
-COPY package*.json ./
+WORKDIR /usr/src/app
+
+COPY package*.json .
 
 # Construir las dependencias para la aplicación.
+
 RUN npm install
 
-# Copiamos el codigo fuente (o archivos necesarios) de la aplicación.
 COPY . .
 
+RUN npm run build
+
+FROM node:16-alpine as production
+
+ARG NODE_ENV=productiona
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /usr/src/app
+
+COPY package*.json .
+
+RUN npm install --only=prod
+
+COPY --from=development /usr/src/app/build ./build
 EXPOSE 3000
 
 #Ejecutar la aplicación.
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start"]

@@ -1,20 +1,23 @@
 version: "3.9"
 services:
-  api:
+  notimed-api:
     container_name: notimed-backend
     restart: always
-    image: notimed-api
     env_file:
       - .env
-    build: .
+    build: 
+      context: .
+      target: production
     ports:
       - "5050:3000"
-    volumes:
-      - .:/code
-      - logvolume01:/var/log
     links:
-      - redis
-  redis:
-    image: redis
-volumes:
-  logvolume01: {}
+      - mongo
+  mongo:
+    container_name: db
+    image: mongo
+    restart: always
+    ports: 
+        -   "27017:27017"
+    command:
+      - "--logpath"
+      - "/var/log/mongodb/mongod.log"
