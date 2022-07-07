@@ -11,25 +11,27 @@ import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
+import com.google.android.material.timepicker.TimeFormat
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
-import com.mrroboto.notimed.databinding.FragmentAddReminderBinding
+import com.mrroboto.notimed.databinding.FragmentUpdateReminderBinding
 import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.viewmodels.ReminderViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
+import com.mrroboto.notimed.views.adapters.ReminderAdapter
 import java.text.SimpleDateFormat
 
-class AddReminderFragment : Fragment() {
+class UpdateReminder : Fragment() {
 
-    private lateinit var binding: FragmentAddReminderBinding
+    private lateinit var binding: FragmentUpdateReminderBinding
+
+    private lateinit var bundle: String
 
     private val viewModelFactory by lazy {
         val app = requireActivity().application as NotiMedApplication
@@ -46,7 +48,7 @@ class AddReminderFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_add_reminder, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_update_reminder, container, false)
         return binding.root
     }
 
@@ -58,9 +60,12 @@ class AddReminderFragment : Fragment() {
         binding.dropdownOptions.setAdapter(arrayAdapterFood)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val app = requireActivity().application as NotiMedApplication
+
+        val reminderAdapter = ReminderAdapter()
         binding.viewModel = viewModel
 
         binding.lifecycleOwner = viewLifecycleOwner
@@ -74,15 +79,28 @@ class AddReminderFragment : Fragment() {
                     dialog.cancel()
                 }
                 .setPositiveButton(R.string.yes_response) { dialog, _ ->
+                    app.deleteCardId()
                     dialog.cancel()
                     findNavController()
-                        .navigate(R.id.action_addReminderFragment_to_reminderFragment)
+                        .navigate(R.id.action_updateReminder_to_reminderFragment)
                 }
                 .show()
         }
 
         binding.topAppBar.setNavigationOnClickListener {
-            it.findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.warning_title_reminder)
+                .setMessage(R.string.warning_body_reminder)
+                .setNegativeButton(R.string.no_response) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(R.string.yes_response) { dialog, _ ->
+                    app.deleteCardId()
+                    dialog.cancel()
+                    findNavController()
+                        .navigate(R.id.action_updateReminder_to_reminderFragment)
+                }
+                .show()
         }
 
         binding.cancelButton.setOnClickListener {
@@ -93,15 +111,41 @@ class AddReminderFragment : Fragment() {
                     dialog.cancel()
                 }
                 .setPositiveButton(R.string.yes_response) { dialog, _ ->
+                    app.deleteCardId()
                     dialog.cancel()
-                    it.findNavController()
-                        .navigate(R.id.action_addReminderFragment_to_reminderFragment)
+                    findNavController()
+                        .navigate(R.id.action_updateReminder_to_reminderFragment)
                 }
                 .show()
         }
 
+        viewModel.getOneReminder(app.getCardId())
+
+        viewModel.response.observe(viewLifecycleOwner) { it ->
+            when (it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar3.visibility = View.VISIBLE
+                    binding.progressBar3.bringToFront()
+                }
+                is ApiResponse.Success -> {
+                    binding.progressBar3.visibility = View.GONE
+                    it.data.reminder.forEach {
+                        binding.editMedicineName.editText?.setText(it.name)
+                        binding.doseEdit.editText?.setText(it.dose.toString())
+                        binding.hourEdit.editText?.setText(it.hour)
+                        binding.rangeDate.editText?.setText("${it.startDate} - ${it.endDate}")
+                        viewModel.currentOption.value = it.foodOption.toString()
+                        binding.editTimesADay.editText?.setText(it.repeatEvery.toString())
+                    }
+                }
+                is ApiResponse.Failure -> {
+                    Toast.makeText(requireContext(), "${it.errorCode}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.errorBody, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
         binding.dropdownOptions.setOnItemClickListener { _, _, position, _ ->
-            if(position == 0) {
+            if (position == 0) {
                 viewModel.currentOption.value = true.toString()
             } else {
                 viewModel.currentOption.value = false.toString()
@@ -111,29 +155,28 @@ class AddReminderFragment : Fragment() {
         var firstDate: String
         var secondDate: String
 
-
         binding.saveButton.setOnClickListener {
-            if (!(isValidRepeat() && isValidDose() && isValidHour() && isValidOption()
-                        && isValidMedicine() && isValidRangeDate())
-            ) {
-                isValidRepeat()
-                isValidDose()
-                isValidHour()
-                isValidOption()
-                isValidMedicine()
-                isValidRangeDate()
-            } else {
-                val name = binding.editMedicineName.editText?.text.toString()
-                val dose = binding.doseEdit.editText?.text.toString()
-                val hour = binding.hourEdit.editText?.text.toString()
-                val startDate = viewModel.currentStartDay.value.toString()
-                val endDate = viewModel.currentEndDay.value.toString()
-                val option = viewModel.currentOption.value.toString().toBoolean()
-                val times = binding.editTimesADay.editText?.text.toString().toInt()
+            val name = binding.editMedicineName.editText?.text.toString()
+            val dose = binding.doseEdit.editText?.text.toString()
+            val hour = binding.hourEdit.editText?.text.toString()
+            val startDate = viewModel.currentStartDay.value.toString()
+            val endDate = viewModel.currentEndDay.value.toString()
+            val option = viewModel.currentOption.value.toString().toBoolean()
+            val times = binding.editTimesADay.editText?.text.toString()
 
-                viewModel.createReminder(true, name, startDate, endDate, dose.toInt(), option, times, hour)
-            }
+            viewModel.updateReminder(
+                app.getCardId(),
+                name,
+                startDate,
+                endDate,
+                dose.toInt(),
+                option,
+                times.toInt(),
+                hour
+            )
         }
+
+
 
         viewModel.apiResponse.observe(viewLifecycleOwner) {
             when (it) {
@@ -144,14 +187,25 @@ class AddReminderFragment : Fragment() {
 
                 is ApiResponse.Success -> {
                     binding.progressBar3.visibility = View.GONE
-                    Toast.makeText(requireContext(), R.string.reminder_created, Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_addReminderFragment_to_reminderFragment)
+                    Toast.makeText(requireContext(), R.string.reminder_updated, Toast.LENGTH_SHORT)
+                        .show()
+                    reminderAdapter.notifyDataSetChanged()
+                    findNavController().navigate(R.id.action_updateReminder_to_reminderFragment)
+                    app.deleteCardId()
                 }
                 is ApiResponse.Failure -> {
                     binding.progressBar3.visibility = View.GONE
-                    when(it.errorCode) {
-                        400 -> Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
-                        else  -> Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
+                    when (it.errorCode) {
+                        400 -> Toast.makeText(
+                            requireContext(),
+                            R.string.general_error,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        else -> Toast.makeText(
+                            requireContext(),
+                            R.string.general_error,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -159,7 +213,7 @@ class AddReminderFragment : Fragment() {
 
         binding.hourEdit.editText?.setOnClickListener {
             val timePicker = MaterialTimePicker.Builder()
-                .setTimeFormat(CLOCK_12H)
+                .setTimeFormat(TimeFormat.CLOCK_12H)
                 .setHour(12)
                 .setMinute(0)
                 .setTitleText(R.string.ErrorForHour)
@@ -211,7 +265,6 @@ class AddReminderFragment : Fragment() {
         return Pair(simpleDateFormat.format(first.plus(86400000)), simpleDateFormat.format(second.plus(86400000)))
     }
 
-
     override fun onPause() {
         super.onPause()
         val name = binding.editMedicineName.editText
@@ -242,6 +295,7 @@ class AddReminderFragment : Fragment() {
             hour!!.setText(it)
         }
     }
+
 
     // FUNCIONES DE VALIDACIÓN DE INPUTS
     private fun isValidMedicine(): Boolean {

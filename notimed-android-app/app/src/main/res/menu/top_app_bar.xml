@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/editProfileButton"
+        android:title="Edit"
+        android:icon="@drawable/ic_edit"
+        android:contentDescription="Edit the profile"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/closeSession"
+        android:icon="@drawable/ic_logout"
+        android:title="cerrar sesion"
+        android:contentDescription="log out of session"
+        android:iconTint="@color/md_theme_dark_errorContainer"
+        app:showAsAction="ifRoom" />
+
+
+</menu>

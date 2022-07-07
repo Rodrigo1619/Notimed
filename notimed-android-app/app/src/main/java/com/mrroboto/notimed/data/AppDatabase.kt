@@ -4,13 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.mrroboto.notimed.data.dao.ReminderDao
 import com.mrroboto.notimed.data.dao.UserDao
+import com.mrroboto.notimed.data.models.Reminder
 import com.mrroboto.notimed.data.models.User
 
-@Database(entities = [User::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, Reminder::class], version = 1, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
-
+    abstract fun reminderDao(): ReminderDao
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null

@@ -4,7 +4,7 @@
     <string name="labelEmail">Email</string>
     <string name="labelPassword">Password</string>
     <string name="forgetPassword">Forgot your password?</string>
-    <string name="loginText">Log in</string>
+    <string name="loginText">Sign in</string>
     <string name="registerText">Sign Up</string>
     <string name="accountRegister">Don\'t have an account? Sign Up</string>
     <string name="labelName">First name</string>
@@ -124,4 +124,33 @@
     <string name="hour_final"> End hour </string>
     <string name="ErrorLessHour"> End time is less than start time </string>
     <string name="ErrorStartHourHigher"> Start time is greater than end time  </string>
+
+    <string name="success_create_user"> User created successfully! </string>
+    <string name="error_existing_user"> This user already exists :( </string>
+    <string name="error_400_register"> Check the data </string>
+
+    <string name="not_found_user"> User not found </string>
+    <string name="credentials_error"> Check your credentials </string>
+
+    <string name="needsFood"> Must be taken with food </string>
+    <string name="noNeedsFood"> Can be taken without food </string>
+
+    <string name="recover_title_success"> The password was sent to the email: </string>
+    <string name="recover_body_success"> Check your email if you can\'t find it check the Spam section </string>
+
+    <string name="general_error"> An unexpected error occurred… Please try again </string>
+    <string name="next_reminder_hint">Next reminder:</string>
+    <string name="options_label">Considerations:</string>
+    <string name="reminder_created">Reminder created!</string>
+    <string name="reminder_updated">Reminder updated!</string>
+
+    <string name="deleteReminderTitle">Are you sure you want to delete this reminder?</string>
+    <string name="deleteContactTitle">Are you sure you want to delete this contact?</string>
+    <string name="deleteAppointmentTitle">Are you sure you want to delete this appointment?</string>
+    <string name="close_session_title">Do you want to close your session?</string>
+    <string name="update_reminder_title">Update reminder</string>
+    <string name="EditProfile">Update profile</string>
+    <string name="logout_title">Log out</string>
+    <string name="logout_message">If you log out your reminders will be discarded. Do you want to log out?</string>
+    <string name="success_user_update">Profile upgraded successfully!</string>
 </resources>

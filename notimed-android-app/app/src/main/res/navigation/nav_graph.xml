@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_menuFragment_to_appointmentFragment"
             app:destination="@id/appointmentFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/reminderFragment"
@@ -62,6 +65,9 @@
         <action
             android:id="@+id/action_reminderFragment_to_addReminderFragment"
             app:destination="@id/addReminderFragment" />
+        <action
+            android:id="@+id/action_reminderFragment_to_updateReminder"
+            app:destination="@id/updateReminder" />
     </fragment>
     <fragment
         android:id="@+id/contactFragment"
@@ -111,5 +117,37 @@
         <action
             android:id="@+id/action_addAppointmentFragment_to_appointmentFragment"
             app:destination="@id/appointmentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateReminder"
+        android:name="com.mrroboto.notimed.views.UpdateReminder"
+        android:label="UpdateReminder" >
+        <action
+            android:id="@+id/action_updateReminder_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.mrroboto.notimed.views.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.mrroboto.notimed.views.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

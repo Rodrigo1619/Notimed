@@ -125,4 +125,42 @@
     <string name="ErrorPhone">Ingresa un número de teléfono valido</string>
     <string name="ErrorLessHour"> La hora final es menor a la de inicio </string>
     <string name="ErrorStartHourHigher"> La hora inicial es mayor que la hora final  </string>
+
+    <string name="success_create_user"> ¡Usuario creado con exito! </string>
+    <string name="error_existing_user"> Este usuario ya existe :( </string>
+    <string name="error_400_register"> Revisa los datos </string>
+
+    <string name="not_found_user"> Usuario no encontrado </string>
+    <string name="credentials_error"> Revisa tus credenciales </string>
+
+    <string name="needsFood"> Debe tomarse al ingerir alimentos </string>
+    <string name="noNeedsFood"> Puede tomarse sin alimentos </string>
+
+    <string name="recover_title_success"> La contraseña se envio al correo: </string>
+    <string name="recover_body_success"> Revisa tu correo si no lo encuentras revisa en el apartado Spam </string>
+
+    <string name="general_error"> Ocurrió un error inesperado… Intentalo nuevamente </string>
+
+    <string name="ok_response" translatable="false">@android:string/ok</string>
+    <string name="next_reminder_hint">Proximo recordatorio:</string>
+    <string name="options_label">Consideraciones:</string>
+    <string name="reminder_created">¡Recordatorio creado!</string>
+
+    <string name="deleteReminderTitle">¿Seguro que deseas eliminar este recordatorio?</string>
+
+    <string name="deleteContactTitle">¿Seguro que deseas eliminar este contacto?</string>
+
+    <string name="deleteAppointmentTitle">¿Seguro que deseas eliminar esta cita?</string>
+
+    <string name="close_session_title">¿Deseas cerrar tu sesion?</string>
+
+    <string name="update_reminder_title"> Actualizar recordatorio </string>
+
+    <string name="EditProfile">Actualizar perfil</string>
+    <string name="reminder_updated">¡Recordatorio actualizado!</string>
+
+    <string name="success_user_update"> ¡Perfil actualizado con éxito! </string>
+
+    <string name="logout_title"> Cerrar sesión </string>
+    <string name="logout_message"> Si cierras sesión tus recordatorios serán descartados. ¿Deseas cerrar sesión? </string>
 </resources>
