@@ -17,7 +17,7 @@ object RetrofitInstance {
 
     private var token = ""
 
-    fun setToken(value: String){
+    fun setToken(value: String) {
         token = value
     }
 
@@ -38,13 +38,19 @@ object RetrofitInstance {
         ).addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun getIdentityServices() : IdentityService {
+    /*Gson es una biblioteca de código abierto para el
+    lenguaje de programación Java que permite la serialización y deserialización
+    entre objetos Java y su representación en notación JSON*/
+
+    fun getIdentityServices(): IdentityService {
         return retrofit.create(IdentityService::class.java)
     }
 
-    fun getReminderServices() : ReminderService {
+    fun getReminderServices(): ReminderService {
         return retrofit.create(ReminderService::class.java)
     }
 
-    // fun get<Service> : <Service> { return retro }
+    // fun get<Service> : <Service> {
+    //  return retrofit.create(<Service>::class.java)
+    // }
 }

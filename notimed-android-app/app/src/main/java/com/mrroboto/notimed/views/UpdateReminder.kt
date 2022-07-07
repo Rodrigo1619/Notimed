@@ -118,6 +118,31 @@ class UpdateReminder : Fragment() {
                 .show()
         }
 
+        viewModel.getOneReminder(app.getCardId())
+
+        viewModel.response.observe(viewLifecycleOwner) { it ->
+            when (it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar3.visibility = View.VISIBLE
+                    binding.progressBar3.bringToFront()
+                }
+                is ApiResponse.Success -> {
+                    binding.progressBar3.visibility = View.GONE
+                    it.data.reminder.forEach {
+                        binding.editMedicineName.editText?.setText(it.name)
+                        binding.doseEdit.editText?.setText(it.dose.toString())
+                        binding.hourEdit.editText?.setText(it.hour)
+                        binding.rangeDate.editText?.setText(it.rangeDate)
+                        viewModel.currentOption.value = it.foodOption.toString()
+                        binding.editTimesADay.editText?.setText(it.repeatEvery.toString())
+                    }
+                }
+                is ApiResponse.Failure -> {
+                    Toast.makeText(requireContext(), "${it.errorCode}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.errorBody, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
         binding.dropdownOptions.setOnItemClickListener { _, _, position, _ ->
             if (position == 0) {
                 viewModel.currentOption.value = true.toString()
@@ -129,18 +154,22 @@ class UpdateReminder : Fragment() {
 
 
         binding.saveButton.setOnClickListener {
-
             val name = binding.editMedicineName.editText?.text.toString()
             val dose = binding.doseEdit.editText?.text.toString()
             val hour = binding.hourEdit.editText?.text.toString()
-            val startDate = binding.rangeDate.editText?.text.toString()
-            val endDate = binding.rangeDate.editText?.text.toString()
-            val option = viewModel.currentOption.value.toString()
+            val rangeDate = binding.rangeDate.editText?.text.toString()
+            val option = viewModel.currentOption.value.toString().toBoolean()
             val times = binding.editTimesADay.editText?.text.toString()
 
-            Toast.makeText(requireContext(), app.getCardId(), Toast.LENGTH_SHORT).show()
-            //Toast.makeText(requireContext(), viewModel.currentCardId.value, Toast.LENGTH_SHORT).show()
-            //viewModel.updateReminder(cardId, name, startDate, endDate, dose, option, times, hour)
+            viewModel.updateReminder(
+                app.getCardId(),
+                name,
+                rangeDate,
+                dose.toInt(),
+                option,
+                times.toInt(),
+                hour
+            )
         }
 
         viewModel.apiResponse.observe(viewLifecycleOwner) {
@@ -256,7 +285,6 @@ class UpdateReminder : Fragment() {
             endDate!!.setText(it)
         }
     }
-
 
 
     // FUNCIONES DE VALIDACIÓN DE INPUTS

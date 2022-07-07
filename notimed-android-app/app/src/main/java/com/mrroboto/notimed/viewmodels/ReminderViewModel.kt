@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mrroboto.notimed.data.models.Reminder
 import com.mrroboto.notimed.network.ApiResponse
+import com.mrroboto.notimed.network.responses.reminder.OneReminderResponse
 import com.mrroboto.notimed.repositories.ReminderRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,17 +18,16 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
     var currentStartDay = MutableLiveData<String>()
     var currentEndDay = MutableLiveData<String>()
     var currentOption = MutableLiveData<String>()
-    var currentCardId = MutableLiveData<String>()
 
     val apiResponse = MutableLiveData<ApiResponse<Any>>()
     val listResponse = MutableLiveData<ApiResponse<List<Reminder>>>()
+    val response = MutableLiveData<ApiResponse<OneReminderResponse>>()
 
     fun createReminder(
         isLoading: Boolean,
         name: String,
-        startDate: String,
-        endDate: String,
-        dose: Float,
+        rangeDate: String,
+        dose: Int,
         option: Boolean,
         times: Int,
         hour: String
@@ -46,8 +46,7 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
                 times,
                 hour,
                 dose,
-                startDate,
-                endDate,
+                rangeDate,
                 option
             )
         )
@@ -68,9 +67,8 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
     fun updateReminder(
         id: String,
         name: String,
-        startDate: String,
-        endDate: String,
-        dose: Float,
+        rangeDate: String,
+        dose: Int,
         option: Boolean,
         times: Int,
         hour: String
@@ -83,12 +81,21 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
                     times,
                     hour,
                     dose,
-                    startDate,
-                    endDate,
+                    rangeDate,
                     option,
                     id
                 )
             )
         }
+    }
+
+    /*fun getReminder(id: String) = viewModelScope.launch {
+        response.value = repository.getReminder(id)
+    }*/
+
+    fun getOneReminder(id: String) = viewModelScope.launch {
+        apiResponse.value = ApiResponse.Loading(isLoading = true)
+
+        response.postValue(repository.getOneReminder(id))
     }
 }

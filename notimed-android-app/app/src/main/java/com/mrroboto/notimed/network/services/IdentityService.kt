@@ -1,10 +1,7 @@
 package com.mrroboto.notimed.network.services
 
 import com.mrroboto.notimed.network.responses.identity.*
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface IdentityService {
     @Headers("Content-Type: application/json")
@@ -23,6 +20,6 @@ interface IdentityService {
     suspend fun whoamiAsync() : WhoamiResponse
 
     @Headers("Content-Type: application/json")
-    @POST("/identity/recover-password")
+    @PATCH("/identity/recover-password")
     suspend fun recoverPassword(@Body credentials: RecoverRequest)
 }

@@ -17,4 +17,7 @@ interface ReminderDao {
 
     @Query("DELETE FROM reminders_table WHERE _id LIKE :id")
     suspend fun removerReminder(id: String)
+
+    @Query("SELECT * FROM reminders_table WHERE _id LIKE :id")
+    suspend fun getReminder(id: String) : Reminder
 }

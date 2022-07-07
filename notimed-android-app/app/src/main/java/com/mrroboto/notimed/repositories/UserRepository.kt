@@ -34,7 +34,7 @@ class UserRepository(private val api: IdentityService, database: AppDatabase) {
             )
             ApiResponse.Success(response)
         } catch (err: HttpException) {
-            ApiResponse.Failure(err.code(), err.response().toString())
+            ApiResponse.Failure(err.code(), err.message())
         }
     }
 
@@ -63,7 +63,7 @@ class UserRepository(private val api: IdentityService, database: AppDatabase) {
             )
             ApiResponse.Success(response.content.name)
         } catch (err: HttpException) {
-            ApiResponse.Failure(err.code(), err.response().toString())
+            ApiResponse.Failure(err.code(), err.message())
         }
     }
 
@@ -80,9 +80,10 @@ class UserRepository(private val api: IdentityService, database: AppDatabase) {
     suspend fun getInfoUser() : ApiResponse<Any> {
         return try {
             val response = api.whoamiAsync()
+            user.getIdUser(response.content._id)
             ApiResponse.Success(response.content._id)
         } catch (err: HttpException) {
-            ApiResponse.Failure(err.code(), err.response().toString())
+            ApiResponse.Failure(err.code(), err.message())
         }
     }
 }

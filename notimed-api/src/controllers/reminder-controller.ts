@@ -1,28 +1,29 @@
 import express,{Request, Response} from 'express';
 import User from '../models/user.model';
 import Reminder from '../models/reminder.model';
+import { validationResult } from 'express-validator';
 
 
 const addReminder = async(req: Request, res: Response)=>{
     try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
         const {id} = req.params;
-        const {name, repeatEvery,hour,dose, startDay, endDay, foodOption} = req.body;
-        if(name === '' || repeatEvery === '' || hour ==='' || dose==='' || startDay ==='' || endDay ==='' || foodOption === '')
-        throw{ status:400, message: "All fields must be completed"}
+        const {name, repeatEvery,hour,dose, rangeDate, foodOption} = req.body;
 
         const existingUser = await User.findOne({_id: id});
         const userInfo = {
             id: existingUser?._id,
         }
-
         
         const newReminder = new Reminder({
             name: name,
             repeatEvery: repeatEvery,
             hour:hour,
             dose:dose,
-            startDay: startDay,
-            endDay: endDay,
+            rangeDate: rangeDate,
             foodOption: foodOption,
             user: userInfo.id
         });
@@ -40,9 +41,14 @@ const addReminder = async(req: Request, res: Response)=>{
 }
 const deleteReminder = async(req:Request, res:Response)=>{
     try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
         const {id, id2} = req.params;
         const reminder = await Reminder.findByIdAndDelete({_id: id, user: id2});
-        return res.status(200).json({reminder})
+        return res.status(204).json({reminder})
     }catch(error){
         return res
         .status(error.status as number ?? 400)
@@ -52,6 +58,12 @@ const deleteReminder = async(req:Request, res:Response)=>{
 
 const updateReminder = async(req:Request, res:Response)=>{
     try{
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+        }
+
         const {id, id2} = req.params;
         const{name,prescriptions,startDay,endDay,foodOption}=req.body;
         const update = await Reminder.findByIdAndUpdate({_id: id, user: id2},{
@@ -61,7 +73,7 @@ const updateReminder = async(req:Request, res:Response)=>{
             endDay:endDay,
             foodOption:foodOption
         })
-        res.status(201).send({update})
+        res.status(200).send({update})
 
     }catch(error){
         return res
@@ -72,6 +84,11 @@ const updateReminder = async(req:Request, res:Response)=>{
 
 const getReminders = async(req: Request, res: Response)=>{
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
         const {id} = req.params;
     const { limit = 5, skip = 0 } = req.query;
 
@@ -91,6 +108,11 @@ const getReminders = async(req: Request, res: Response)=>{
 }
 const getReminder = async(req:Request, res:Response)=>{
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
         const { id, id2 } = req.params;
 
         const reminder = await Reminder.find({_id: id, user: id2});

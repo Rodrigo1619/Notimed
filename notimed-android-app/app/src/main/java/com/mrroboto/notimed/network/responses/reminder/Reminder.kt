@@ -7,13 +7,25 @@ data class ReminderRequest(
     @SerializedName("name") val name: String,
     @SerializedName("repeatEvery") val repeatEvery: Int,
     @SerializedName("hour") val hour: String,
-    @SerializedName("dose") val dose: Float,
-    @SerializedName("startDay") val startDay: String,
-    @SerializedName("endDay") val endDay: String,
+    @SerializedName("dose") val dose: Int,
+    @SerializedName("rangeDate") val rangeDate: String,
     @SerializedName("foodOption") val foodOption: Boolean
 )
 
 data class ReminderResponse(
     val total: Int,
     val reminders: List<Reminder>
+)
+
+data class OneReminderResponse(
+    val reminder: List<ReminderArray>
+)
+
+data class ReminderArray(
+    val name: String,
+    val repeatEvery: Int,
+    val hour: String,
+    val dose: Int,
+    val rangeDate: String,
+    val foodOption: Boolean
 )

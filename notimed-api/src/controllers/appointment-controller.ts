@@ -1,14 +1,18 @@
 import express, { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
 import appointmentModel from '../models/appointment.model';
 import Appointment from '../models/appointment.model';
 import User from '../models/user.model';
 
 const createAppointment = async (req: Request, res: Response) => {
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
         
-        const { appointmentName, doctorName, appointmentDate, appointmentHour, address, additionalNotes } = req.body;
-        if (appointmentName === "" || doctorName === "" || appointmentDate === "" || appointmentHour === "" || address === "")
-            throw { status: 400, message: "Fields are empty" }
+        const { appointmentName, doctorName, appointmentDate, 
+            appointmentHour, address, additionalNotes } = req.body;
 
         //if the appointment is already in the database
         const body = req.body;
@@ -25,7 +29,8 @@ const createAppointment = async (req: Request, res: Response) => {
                 doctorName: body.doctorName,
                 address: body.address,
                 appointmentDate: body.appointmentDate,
-                appointmentHour: body.appointmentHour
+                appointmentHour: body.appointmentHour,
+                user: userInfo.id
             });
         if (appointment) {
             throw { status: 409, message: "Appointment already exists" }
@@ -52,9 +57,13 @@ const createAppointment = async (req: Request, res: Response) => {
 }
 const deleteAppointment = async(req:Request, res:Response)=>{
     try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
         const {id, id2} = req.params;
         const appointment = await Appointment.findByIdAndDelete({_id: id, user: id2});
-        return res.status(200).json({appointment})
+        return res.status(204).json({appointment})
     }catch(error){
         return res
         .status(error.status as number ?? 400)
@@ -63,6 +72,10 @@ const deleteAppointment = async(req:Request, res:Response)=>{
 }
 const updateAppointment = async(req:Request, res:Response)=>{
     try{
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
         const {id, id2} = req.params;
         const{appointmentName, doctorName, appointmentDate, appointmentHour, adress,additionalNotes} = req.body;
         const update = await Appointment.findByIdAndUpdate({_id: id, user: id2},{
@@ -73,7 +86,7 @@ const updateAppointment = async(req:Request, res:Response)=>{
             adress:adress,
             additionalNotes:additionalNotes
         })
-        res.status(201).send({update})
+        res.status(200).send({update})
 
     }catch(error){
         return res
@@ -83,6 +96,10 @@ const updateAppointment = async(req:Request, res:Response)=>{
 }
 
 const getAppointments = async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     const { limit = 5, skip = 0 } = req.query;
     const {id} = req.params;
 
@@ -98,6 +115,10 @@ const getAppointments = async (req: Request, res: Response) => {
 
 const getAppointment = async (req: Request, res: Response) => {
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
         const { id } = req.params;
 
         const appointment = await Appointment.findOne({user: id});

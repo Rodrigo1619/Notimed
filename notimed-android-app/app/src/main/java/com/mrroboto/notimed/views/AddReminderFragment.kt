@@ -119,14 +119,13 @@ class AddReminderFragment : Fragment() {
                 isValidRangeDate()
             } else {
                 val name = binding.editMedicineName.editText?.text.toString()
-                val dose = binding.doseEdit.editText?.text.toString().toFloat()
+                val dose = binding.doseEdit.editText?.text.toString()
                 val hour = binding.hourEdit.editText?.text.toString()
-                val startDate = binding.rangeDate.editText?.text.toString()
-                val endDate = binding.rangeDate.editText?.text.toString()
+                val rangeDate = binding.rangeDate.editText?.text.toString()
                 val option = viewModel.currentOption.value.toString().toBoolean()
                 val times = binding.editTimesADay.editText?.text.toString().toInt()
 
-                viewModel.createReminder(true, name, startDate, endDate, dose, option, times, hour)
+                viewModel.createReminder(true, name, rangeDate, dose.toInt(), option, times, hour)
             }
         }
 
