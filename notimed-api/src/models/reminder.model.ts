@@ -1,13 +1,14 @@
 import { model, Schema, Document, ObjectId } from "mongoose";
 
 //1. creating interface
-interface IReminder extends Document{
-    name:string,
-    repeatEvery:number,
-    hour:string,
-    dose:number,
-    rangeDate:string,
-    foodOption:boolean,
+interface IReminder extends Document {
+    name: string,
+    repeatEvery: number,
+    hour: string,
+    dose: number,
+    startDate: string,
+    endDate: string,
+    foodOption: boolean,
     user: ObjectId
 }
 
@@ -17,19 +18,23 @@ const Reminder: Schema = new Schema<IReminder>({
         type: String,
         required: true
     },
-    repeatEvery:{
-        type:Number,
-        required:true
-    },
-    hour:{
-        type: String,
-        required: true
-    },
-    dose:{
+    repeatEvery: {
         type: Number,
         required: true
     },
-    rangeDate:{
+    hour: {
+        type: String,
+        required: true
+    },
+    dose: {
+        type: Number,
+        required: true
+    },
+    startDate: {
+        type: String,
+        required: true
+    },
+    endDate: {
         type: String,
         required: true
     },
@@ -42,19 +47,19 @@ const Reminder: Schema = new Schema<IReminder>({
         ref: 'User'
     }
 },
-{ //delete what we don't wanna show to user
-    toJSON:{
-        transform(doc,ret){
-            delete ret.__v
-            delete ret.user.__v
-            delete ret.user.name
-            delete ret.user.lastName
-            delete ret.user.email
-            delete ret.user.rol
-            delete ret.user.birthday
-            delete ret.user.gender
+    { //delete what we don't wanna show to user
+        toJSON: {
+            transform(doc, ret) {
+                delete ret.__v
+                delete ret.user.__v
+                delete ret.user.name
+                delete ret.user.lastName
+                delete ret.user.email
+                delete ret.user.rol
+                delete ret.user.birthday
+                delete ret.user.gender
+            }
         }
-    }
-});
+    });
 
 export default model('Reminder', Reminder);
