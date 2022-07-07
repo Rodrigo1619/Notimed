@@ -11,7 +11,7 @@ const addReminder = async(req: Request, res: Response)=>{
         return res.status(400).json({ errors: errors.array() });
     }
         const {id} = req.params;
-        const {name, repeatEvery,hour,dose, startDay, endDay, foodOption} = req.body;
+        const {name, repeatEvery,hour,dose, rangeDate, foodOption} = req.body;
 
         const existingUser = await User.findOne({_id: id});
         const userInfo = {
@@ -23,8 +23,7 @@ const addReminder = async(req: Request, res: Response)=>{
             repeatEvery: repeatEvery,
             hour:hour,
             dose:dose,
-            startDay: startDay,
-            endDay: endDay,
+            rangeDate: rangeDate,
             foodOption: foodOption,
             user: userInfo.id
         });
