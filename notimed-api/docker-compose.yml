@@ -1,9 +1,14 @@
-version: "3.9"  # optional since v1.27.0
+version: "3.9"
 services:
   api:
+    container_name: notimed-backend
+    restart: always
+    image: notimed-api
+    env_file:
+      - .env
     build: .
     ports:
-      - "8000:5000"
+      - "5050:3000"
     volumes:
       - .:/code
       - logvolume01:/var/log
