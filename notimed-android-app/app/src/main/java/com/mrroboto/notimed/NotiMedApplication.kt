@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.mrroboto.notimed.data.AppDatabase
 import com.mrroboto.notimed.network.RetrofitInstance
+import com.mrroboto.notimed.repositories.ReminderRepository
 import com.mrroboto.notimed.repositories.UserRepository
 
 class NotiMedApplication : Application() {
@@ -17,11 +18,51 @@ class NotiMedApplication : Application() {
         AppDatabase.getInstance(this)
     }
 
-    private fun getApiService() = with(RetrofitInstance) {
+    private fun getIdentityService() = with(RetrofitInstance) {
+        setToken(getToken())
         getIdentityServices()
     }
 
-    fun getUserRepository() = with(database) {
-        UserRepository(userDao(), getApiService())
+    private fun getReminderService() = with(RetrofitInstance) {
+        this.getReminderServices()
     }
+
+    fun getUserRepository() = UserRepository(getIdentityService(), database)
+
+    fun getReminderRepository() = ReminderRepository(getReminderService(), database, getId())
+
+    private fun getToken(): String = prefs.getString(USER_TOKEN, "")!!
+    fun saveAuthToken(token: String) {
+        val editor = prefs.edit()
+        editor.putString(USER_TOKEN, token)
+        editor.apply()
+    }
+
+    private fun getId() : String = prefs.getString(USER_id, "")!!
+
+    fun saveID(id: String) {
+        val editor = prefs.edit()
+        editor.putString(USER_id, id)
+        editor.apply()
+    }
+
+    fun getCardId(): String = prefs.getString(CARD_ID, "")!!
+
+    fun saveCardId(id: String) {
+        val editor = prefs.edit()
+        editor.putString(CARD_ID, id)
+        editor.apply()
+    }
+
+    fun deleteCardId() {
+        val editor = prefs.edit()
+        editor.remove(CARD_ID)
+        editor.apply()
+    }
+    companion object {
+        const val USER_TOKEN = "user_token"
+        const val USER_id = "user_id"
+        const val CARD_ID = "card_id"
+    }
+
 }

@@ -21,16 +21,15 @@ import com.mrroboto.notimed.viewmodels.ViewModelFactory
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var application: NotiMedApplication
+
     private val viewModelFactory by lazy {
         val app = requireActivity().application as NotiMedApplication
         ViewModelFactory(app.getUserRepository())
     }
+
     private val viewModel: UserViewModel by viewModels {
         viewModelFactory
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -49,6 +48,8 @@ class LoginFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
+        application = requireActivity().application as NotiMedApplication
+
         binding.loginButton.setOnClickListener {
             val email = binding.editEmail.editText?.text
             val password = binding.editPassword.editText?.text
@@ -61,21 +62,30 @@ class LoginFragment : Fragment() {
                 binding.editPassword.error = null
                 binding.editEmail.error = null
 
-                //viewModel.onLogin(email.toString(), password.toString(), requireContext())
-                it.findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
+                viewModel.onLogin(email.toString(), password.toString(), isLoading = true)
             }
         }
 
-        viewModel.loginResponse.observe(viewLifecycleOwner) {
+        viewModel.apiResponse.observe(viewLifecycleOwner) {
             when (it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.bringToFront()
+                }
                 is ApiResponse.Success -> {
+                    binding.progressBar.visibility = View.GONE
                     findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
+                    // Guardamos el token del usuario que recien inicia sesión
+                    application.saveAuthToken(it.data as String)
                 }
                 is ApiResponse.Failure -> {
+                    binding.progressBar.visibility = View.GONE
                     if (it.errorCode == 404) {
-                        Toast.makeText(requireContext(), "Usuario no encontrado", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.not_found_user), Toast.LENGTH_SHORT).show()
                     } else if (it.errorCode == 403) {
-                        Toast.makeText(requireContext(), "Revisa tus credenciales", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.credentials_error), Toast.LENGTH_SHORT).show()
+                    } else if (it.errorCode == 400) {
+                        Toast.makeText(requireContext(), getString(R.string.general_error), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

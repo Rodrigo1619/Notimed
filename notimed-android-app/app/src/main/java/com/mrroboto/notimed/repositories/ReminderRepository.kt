@@ -1,21 +1,89 @@
 package com.mrroboto.notimed.repositories
 
-import androidx.lifecycle.MutableLiveData
+import com.mrroboto.notimed.data.AppDatabase
 import com.mrroboto.notimed.data.models.Reminder
+import com.mrroboto.notimed.network.ApiResponse
+import com.mrroboto.notimed.network.responses.reminder.OneReminderResponse
+import com.mrroboto.notimed.network.responses.reminder.ReminderRequest
+import com.mrroboto.notimed.network.services.ReminderService
+import retrofit2.HttpException
 
-class ReminderRepository {
-    private var _reminders = listOf(
-        Reminder("Acetaminofen", "4:30pm" ,"Tres veces al dia", "1", "Debe tomarse al ingerir alimentos"),
-        Reminder("Loratadina", "5:30pm","Dos veces al dia", "2", "Debe tomarse al ingerir alimentos"),
-        Reminder("Ibuprofeno", "8:00am","Una vez al dia", "1", "Debe tomarse al ingerir alimentos"),
-        Reminder("Dolo-Nervilan", "11:00am","Dos veces al dia", "2", "Debe tomarse al ingerir alimentos")
-    ).toMutableList()
+class ReminderRepository(
+    private val api: ReminderService,
+    database: AppDatabase,
+    private var user_id: String
+) {
 
-    val reminders: MutableLiveData<List<Reminder>>
-        get() = MutableLiveData(_reminders)
+    private val reminderDao = database.reminderDao()
 
-    fun addReminder(reminder: Reminder){
-        _reminders.add(reminder)
-        reminders.value = _reminders
+
+    suspend fun addReminder(
+        name: String,
+        repeatEvery: Int,
+        hour: String,
+        dose: Int,
+        rangeDate: String,
+        foodOption: Boolean
+    ): ApiResponse<Any> {
+        return try {
+            val response = api.createReminder(
+                user_id,
+                ReminderRequest(name, repeatEvery, hour, dose, rangeDate, foodOption)
+            )
+            ApiResponse.Success(response)
+        } catch (err: HttpException) {
+            ApiResponse.Failure(err.code(), err.message())
+        }
+    }
+
+    suspend fun getReminders(): ApiResponse<List<Reminder>> {
+        return try {
+            val response = api.getReminder(user_id)
+
+            if (response.total > 0) {
+                for (reminders in response.reminders) {
+                    reminderDao.insertReminder(reminders)
+                }
+            }
+            ApiResponse.Success(data = reminderDao.getAllReminders())
+        } catch (err: HttpException) {
+            ApiResponse.Failure(err.code(), err.message())
+        }
+    }
+
+    suspend fun deleteReminder(cardId: String): ApiResponse<Any> {
+        return try {
+            val response = api.deleteReminder(cardId, user_id)
+            reminderDao.removerReminder(cardId)
+            ApiResponse.Success(response)
+        } catch (err: HttpException) {
+            ApiResponse.Failure(err.code(), err.message())
+        }
+    }
+
+    suspend fun updateReminder(
+        name: String,
+        repeatEvery: Int,
+        hour: String,
+        dose: Int,
+        rangeDate: String,
+        foodOption: Boolean,
+        cardId: String
+    ): ApiResponse<Any> {
+        return try {
+            val response = api.updateReminder(cardId, user_id, ReminderRequest(name, repeatEvery, hour, dose, rangeDate, foodOption))
+            ApiResponse.Success(response)
+        } catch (err: HttpException) {
+            ApiResponse.Failure(err.code(), err.message())
+        }
+    }
+
+    suspend fun getOneReminder(id: String) : ApiResponse<OneReminderResponse> {
+        return try {
+            val response = api.getOneReminder(id, user_id)
+            ApiResponse.Success(response)
+        } catch (err: HttpException) {
+            ApiResponse.Failure(err.code(), err.message())
+        }
     }
 }

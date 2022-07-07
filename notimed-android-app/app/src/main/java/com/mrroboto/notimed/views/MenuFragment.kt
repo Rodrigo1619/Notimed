@@ -1,27 +1,33 @@
 package com.mrroboto.notimed.views
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
-import com.mrroboto.notimed.databinding.FragmentLoginBinding
 import com.mrroboto.notimed.databinding.FragmentMenuBinding
+import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.viewmodels.UserViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
 
 class MenuFragment : Fragment() {
 
     private lateinit var binding: FragmentMenuBinding
+    private lateinit var application: NotiMedApplication
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val viewModelFactory by lazy {
+        val app = requireActivity().application as NotiMedApplication
+        ViewModelFactory(app.getUserRepository())
+    }
+
+    private val viewModel: UserViewModel by viewModels {
+        viewModelFactory
     }
 
     override fun onCreateView(
@@ -37,6 +43,10 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.whoami(isLoading = true)
+
+        application = requireActivity().application as NotiMedApplication
+
         binding.reminderButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_menuFragment_to_reminderFragment)
         }
@@ -50,5 +60,39 @@ class MenuFragment : Fragment() {
         }
 
 
+        viewModel.apiResponse.observe(viewLifecycleOwner) {
+            when(it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.bringToFront()
+                }
+                is ApiResponse.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.menuUsername.text = it.data.toString()
+                    viewModel.getId()
+                }
+                is ApiResponse.Failure -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewModel.get.observe(viewLifecycleOwner) {
+            when(it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.bringToFront()
+                }
+                is ApiResponse.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    application.saveID(it.data.toString())
+                }
+                is ApiResponse.Failure -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 }
