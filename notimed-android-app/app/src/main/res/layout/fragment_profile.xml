@@ -11,8 +11,8 @@
         tools:context=".views.AddAppointmentFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
@@ -26,8 +26,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:navigationIcon="@drawable/ic_back"
+                    app:menu="@menu/top_app_bar"
                     app:title="@string/profile" />
             </com.google.android.material.appbar.AppBarLayout>
+
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/FormLayout"
@@ -98,7 +101,7 @@
                         android:id="@+id/label_birthday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_20dp"
+                        android:layout_marginStart="33dp"
                         android:layout_marginTop="@dimen/gap12dp"
                         android:text="Fecha de nacimiento:"
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"

@@ -155,4 +155,6 @@
     <string name="close_session_title">¿Deseas cerrar tu sesion?</string>
 
     <string name="update_reminder_title"> Actualizar recordatorio </string>
+
+    <string name="EditProfile">Actualizar perfil</string>
 </resources>

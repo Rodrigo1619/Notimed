@@ -47,6 +47,9 @@ class MenuFragment : Fragment() {
 
         application = requireActivity().application as NotiMedApplication
 
+        binding.profileButton.setOnClickListener {
+             it.findNavController().navigate(R.id.action_menuFragment_to_profileFragment)
+        }
         binding.reminderButton.setOnClickListener {
             it.findNavController().navigate(R.id.action_menuFragment_to_reminderFragment)
         }
