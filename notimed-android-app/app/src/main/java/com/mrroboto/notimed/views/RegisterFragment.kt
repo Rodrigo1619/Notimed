@@ -11,14 +11,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
-import com.mrroboto.notimed.data.models.User
 import com.mrroboto.notimed.databinding.FragmentRegisterBinding
+import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.viewmodels.UserViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
 import java.util.*
@@ -112,10 +113,44 @@ class RegisterFragment : Fragment() {
                 isValidPassword()
                 isValidGender()
             } else {
-                viewModel.register(requireContext())
+                viewModel.register(isLoading = true)
             }
         }
 
+        viewModel.apiResponse.observe(viewLifecycleOwner) {
+
+            when (it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.bringToFront()
+                }
+                is ApiResponse.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.success_create_user),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                }
+                is ApiResponse.Failure -> {
+                    binding.progressBar.visibility = View.GONE
+                    if (it.errorCode == 409) {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.error_existing_user),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else if (it.errorCode == 400) {
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.error_400_register),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
     }
 
     override fun onPause() {

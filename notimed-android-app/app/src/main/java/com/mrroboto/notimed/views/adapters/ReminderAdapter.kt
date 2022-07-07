@@ -3,43 +3,93 @@ package com.mrroboto.notimed.views.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.mrroboto.notimed.R
-import com.mrroboto.notimed.databinding.CardreminderLayoutBinding
 import com.mrroboto.notimed.data.models.Reminder
+import com.mrroboto.notimed.databinding.CardreminderLayoutBinding
 
 class ReminderAdapter : RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder>() {
-    inner class ReminderViewHolder(private val binding: CardreminderLayoutBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(reminder: Reminder){
+    lateinit var binding: CardreminderLayoutBinding
+
+    inner class ReminderViewHolder(val binding: CardreminderLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(reminder: Reminder) {
             binding.reminder = reminder
             binding.executePendingBindings()
         }
 
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)=
-        ReminderViewHolder(
-            DataBindingUtil.inflate(
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReminderViewHolder {
+
+        return ReminderViewHolder(
+            binding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.cardreminder_layout,
                 parent,
                 false
             )
         )
+    }
 
 
     override fun onBindViewHolder(holder: ReminderViewHolder, position: Int) {
-        reminders?.let{
+        reminders?.let {
             holder.bind(it[position])
+        }
+
+        holder.binding.deleteButtonReminder.setOnClickListener {
+            onItemClickListener?.let {
+                it(reminders?.get(position)?._id.toString())
+            }
+
+            onItemListenerPosition?.let {
+                it(position)
+            }
+        }
+
+        holder.binding.editButtonReminder.setOnClickListener {
+            onUpdateId?.let {
+                it(reminders?.get(position)?._id.toString())
+            }
+
+            onUpdatePosition?.let {
+                it(position)
+            }
+
+            holder.binding.root.findNavController().navigate(R.id.action_reminderFragment_to_updateReminder)
         }
     }
 
 
     override fun getItemCount() = reminders?.size ?: 0
 
-    private var reminders:List<Reminder>? = null
+    private var reminders: List<Reminder>? = null
 
-    fun setData(data: List<Reminder>){
+    fun setData(data: List<Reminder>) {
         reminders = data
         notifyDataSetChanged()
+    }
+
+    private var onItemClickListener : ((id : String) -> Unit)? = null
+    private var onItemListenerPosition : ((position: Int) -> Unit)? = null
+
+    private var onUpdateId : ((id : String) -> Unit)? = null
+    private var onUpdatePosition : ((position: Int) -> Unit)? = null
+    fun getReminderId(listener: (id: String) -> Unit) {
+        onItemClickListener = listener
+    }
+
+    fun getPosition(listener: (position: Int) -> Unit) {
+        onItemListenerPosition = listener
+    }
+
+    fun getReminderIdforUpdate(listener: (id: String) -> Unit) {
+        onUpdateId = listener
+    }
+
+    fun getPositionforUpdate(listener: (position: Int) -> Unit) {
+        onUpdatePosition = listener
     }
 }

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:maxWidth="500dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?colorSurface"
+            tools:context=".views.AddAppointmentFragment">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:navigationIcon="@drawable/ic_back"
+                    app:menu="@menu/top_app_bar"
+                    app:title="@string/profile" />
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ProfileLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/normalGap"
+                android:layout_marginEnd="@dimen/margin_20dp"
+                android:layout_marginBottom="@dimen/normalGap"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+                app:layout_constraintWidth_max="480dp">
+
+
+                <ImageView
+                    android:id="@+id/profile_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_profileicon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/profile"/>
+
+                <TextView
+                    android:id="@+id/label_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap12dp"
+                    android:text="MrRoboto"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profile_icon" />
+
+                <TextView
+                    android:id="@+id/label_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gap12dp"
+                    android:text="example@gmail.com"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/label_name" />
+
+                <LinearLayout
+                    android:id="@+id/birthday_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity='center'
+                    android:paddingVertical="@dimen/margin_20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/label_email">
+
+                    <TextView
+                        android:id="@+id/label_birthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text='@{@string/labelBirthday + ":"}'
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_birthday_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/smallGap"
+                        android:padding="8dp"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:background="?colorPrimaryInverse"
+                        android:text="12/12/12"
+                        />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar4"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/ProfileLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

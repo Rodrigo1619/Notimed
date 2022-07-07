@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:navigationIcon="@drawable/ic_back"
-                    app:title="@string/AddReminder_title"
+                    app:title="@string/update_reminder_title"
                     />
 
             </com.google.android.material.appbar.AppBarLayout>
@@ -192,7 +192,7 @@
                         android:drawableStart="@drawable/ic_dose"
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/labelDose"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:textColor="?colorOnSurface"
                         android:text="@{viewModel.currentDose}"
                         android:textColorHint="?colorOnSurfaceVariant" />
