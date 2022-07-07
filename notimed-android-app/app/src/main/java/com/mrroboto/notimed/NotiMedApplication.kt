@@ -57,6 +57,15 @@ class NotiMedApplication : Application() {
     fun deleteCardId() {
         val editor = prefs.edit()
         editor.remove(CARD_ID)
+        editor.remove(POSITION_CARD)
+        editor.apply()
+    }
+
+    fun getPositionCard(): Int = prefs.getInt(POSITION_CARD, 0)
+
+    fun savePositionCard(position: Int) {
+        val editor = prefs.edit()
+        editor.putInt(POSITION_CARD, position)
         editor.apply()
     }
 
@@ -71,6 +80,7 @@ class NotiMedApplication : Application() {
         const val USER_TOKEN = "user_token"
         const val USER_id = "user_id"
         const val CARD_ID = "card_id"
+        const val POSITION_CARD = "position_card"
     }
 
 }

@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="reminder"
-            type="com.mrroboto.notimed.data.models.Reminder"
-            />
+            type="com.mrroboto.notimed.data.models.Reminder" />
 
         <variable
             name="reminderViewModel"
             type="com.mrroboto.notimed.viewmodels.ReminderViewModel" />
     </data>
-<com.google.android.material.card.MaterialCardView
-    android:id="@+id/cv"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:animateLayoutChanges="true"
-    app:cardUseCompatPadding="true">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/smallGap">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/smallGap"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/medicineText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{reminder.name}"
+                android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/timesText"
@@ -44,102 +43,106 @@
                 android:text='@{@string/times_a_day_hint + " " + reminder.repeatEvery + " " + @string/hour_suffix}'
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/medicineText"
-                />
+                app:layout_constraintTop_toBottomOf="@id/medicineText" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/expand_card"
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/gap12dp" />
+
+            <TextView
+                android:id="@+id/nextReminderTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/ic_arrow_down"
-                style="@style/Widget.Material3.Button.IconButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:iconTint="?colorOnSurfaceVariant"
-                app:iconSize="24dp"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginBottom="@dimen/gap12dp"
+                android:text='@{@string/next_reminder_hint + " " + reminder.hour}'
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/gap12dp"/>
-
-        <TextView
-            android:id="@+id/nextReminderTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{@string/next_reminder_hint + " " + reminder.hour}'
-            android:layout_marginBottom="@dimen/gap12dp"
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
-
-        <TextView
-            android:id="@+id/doseText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{@string/labelDose + ": " + reminder.dose}'
-            android:layout_marginBottom="@dimen/gap12dp"
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
-
-        <TextView
-            android:id="@+id/optionsLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/options_label"
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
-
-        <TextView
-            android:id="@+id/optionText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{reminder.foodOption ? @string/needsFood : @string/noNeedsFood}'
-            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/gap12dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/editButtonReminder"
-                android:layout_width="48dp"
+            <TextView
+                android:id="@+id/doseText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/ic_edit"
-                android:paddingHorizontal="@dimen/gap12dp"
-                android:insetLeft="0dp"
-                android:insetTop="0dp"
-                android:insetRight="0dp"
-                android:insetBottom="0dp"
-                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
-                app:iconTint="?colorOnSurfaceVariant"
-                app:iconSize="24dp"
-                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="@dimen/gap12dp"
+                android:text='@{@string/labelDose + ": " + reminder.dose}'
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+            <TextView
+                android:id="@+id/startDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/gap12dp"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:text='@{@string/start_text + ": " + reminder.startDate}'
                 />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/deleteButtonReminder"
-                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
-                android:layout_width="48dp"
+            <TextView
+                android:id="@+id/endDateLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:icon="@drawable/ic_delete"
-                app:iconSize="24dp"
-                android:paddingHorizontal="@dimen/gap12dp"
-                android:insetLeft="0dp"
-                android:insetTop="0dp"
-                android:insetRight="0dp"
-                android:insetBottom="0dp"
-                app:iconTint="?colorOnSurfaceVariant"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:layout_marginBottom="@dimen/gap12dp"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:text='@{@string/text_final + ": " + reminder.endDate}'
+                />
+
+            <TextView
+                android:id="@+id/optionsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/options_label"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+            <TextView
+                android:id="@+id/optionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{reminder.foodOption ? @string/needsFood : @string/noNeedsFood}'
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/gap12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/editButtonReminder"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingHorizontal="@dimen/gap12dp"
+                    app:icon="@drawable/ic_edit"
+                    app:iconSize="24dp"
+                    app:iconTint="?colorOnSurfaceVariant" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/deleteButtonReminder"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:insetLeft="0dp"
+                    android:insetTop="0dp"
+                    android:insetRight="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingHorizontal="@dimen/gap12dp"
+                    app:icon="@drawable/ic_delete"
+                    app:iconSize="24dp"
+                    app:iconTint="?colorOnSurfaceVariant"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
 
-
-</com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

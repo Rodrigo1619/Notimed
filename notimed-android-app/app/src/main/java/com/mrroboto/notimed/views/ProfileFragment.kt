@@ -57,7 +57,7 @@ class ProfileFragment : Fragment() {
                 }
                 is ApiResponse.Success -> {
                     binding.progressBar4.visibility = View.GONE
-                    binding.labelName.text = it.data.content.name
+                    binding.labelName.text = "${it.data.content.name} ${it.data.content.lastName}"
                     binding.labelEmail.text = it.data.content.email
                     binding.textBirthdayLabel.text = it.data.content.birthday
                 }

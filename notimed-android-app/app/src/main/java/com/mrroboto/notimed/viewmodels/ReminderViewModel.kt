@@ -15,8 +15,8 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
     var currentEveryTimes = MutableLiveData<String>()
     var currentHour = MutableLiveData<String>()
     var currentDose = MutableLiveData<String>()
-    var currentStartDay = MutableLiveData<String>()
-    var currentEndDay = MutableLiveData<String>()
+    var currentStartDay = MutableLiveData("")
+    var currentEndDay = MutableLiveData("")
     var currentOption = MutableLiveData<String>()
 
     val apiResponse = MutableLiveData<ApiResponse<Any>>()
@@ -26,7 +26,8 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
     fun createReminder(
         isLoading: Boolean,
         name: String,
-        rangeDate: String,
+        startDate: String,
+        endDate: String,
         dose: Int,
         option: Boolean,
         times: Int,
@@ -46,7 +47,8 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
                 times,
                 hour,
                 dose,
-                rangeDate,
+                startDate,
+                endDate,
                 option
             )
         )
@@ -67,7 +69,8 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
     fun updateReminder(
         id: String,
         name: String,
-        rangeDate: String,
+        startDate: String,
+        endDate: String,
         dose: Int,
         option: Boolean,
         times: Int,
@@ -81,7 +84,8 @@ class ReminderViewModel(private val repository: ReminderRepository) : ViewModel(
                     times,
                     hour,
                     dose,
-                    rangeDate,
+                    startDate,
+                    endDate,
                     option,
                     id
                 )

@@ -12,7 +12,8 @@ data class Reminder(
     @ColumnInfo("repeatEvery") val repeatEvery: Int,
     @ColumnInfo("hour") val hour: String,
     @ColumnInfo("dose") val dose: Int,
-    @ColumnInfo("rangeDate") val rangeDate: String,
+    @ColumnInfo("startDate") val startDate: String,
+    @ColumnInfo("endDate") val endDate: String,
     @ColumnInfo("foodOption") val foodOption: Boolean,
     @ColumnInfo("user") val user: String
 )

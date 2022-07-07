@@ -22,13 +22,14 @@ class ReminderRepository(
         repeatEvery: Int,
         hour: String,
         dose: Int,
-        rangeDate: String,
+        startDate: String,
+        endDate: String,
         foodOption: Boolean
     ): ApiResponse<Any> {
         return try {
             val response = api.createReminder(
                 user_id,
-                ReminderRequest(name, repeatEvery, hour, dose, rangeDate, foodOption)
+                ReminderRequest(name, repeatEvery, hour, dose, startDate, endDate, foodOption)
             )
             ApiResponse.Success(response)
         } catch (err: HttpException) {
@@ -66,12 +67,14 @@ class ReminderRepository(
         repeatEvery: Int,
         hour: String,
         dose: Int,
-        rangeDate: String,
+        startDate: String,
+        endDate: String,
         foodOption: Boolean,
         cardId: String
     ): ApiResponse<Any> {
         return try {
-            val response = api.updateReminder(cardId, user_id, ReminderRequest(name, repeatEvery, hour, dose, rangeDate, foodOption))
+            val response = api.updateReminder(cardId, user_id, ReminderRequest(name, repeatEvery, hour, dose, startDate, endDate, foodOption))
+            reminderDao.insertReminder(Reminder(cardId, name, repeatEvery, hour, dose, startDate, endDate, foodOption, user_id))
             ApiResponse.Success(response)
         } catch (err: HttpException) {
             ApiResponse.Failure(err.code(), err.message())

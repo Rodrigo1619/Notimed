@@ -8,7 +8,8 @@ data class ReminderRequest(
     @SerializedName("repeatEvery") val repeatEvery: Int,
     @SerializedName("hour") val hour: String,
     @SerializedName("dose") val dose: Int,
-    @SerializedName("rangeDate") val rangeDate: String,
+    @SerializedName("startDate") val startDate: String,
+    @SerializedName("endDate") val endDate: String,
     @SerializedName("foodOption") val foodOption: Boolean
 )
 
@@ -26,6 +27,7 @@ data class ReminderArray(
     val repeatEvery: Int,
     val hour: String,
     val dose: Int,
-    val rangeDate: String,
+    val startDate: String,
+    val endDate: String,
     val foodOption: Boolean
 )
