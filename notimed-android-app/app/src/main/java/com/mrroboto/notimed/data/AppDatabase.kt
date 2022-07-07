@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.mrroboto.notimed.data.dao.AppointmentDao
 import com.mrroboto.notimed.data.dao.ReminderDao
 import com.mrroboto.notimed.data.dao.UserDao
 import com.mrroboto.notimed.data.models.Reminder
@@ -13,6 +14,7 @@ import com.mrroboto.notimed.data.models.User
 abstract class AppDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun reminderDao(): ReminderDao
+    abstract fun appointmentDao(): AppointmentDao
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
