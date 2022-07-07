@@ -157,4 +157,9 @@
     <string name="update_reminder_title"> Actualizar recordatorio </string>
 
     <string name="EditProfile">Actualizar perfil</string>
+
+    <string name="success_user_update"> ¡Usuario actualizado con éxito! </string>
+
+    <string name="logout_title"> Cerrar sesión </string>
+    <string name="logout_message"> Si cierras sesión tus recordatorios serán descartados. ¿Deseas cerrar sesión? </string>
 </resources>

@@ -4,15 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:maxWidth="500dp">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?colorSurface"
-        tools:context=".views.AddAppointmentFragment">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="?colorSurface"
+            tools:context=".views.AddAppointmentFragment">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
@@ -33,7 +29,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/FormLayout"
+                android:id="@+id/ProfileLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_20dp"
@@ -42,25 +38,20 @@
                 android:layout_marginBottom="@dimen/normalGap"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-                app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintWidth_max="480dp">
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+                <ImageView
                     android:id="@+id/profile_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:backgroundTint="?colorPrimary"
-                    android:paddingHorizontal="@dimen/gap12dp"
-                    app:iconSize="24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_profileicon"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_person"
-                    app:tint="?colorOnPrimary" />
+                    android:contentDescription="@string/profile"/>
 
                 <TextView
                     android:id="@+id/label_name"
@@ -84,16 +75,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/label_name" />
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/schedule_days_group"
+                <LinearLayout
+                    android:id="@+id/birthday_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+                    android:gravity='center'
+                    android:paddingVertical="@dimen/margin_20dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/label_email">
 
@@ -101,25 +90,37 @@
                         android:id="@+id/label_birthday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="33dp"
-                        android:layout_marginTop="@dimen/gap12dp"
-                        android:text="Fecha de nacimiento:"
+                        android:text='@{@string/labelBirthday + ":"}'
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/date"
+                    <TextView
+                        android:id="@+id/text_birthday_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/smallGap"
-                        android:text="12/12/1290"
-                        android:backgroundTint="@color/md_theme_light_inversePrimary" />
-                </com.google.android.material.chip.ChipGroup>
+                        android:padding="8dp"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:background="?colorPrimaryInverse"
+                        android:text="12/12/12"
+                        />
+                </LinearLayout>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <ProgressBar
+                android:id="@+id/progressBar4"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/ProfileLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 </layout>

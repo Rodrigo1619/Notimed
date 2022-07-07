@@ -28,6 +28,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/topAppBar"
                     android:layout_width="match_parent"
@@ -35,6 +36,7 @@
                     app:navigationIcon="@drawable/ic_back"
                     app:title="@string/EditProfile" />
             </com.google.android.material.appbar.AppBarLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/FormLayout"
                 android:layout_width="0dp"
@@ -55,7 +57,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
                     app:helperTextEnabled="true"
                     app:layout_constraintBottom_toTopOf="@+id/editLastName"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -80,9 +81,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editEmail"
+                    app:layout_constraintBottom_toTopOf="@+id/editBirthday"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editName">
@@ -101,41 +101,15 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    app:endIconMode="clear_text"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editBirthday"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editLastName">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_outline_email_24"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/labelEmail"
-                        android:inputType="textEmailAddress"
-                        android:text="@{viewModel.currentEmail}"
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editBirthday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
-                    app:helperText="@string/helper_text"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/editPassword"
+                    app:layout_constraintBottom_toTopOf="@+id/gender"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editEmail">
+                    app:layout_constraintTop_toBottomOf="@+id/editLastName">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/text_input_birthday"
@@ -157,50 +131,20 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editPassword"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_20dp"
-                    app:endIconMode="password_toggle"
-                    app:errorContentDescription="@string/labelBirthday"
-                    app:errorEnabled="true"
-                    app:errorTextColor="?colorError"
-                    app:helperText="@string/helper_text"
-                    app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@+id/gender"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editBirthday">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_round_lock_24"
-                        android:drawablePadding="@dimen/smallGap"
-                        android:hint="@string/labelPassword"
-                        android:inputType="textPassword"
-                        android:text="@{viewModel.currentPassword}"
-                        android:textColor="?colorOnSurface"
-                        android:textColorHint="?colorOnSurfaceVariant" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/gender"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_20dp"
                     android:hint="@string/labelGender"
-                    app:errorEnabled="true"
-                    app:helperText="@string/helper_text"
-                    app:endIconTint="?colorPrimary"
                     app:endIconDrawable="@drawable/ic_arrow_down"
+                    app:endIconTint="?colorPrimary"
+                    app:errorEnabled="true"
                     app:helperTextEnabled="true"
-                    app:layout_constraintBottom_toTopOf="@id/registerButton"
+                    app:layout_constraintBottom_toTopOf="@id/cancelButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editPassword">
+                    app:layout_constraintTop_toBottomOf="@id/editBirthday">
 
                     <AutoCompleteTextView
                         android:id="@+id/dropdownGender"
@@ -211,18 +155,30 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/registerButton"
-                    style="?attr/materialButtonOutlinedStyle"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/saveButton"
                     android:layout_width="0dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_20dp"
                     android:text="@string/savebutton_text"
-                    android:textColor="?colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="?colorOnPrimaryContainer"
+                    app:backgroundTint="?colorPrimaryContainer"
+                    app:layout_constraintEnd_toStartOf="@id/cancelButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/gender" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancelButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/smallGap"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:text="@string/cancelbutton_text"
+                    android:textColor="?colorOnErrorContainer"
+                    app:backgroundTint="?colorErrorContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/saveButton"
+                    app:layout_constraintTop_toBottomOf="@+id/gender" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -232,16 +188,11 @@
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/appBarLayout"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:visibility="gone"
-                />
-
-
-
-
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

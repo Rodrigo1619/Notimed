@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/edit"
+        android:id="@+id/editProfileButton"
         android:title="Edit"
         android:icon="@drawable/ic_edit"
         android:contentDescription="Edit the profile"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/favorite"
+        android:id="@+id/closeSession"
         android:icon="@drawable/ic_logout"
         android:title="cerrar sesion"
         android:contentDescription="log out of session"

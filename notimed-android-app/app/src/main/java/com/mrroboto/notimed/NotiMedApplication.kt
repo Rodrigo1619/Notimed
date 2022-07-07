@@ -38,7 +38,7 @@ class NotiMedApplication : Application() {
         editor.apply()
     }
 
-    private fun getId() : String = prefs.getString(USER_id, "")!!
+    fun getId() : String = prefs.getString(USER_id, "")!!
 
     fun saveID(id: String) {
         val editor = prefs.edit()
@@ -57,6 +57,14 @@ class NotiMedApplication : Application() {
     fun deleteCardId() {
         val editor = prefs.edit()
         editor.remove(CARD_ID)
+        editor.apply()
+    }
+
+    fun deleteAll() {
+        val editor = prefs.edit()
+        editor.remove(CARD_ID)
+        editor.remove(USER_id)
+        editor.remove(USER_TOKEN)
         editor.apply()
     }
     companion object {
