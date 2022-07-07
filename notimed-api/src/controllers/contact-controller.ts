@@ -47,7 +47,7 @@ const createContact = async(req: Request, res: Response)=>{
             await newContact.save()
             await newContact.populate('user','_id')
             .then((newContact: any)=>{
-                res.status(200).send(newContact);
+                res.status(201).send(newContact);
             })
             .catch((error:any)=>{
                 res.status(400).send({
@@ -72,7 +72,7 @@ const deleteContact = async(req: Request, res: Response)=>{
     }
         const {id, id2} = req.params;
         const contact = await Contact.findByIdAndDelete({_id: id, user: id2});
-        return res.status(200).json({contact})
+        return res.status(204).json({contact})
     }catch(error){
         return res
         .status(error.status as number ?? 400)
@@ -96,7 +96,7 @@ const updateContact = async(req:Request,res: Response )=>{
             endHour:endHour,
             days:days
         })
-        res.status(201).send({update})
+        res.status(200).send({update})
     }catch(error){
         return res
         .status(error.status as number ?? 400)
