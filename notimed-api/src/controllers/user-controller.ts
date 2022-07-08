@@ -5,6 +5,64 @@ import nodemailer from 'nodemailer';
 import bcrypt from 'bcrypt';
 import configEnv from '../config/config';
 import { validationResult } from 'express-validator';
+import path from 'path';
+
+
+/* var form = (<HTMLInputElement>document.getElementById('passwordForm'));
+var password = (<HTMLInputElement>document.getElementById('password')).value;
+var password2 = (<HTMLInputElement>document.getElementById('password2')).value; */
+//var inputValue = (<HTMLInputElement>document.getElementById(elementId)).value;
+
+
+/* form?.addEventListener('submit', e => {
+    e.preventDefault();
+    validateInputs();
+})
+
+const setError = (element:any, message:any) => {
+    const inputControl = element.parenElement;
+    const errorDisplay = inputControl.querySelector('./error');
+
+    errorDisplay.innerText = message;
+    inputControl.classList.add('error');
+    inputControl.classList.remove('success');
+}
+
+const setSuccess = (element:any, message:any) => {
+    const inputControl = element.parenElement;
+    const errorDisplay = inputControl.querySelector('./error');
+
+    errorDisplay.innerText = '';
+    inputControl.classList.add('success');
+    inputControl.classList.remove('error');
+}
+
+const validateInputs = () =>{
+//Vacio
+if(password != password2){
+    setError(password, "Passwords doesn't match");
+}else{
+    setSuccess(password, 'Success');
+}
+
+ if(password === ''){
+    setError(password, 'Is required')
+ }else if(password.length <=8 ){//Mayor a 8
+    setError(password, 'Must be longer or equal than 8 characteres')
+ } else{
+    setSuccess(password, 'Success');
+ }
+ 
+ //Vacio
+ if(password2 === ''){
+    setError(password2, 'Is required')
+ }else if(password2.length <=8 ){ //Mayor a 8
+    setError(password2, 'Must be longer or equal than 8 characteres')
+}else{
+    setSuccess(password2, 'Success');
+ }
+}
+ */
 
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
@@ -180,6 +238,40 @@ const whoami = async (req: Request, res: Response) => {
     }
 } 
 
+const resetPage = async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    const {id, token} = req.params;
+    
+
+    const existingUser = await User.findOne({_id: id});
+    const userInfo = {
+        id: existingUser?._id,
+        email: existingUser?.email,
+        password: existingUser?.password
+    }
+
+    if(id != userInfo.id ){
+        res.send('Invalid id...')
+        return
+    }
+
+    const secret:string = configEnv.secret_key + userInfo.password!;
+    try {
+        const payload = jwt.verify(token, secret);
+       
+
+
+        res.sendFile(path.join(__dirname, '../views/reset-password.html'))
+    } catch (err: any) {
+        return res
+                .status(err.status as number ?? 400)
+                .json({ message: err.message ?? JSON.stringify(err) });
+    }
+}
+
 const resetPassword = async (req: Request, res: Response) => {
     const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -203,6 +295,7 @@ const resetPassword = async (req: Request, res: Response) => {
 
     try {
         const payload = jwt.verify(token, secret);
+       
         if(password !== password2){
             res.send("Passwords don't match");
             return;
@@ -216,7 +309,9 @@ const resetPassword = async (req: Request, res: Response) => {
             password: hash
         });
 
-        res.status(200).json({update});  
+        await update?.save();
+
+        res.send('Password has been reseted');  
     } catch (err: any) {
         return res
                 .status(err.status as number ?? 400)
@@ -264,7 +359,7 @@ try {
 
     const token = jwt.sign(payload, secret, {expiresIn: '15m'});
 
-    const link = `https://notimed-api.me/identity/reset-password/${userInfo.id}/${token}`
+    const link = `http://notimed-api.me/identity/reset-password/${userInfo.id}/${token}`
 
     const info = await transporter.sendMail({
         from: `'Notimed' <${configEnv.user_mailer}>`,
@@ -289,6 +384,7 @@ export {
     updateUser,
     forgotPassword,
     resetPassword,
-    whoami
+    whoami,
+    resetPage
 }
 
