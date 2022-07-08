@@ -8,11 +8,11 @@ import androidx.room.PrimaryKey
 data class Appointment(
     @PrimaryKey
     @ColumnInfo("_id") val _id: String,
-    @ColumnInfo("name") val name: String,
-    @ColumnInfo("medic") val medic: String,
-    @ColumnInfo("date") val date: String,
-    @ColumnInfo("hour") val hour: String,
-    @ColumnInfo("localization") val localization: String,
-    @ColumnInfo("considerations") val considerations: String
-
+    @ColumnInfo("appointmentName") val appointmentName: String,
+    @ColumnInfo("doctorName") val doctorName: String,
+    @ColumnInfo("appointmentDate") val appointmentDate: String,
+    @ColumnInfo("appointmentHour") val appointmentHour: String,
+    @ColumnInfo("address") val address: String,
+    @ColumnInfo("additionalNotes") val additionalNotes: String,
+    @ColumnInfo("user") val user: String
 )

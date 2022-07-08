@@ -11,17 +11,28 @@ interface AppointmentService {
     @POST("/appointments/create/{id}")
     suspend fun createAppointment(
         @Path("id") id: String,
-        @Body appointmentBody:AppointmentRequest
+        @Body appointmentBody: AppointmentRequest
     )
+
     @GET("/appointments/{id}?limit=10000")
-    suspend fun getAppointment(@Path("id") id: String) : AppointmentResponse
+    suspend fun getAppointment(@Path("id") id: String): AppointmentResponse
 
     @DELETE("/appointments/delete/{idAppointment}/{idUser}")
-    suspend fun deleteAppointment(@Path("idAppointment")idAppointment:String,@Path("idUser")idUser:String)
+    suspend fun deleteAppointment(
+        @Path("idAppointment") idAppointment: String,
+        @Path("idUser") idUser: String
+    )
 
     @PATCH("/appointments/update/{idAppointment}/{idUser}")
-    suspend fun updateAppointment(@Path("idAppointment")idAppointment: String, @Path("idUser") idUser: String, @Body credentials: AppointmentRequest)
+    suspend fun updateAppointment(
+        @Path("idAppointment") idAppointment: String,
+        @Path("idUser") idUser: String,
+        @Body credentials: AppointmentRequest
+    )
 
     @GET("/appointments/{idAppointment}/{idUser}")
-    suspend fun getOneAppointment(@Path("idAppointment")idAppointment: String, @Path("idUser")idUser: String): OneAppointmentResponse
+    suspend fun getOneAppointment(
+        @Path("idAppointment") idAppointment: String,
+        @Path("idUser") idUser: String
+    ): OneAppointmentResponse
 }

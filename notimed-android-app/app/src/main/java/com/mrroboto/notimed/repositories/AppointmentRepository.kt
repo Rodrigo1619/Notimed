@@ -1,6 +1,5 @@
 package com.mrroboto.notimed.repositories
 
-import androidx.lifecycle.MutableLiveData
 import com.mrroboto.notimed.data.AppDatabase
 import com.mrroboto.notimed.data.models.Appointment
 import com.mrroboto.notimed.network.ApiResponse
@@ -18,17 +17,17 @@ class AppointmentRepository (
     private val appointmentDao = database.appointmentDao()
 
     suspend fun addAppointment(
-        name:String,
-        medic:String,
-        date:String,
-        hour:String,
-        localization:String,
-        considerations: String
+        appointmentName: String,
+        doctorName: String,
+        appointmentDate: String,
+        appointmentHour: String,
+        address: String,
+        additionalNotes: String
     ):ApiResponse<Any>{
         return try{
             val response = api.createAppointment(
                 user_id,
-                AppointmentRequest(name, medic, date, hour, localization, considerations)
+                AppointmentRequest(appointmentName, doctorName, appointmentDate, appointmentHour, address, additionalNotes)
             )
             ApiResponse.Success(response)
         }catch (err: HttpException){
@@ -72,7 +71,7 @@ class AppointmentRepository (
     ): ApiResponse<Any>{
         return try{
             val response = api.updateAppointment(cardId, user_id, AppointmentRequest(name,medic,date,hour,localization,considerations))
-            appointmentDao.insertAppointment(Appointment(cardId,name, medic, date, hour, localization, considerations))
+            appointmentDao.insertAppointment(Appointment(cardId,name, medic, date, hour, localization, considerations, user_id))
             ApiResponse.Success(response)
         }catch (err: HttpException){
             ApiResponse.Failure(err.code(), err.message())

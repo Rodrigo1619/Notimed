@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName
 import com.mrroboto.notimed.data.models.Appointment
 
 data class AppointmentRequest(
-    @SerializedName("name") val name: String,
-    @SerializedName("medic") val medic: String,
-    @SerializedName("date") val date: String,
-    @SerializedName("hour") val hour: String,
-    @SerializedName("localization") val localization: String,
-    @SerializedName("considerations") val considerations: String
+    @SerializedName("appointmentName") val appointmentName: String,
+    @SerializedName("doctorName") val doctorName: String,
+    @SerializedName("appointmentDate") val appointmentDate: String,
+    @SerializedName("appointmentHour") val appointmentHour: String,
+    @SerializedName("address") val address: String,
+    @SerializedName("additionalNotes") val additionalNotes: String
 )
 data class AppointmentResponse(
     val total: Int,
@@ -19,10 +19,10 @@ data class OneAppointmentResponse(
     val appointment: List<AppointmentArray>
 )
 data class AppointmentArray(
-    val name: String,
-    val medic: String,
-    val date: String,
-    val hour: String,
-    val localization: String,
-    val considerations: String
+    val appointmentName: String,
+    val doctorName: String,
+    val appointmentDate: String,
+    val appointmentHour: String,
+    val address: String,
+    val additionalNotes: String
 )

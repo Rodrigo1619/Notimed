@@ -16,7 +16,6 @@ import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAppointmentBinding
 import com.mrroboto.notimed.network.ApiResponse
-import com.mrroboto.notimed.repositories.AppointmentRepository
 import com.mrroboto.notimed.viewmodels.AppointmentViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
 import com.mrroboto.notimed.views.adapters.AppointmentAdapter

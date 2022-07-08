@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/gap12dp"
-                android:text="@{appointment.name}"
+                android:text="@{appointment.appointmentName}"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium" />
 
             <TextView
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/gap12dp"
-                android:text= '@{"Doctor:"+ "" + appointment.medic}'
+                android:text= '@{@string/doctor_hint+ ": " + appointment.doctorName}'
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/gap12dp"
-                android:text='@{"Fecha de cita:" + "" + appointment.date}'
+                android:text='@{@string/date_appointment_label + " " + appointment.appointmentDate}'
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/gap12dp"
-                android:text='@{"Hora:" + "" + appointment.hour}'
+                android:text='@{@string/hourLabel + " " + appointment.appointmentHour}'
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
             <TextView
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/gap12dp"
-                android:text='@{"Ubicacion:" + "" + appointment.date}'
+                android:text='@{@string/Address_hint + ": " + appointment.address}'
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
             <com.google.android.material.divider.MaterialDivider
@@ -75,7 +75,7 @@
                 android:id="@+id/aditional_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notas adicionales:"
+                android:text="@string/notes_label"
                 android:layout_marginBottom="@dimen/gap12dp"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
@@ -83,7 +83,7 @@
                 android:id="@+id/aditional_notes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{appointment.considerations}"
+                android:text="@{appointment.additionalNotes}"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
             <com.google.android.material.divider.MaterialDivider

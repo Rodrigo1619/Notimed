@@ -18,7 +18,7 @@ class AppointmentViewModel(private val repository: AppointmentRepository): ViewM
     var currentDate = MutableLiveData<String>()
     var currentHour = MutableLiveData<String>()
     var currentLocalization = MutableLiveData<String>()
-    var CurrentConsiderations = MutableLiveData<String>()
+    var currentConsiderations = MutableLiveData<String>()
 
     val apiResponse = MutableLiveData<ApiResponse<Any>>()
     val listResponse = MutableLiveData<ApiResponse<List<Appointment>>>()
@@ -26,28 +26,28 @@ class AppointmentViewModel(private val repository: AppointmentRepository): ViewM
 
     fun createAppointment(
         isLoading: Boolean,
-        name:String,
-        medic:String,
-        date: String,
-        hour: String,
-        localization: String,
-        considerations: String
+        appointmentName:String,
+        doctorName:String,
+        appointmentDate: String,
+        appointmentHour: String,
+        address: String,
+        additionalNotes: String
     ) = viewModelScope.launch {
         apiResponse.value = ApiResponse.Loading(isLoading)
 
         apiResponse.postValue(
             repository.addAppointment(
-                name,
-                medic,
-                date,
-                hour,
-                localization,
-                considerations
+                appointmentName,
+                doctorName,
+                appointmentDate,
+                appointmentHour,
+                address,
+                additionalNotes
             )
         )
     }
     fun getAppointments(isLoading: Boolean) = viewModelScope.launch {
-        apiResponse.value = ApiResponse.Loading(isLoading)
+        listResponse.value = ApiResponse.Loading(isLoading)
 
         listResponse.postValue(repository.getAppointments())
     }
@@ -56,6 +56,7 @@ class AppointmentViewModel(private val repository: AppointmentRepository): ViewM
 
         apiResponse.postValue(repository.deleteAppointment(id))
     }
+
     fun updateAppointment(
         id:String,
         name:String,
@@ -82,7 +83,7 @@ class AppointmentViewModel(private val repository: AppointmentRepository): ViewM
     }
 
     fun getOneAppointment(id:String) = viewModelScope.launch {
-        apiResponse.value = ApiResponse.Loading(isLoading = true)
+        response.value = ApiResponse.Loading(true)
 
         response.postValue(repository.getOneAppointment(id))
     }

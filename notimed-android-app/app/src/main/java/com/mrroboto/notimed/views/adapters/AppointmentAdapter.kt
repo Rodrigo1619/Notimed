@@ -50,7 +50,7 @@ class AppointmentAdapter : RecyclerView.Adapter<AppointmentAdapter.AppointmentVi
             onUpdatePosition?.let {
                 it(position)
             }
-            holder.binding.root.findNavController().navigate(R.id.action_appointmentFragment_to_addAppointmentFragment)//falta
+            holder.binding.root.findNavController().navigate(R.id.action_appointmentFragment_to_updateAppointment)//falta
         }
     }
 
