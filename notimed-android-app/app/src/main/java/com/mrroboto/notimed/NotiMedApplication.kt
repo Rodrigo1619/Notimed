@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.mrroboto.notimed.data.AppDatabase
 import com.mrroboto.notimed.network.RetrofitInstance
+import com.mrroboto.notimed.repositories.AppointmentRepository
 import com.mrroboto.notimed.repositories.ReminderRepository
 import com.mrroboto.notimed.repositories.UserRepository
 
@@ -26,10 +27,15 @@ class NotiMedApplication : Application() {
     private fun getReminderService() = with(RetrofitInstance) {
         this.getReminderServices()
     }
+    private fun getAppointmentService()= with(RetrofitInstance){
+        this.getAppointmentService()
+    }
 
     fun getUserRepository() = UserRepository(getIdentityService(), database)
 
     fun getReminderRepository() = ReminderRepository(getReminderService(), database, getId())
+
+    fun getAppointmentRepository()= AppointmentRepository(getAppointmentService(),database,getId())
 
     private fun getToken(): String = prefs.getString(USER_TOKEN, "")!!
     fun saveAuthToken(token: String) {
