@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?colorSurface"
-        tools:context=".views.AddAppointmentFragment">
+        tools:context=".views.UpdateAppointment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:navigationIcon="@drawable/ic_back"
-                    app:title="@string/addAppointment_text" />
+                    app:title="@string/title_update_appointment" />
 
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -145,6 +145,7 @@
                         android:focusableInTouchMode="false"
                         android:hint="@string/editDate_helperText"
                         android:inputType="text"
+                        android:text="@{viewModel.currentDate}"
                         android:maxLines="1"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
@@ -176,6 +177,7 @@
                         android:focusable="true"
                         android:clickable="true"
                         android:focusableInTouchMode="false"
+                        android:text="@{viewModel.currentHour}"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -201,6 +203,7 @@
                         android:drawableStart="@drawable/ic_address"
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/addressTitle"
+                        android:text="@{viewModel.currentLocalization}"
                         android:inputType="text"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
@@ -229,6 +232,7 @@
                         android:drawablePadding="@dimen/smallGap"
                         android:hint="@string/Notes_helperText"
                         android:inputType="text"
+                        android:text="@{viewModel.currentConsiderations}"
                         android:textColor="?colorOnSurface"
                         android:textColorHint="?colorOnSurfaceVariant" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -263,6 +267,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/editNotes" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ProgressBar
+                android:id="@+id/progressUpdateAppointment"
+                style="?android:attr/progressBarStyle"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

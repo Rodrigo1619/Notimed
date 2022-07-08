@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isEmpty
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
@@ -17,12 +19,24 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAddAppointmentBinding
+import com.mrroboto.notimed.network.ApiResponse
+import com.mrroboto.notimed.viewmodels.AppointmentViewModel
+import com.mrroboto.notimed.viewmodels.ViewModelFactory
 import java.util.*
 
 class AddAppointmentFragment : Fragment() {
     private lateinit var binding: FragmentAddAppointmentBinding
+
+    private val viewModelFactory by lazy{
+        val app = requireActivity().application as NotiMedApplication
+        ViewModelFactory(app.getAppointmentRepository())
+    }
+    private val viewModel: AppointmentViewModel by viewModels {
+        viewModelFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -118,7 +132,37 @@ class AddAppointmentFragment : Fragment() {
                 isValidDate()
                 isValidAddress()
             } else {
-                it.findNavController().navigate(R.id.action_addAppointmentFragment_to_appointmentFragment)
+
+                val name = binding.editAppointmentName.editText?.text.toString()
+                val doctor = binding.editDoctor.editText?.text.toString()
+                val date = binding.editDate.editText?.text.toString()
+                val hour = binding.textEditHour.text.toString()
+                val address = binding.editAddress.editText?.text.toString()
+                val notes = binding.editNotes.editText?.text.toString()
+                viewModel.createAppointment(true, name, doctor, date, hour, address,notes)
+            }
+        }
+
+        viewModel.apiResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar4.visibility = View.VISIBLE
+                    binding.progressBar4.bringToFront()
+                }
+
+                is ApiResponse.Success -> {
+                    binding.progressBar4.visibility = View.GONE
+                    Toast.makeText(requireContext(), R.string.reminder_created, Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_addAppointmentFragment_to_appointmentFragment)
+                }
+                is ApiResponse.Failure -> {
+                    binding.progressBar4.visibility = View.GONE
+                    when(it.errorCode) {
+                        400 -> Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
+                        409 -> Toast.makeText(requireContext(), R.string.appointment_exists, Toast.LENGTH_SHORT).show()
+                        else  -> Toast.makeText(requireContext(), R.string.general_error, Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
 
@@ -137,6 +181,48 @@ class AddAppointmentFragment : Fragment() {
                 .show()
         }
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        val name = binding.editAppointmentName.editText
+        val doctor = binding.editDoctor.editText
+        val date = binding.editDate.editText
+        val hour = binding.textEditHour
+        val address = binding.editAddress.editText
+        val notes = binding.editNotes.editText
+
+        viewModel.currentName.value = name?.text.toString()
+        viewModel.currentMedic.value = doctor?.text.toString()
+        viewModel.currentDate.value = date?.text.toString()
+        viewModel.currentHour.value = hour.text.toString()
+        viewModel.currentLocalization.value = address?.text.toString()
+        viewModel.currentConsiderations.value = notes?.text.toString()
+
+        viewModel.currentName.observe(viewLifecycleOwner) {
+            name?.setText(it)
+        }
+
+        viewModel.currentMedic.observe(viewLifecycleOwner) {
+            doctor?.setText(it)
+        }
+
+        viewModel.currentDate.observe(viewLifecycleOwner) {
+            date?.setText(it)
+        }
+
+        viewModel.currentHour.observe(viewLifecycleOwner) {
+            hour.setText(it)
+        }
+
+        viewModel.currentLocalization.observe(viewLifecycleOwner) {
+            address?.setText(it)
+        }
+
+        viewModel.currentConsiderations.observe(viewLifecycleOwner) {
+            notes?.setText(it)
+        }
     }
 
 

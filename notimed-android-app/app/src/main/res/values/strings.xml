@@ -61,7 +61,6 @@
     <string name="editPhone_text">Número de teléfono</string>
     <string name="Phone_hint">2222–3333</string>
     <string name="contactDoctor_hint">Dr. Notimed</string>
-    <string name="Localization_text">Ubicación de consultorio</string>
     <string name="specialization_texthint">Especialización del médico</string>
     <string name="Schedule_hintText">Horarios de consulta</string>
     <string name="weekDays_hintText">Seleccione los días de consulta</string>
@@ -113,6 +112,7 @@
     <string name="no_response"> No </string>
     <string name="yes_response"> Sí </string>
     <string name="labelDose">Dosis</string>
+    <string name="hourLabel">Hora:</string>
     <string name="labelStartHour">Hora inicial</string>
     <string name="labelHour">Hora</string>
     <string name="scheduleLabel">Horario de medicamento</string>
@@ -161,6 +161,16 @@
 
     <string name="success_user_update"> ¡Perfil actualizado con éxito! </string>
 
+    <string name="appointment_created">¡Cita creada!</string>
+    <string name="appointment_updated">¡Cita actualizada!</string>
+    <string name="appointment_exists"> Esta cita ya existe :c </string>
+
+    <string name="title_update_appointment">Actualizar cita médica</string>
+
+
     <string name="logout_title"> Cerrar sesión </string>
     <string name="logout_message"> Si cierras sesión tus recordatorios serán descartados. ¿Deseas cerrar sesión? </string>
+    <string name="notes_label">Notas adicionales:</string>
+    <string name="date_appointment_label"> Fecha de cita: </string>
+    <string name="not_found_appointment">Cita no encontrada :c</string>
 </resources>
