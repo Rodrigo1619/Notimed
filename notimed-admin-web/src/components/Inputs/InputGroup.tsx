@@ -3,6 +3,9 @@ import { Md7KPlus } from "react-icons/md";
 import { InputProps } from "../interfaces/props";
 
 const InputGroup: FC<InputProps> = ({
+    onChange,
+    name,
+    value,
     className,
     placeholder,
     maxLength,
@@ -11,7 +14,8 @@ const InputGroup: FC<InputProps> = ({
     label,
     type, 
     icon,
-    identifier
+    identifier,
+    
 }) => {
     return (
         <section className="space-y-4 w-full max-w-[18.75rem]">
@@ -22,7 +26,7 @@ const InputGroup: FC<InputProps> = ({
             </label>
             <div className="w-full h-fit flex flex-row items-center max-w-[18.75rem]">
                 {icon}
-                <input
+                <input onChange={onChange} value={value}
                 id={identifier}
                 className={`placeholder:text-onSurface-variant text-bodyMedium h-14 w-full
                     bg-surface border-2 border-outline rounded-md max-w-[18.75rem]
@@ -30,7 +34,7 @@ const InputGroup: FC<InputProps> = ({
                     pl-12 pr-4 py-[10px]
                     ${className}`}
                 placeholder={placeholder}
-                name={identifier}
+                name={name}
                 maxLength={maxLength ?? 128}
                 minLength={minLength ?? 0}
                 required={required ?? false}
