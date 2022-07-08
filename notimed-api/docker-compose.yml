@@ -8,7 +8,7 @@ services:
       - .env
     build: .
     ports:
-      - "5050:3000"
+      - "3000:3000"
     volumes:
       - .:/code
       - logvolume01:/var/log
