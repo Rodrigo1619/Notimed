@@ -14,7 +14,7 @@ interface ContactDao {
     @Query("SELECT * FROM contacts_table")
     suspend fun getAllContacts() : List<Contact>
 
-    @Query("DELETE  FROM contacts_table WHERE _id LIKE :id")
+    @Query("DELETE FROM contacts_table WHERE _id LIKE :id")
     suspend fun removerContact(id: String)
 
     @Query("SELECT * FROM contacts_table WHERE _id LIKE :id")

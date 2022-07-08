@@ -20,7 +20,7 @@ interface IdentityService {
     suspend fun whoamiAsync() : WhoamiResponse
 
     @Headers("Content-Type: application/json")
-    @PATCH("/identity/recover-password")
+    @POST("/identity/forgot-password")
     suspend fun recoverPassword(@Body credentials: RecoverRequest)
 
     @PATCH("/users/{idUser}")

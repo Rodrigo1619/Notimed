@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_contactFragment_to_addContactFragment"
             app:destination="@id/addContactFragment" />
+        <action
+            android:id="@+id/action_contactFragment_to_updateContact"
+            app:destination="@id/updateContact" />
     </fragment>
     <fragment
         android:id="@+id/appointmentFragment"
@@ -160,5 +163,13 @@
         <action
             android:id="@+id/action_updateAppointment_to_appointmentFragment"
             app:destination="@id/appointmentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateContact"
+        android:name="com.mrroboto.notimed.views.UpdateContact"
+        android:label="UpdateContact" >
+        <action
+            android:id="@+id/action_updateContact_to_contactFragment"
+            app:destination="@id/contactFragment" />
     </fragment>
 </navigation>

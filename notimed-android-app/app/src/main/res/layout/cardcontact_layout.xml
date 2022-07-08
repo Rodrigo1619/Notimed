@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="contact"
             type="com.mrroboto.notimed.data.models.Contact" />
+        <variable
+            name="viewModel"
+            type="com.mrroboto.notimed.viewmodels.ContactViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -28,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/gap12dp"
-                android:text="DocRoboto"
+                android:text="@{contact.name}"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium" />
 
             <TextView
@@ -36,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/gap12dp"
-                android:text="Numero telefonico: 7563 1005"
+                android:text='@{@string/editPhone_text + ": " + contact.phoneNumber}'
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
             <TextView
@@ -44,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/gap12dp"
-                android:text="Ubicación: Antiguo Cuscatlan, Calle #5, Clinica MemoMed"
+                android:text='@{@string/Address_hint + ": " + contact.address}'
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
             <TextView
@@ -52,24 +54,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/gap12dp"
-                android:text="Especialidad: General"
+                android:text='@{@string/specialization_texthint + ": " + contact.specialization}'
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
-
-            <TextView
-                android:id="@+id/appointmentHour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/gap12dp"
-                android:text="Hora: 11:30"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
-
 
             <TextView
                 android:id="@+id/schedule_hours_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/gap12dp"
-                android:text="Horarios de consulta:"
+                android:text="@string/scheduleContactLabel"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
             <TextView
@@ -77,68 +70,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/gap12dp"
-                android:text="De 8:00 a 17:30"
+                android:text='@{@string/hourLabel + " " +contact.startHour + " - " + contact.endHour}'
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
-            <TextView
-                android:id="@+id/schedule_days_label"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/gap12dp"
-                android:text="Días de consulta:"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/schedule_days_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/monday_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Monday_text" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/tuesday_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Tuesday_text" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/wednesday_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/wednesday_text" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/thursday_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Thursday_text" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/friday_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Friday_text" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/saturday_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Saturday_text" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/sunday_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Sunday_text" />
-
-            </com.google.android.material.chip.ChipGroup>
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -151,7 +85,7 @@
                 android:gravity="end">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/editButtonReminder"
+                    android:id="@+id/editButtonContact"
                     style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
@@ -166,7 +100,7 @@
                     app:iconTint="?colorOnSurfaceVariant" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/deleteButtonReminder"
+                    android:id="@+id/deleteButtonContact"
                     style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"

@@ -81,5 +81,6 @@ class UserRepository(private val api: IdentityService, database: AppDatabase) {
     suspend fun deleteAllDatabase() {
         userDao.deleteAllReminderInfo()
         userDao.deleteAllAppointmentsInfo()
+        userDao.deleteAllContactsInfo()
     }
 }

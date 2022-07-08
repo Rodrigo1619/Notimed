@@ -148,6 +148,10 @@
     <string name="appointment_updated">Appointment updated!</string>
     <string name="appointment_exists"> This appointment already exists </string>
 
+    <string name="contact_created">Contact created!</string>
+    <string name="contact_updated">Contact updated!</string>
+    <string name="contact_exists"> This contact already exists </string>
+
     <string name="deleteReminderTitle">Are you sure you want to delete this reminder?</string>
     <string name="deleteContactTitle">Are you sure you want to delete this contact?</string>
     <string name="deleteAppointmentTitle">Are you sure you want to delete this appointment?</string>
@@ -158,8 +162,12 @@
     <string name="logout_message">If you log out your reminders will be discarded. Do you want to log out?</string>
     <string name="success_user_update">Profile upgraded successfully!</string>
     <string name="title_update_appointment">Update appointment</string>
-    <string name="notes_label">Notas adicionales:</string>
+    <string name="notes_label">Additional notes:</string>
     <string name="hourLabel">Hour:</string>
     <string name="date_appointment_label">Appointment date:</string>
     <string name="not_found_appointment">Appointment not found :c</string>
+    <string name="scheduleContactLabel">Consultation hours</string>
+
+    <string name="title_update_contact"> Contact updated! </string>
+    <string name="contact_not_found"> Contact not found  </string>
 </resources>
