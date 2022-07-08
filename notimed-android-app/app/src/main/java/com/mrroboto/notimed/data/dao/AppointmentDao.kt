@@ -12,12 +12,12 @@ interface AppointmentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAppointment(appointment: Appointment)
 
-    @Query("SELECT* FROM appointments_table")
+    @Query("SELECT * FROM appointments_table")
     suspend fun getAllAppointments(): List<Appointment>
 
     @Query("DELETE FROM appointments_table WHERE _id LIKE :id")
     suspend fun deleteAppointment(id:String)
 
-    @Query("SELECT FROM appointments_table WHERE _id LIKE :id")
-    suspend fun getAppointment(id:String)
+    @Query("SELECT * FROM appointments_table WHERE _id LIKE :id")
+    suspend fun getAppointment(id:String) : Appointment
 }

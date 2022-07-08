@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAppointmentBinding
@@ -70,6 +71,40 @@ class AppointmentFragment : Fragment() {
                 }
             }
         }
+        appointmentAdapter.getAppointmentId {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.deleteAppointmentTitle)
+                .setNegativeButton(R.string.no_response) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(R.string.yes_response){ dialog, _ ->
+                    viewModel.deleteAppointments(it)
+                    dialog.cancel()
+
+                    appointmentAdapter.getPosition {
+                        appointmentAdapter.notifyItemRemoved(it)
+                        appointmentAdapter.notifyItemChanged(it)
+                    }
+                }
+                .show()
+        }
+
+        viewModel.apiResponse.observe(viewLifecycleOwner) { it ->
+            when (it){
+                is ApiResponse.Loading -> {
+                    binding.progressAppointments?.visibility = View.VISIBLE
+                    binding.progressAppointments?.bringToFront()
+                }
+                is ApiResponse.Success -> {
+                    binding.progressAppointments?.visibility = View.GONE
+                    viewModel.getAppointments(isLoading = true)
+                }
+                is ApiResponse.Failure -> {
+                    binding.progressAppointments?.visibility = View.GONE
+                    Toast.makeText(requireContext(), "${it.errorCode}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
         // Handler controlador de los gestos/click al boton de regresar del dispositivo
         requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
@@ -84,6 +119,13 @@ class AppointmentFragment : Fragment() {
 
         binding.addAppointmentFab.setOnClickListener {
             it.findNavController().navigate(R.id.action_appointmentFragment_to_addAppointmentFragment)
+        }
+
+        appointmentAdapter.getAppointmentIdforUpdate {
+            app.saveCardId(it)
+        }
+        appointmentAdapter.getPositionforUpdate {
+            app.savePositionCard(it)
         }
 
     }

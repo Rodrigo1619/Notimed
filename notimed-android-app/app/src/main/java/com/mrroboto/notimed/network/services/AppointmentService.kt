@@ -14,7 +14,7 @@ interface AppointmentService {
         @Body appointmentBody:AppointmentRequest
     )
     @GET("/appointments/{id}?limit=10000")
-    suspend fun getAppointment(@Path("id")id:String): AppointmentResponse
+    suspend fun getAppointment(@Path("id") id: String) : AppointmentResponse
 
     @DELETE("/appointments/delete/{idAppointment}/{idUser}")
     suspend fun deleteAppointment(@Path("idAppointment")idAppointment:String,@Path("idUser")idUser:String)

@@ -14,4 +14,5 @@ data class Appointment(
     @ColumnInfo("hour") val hour: String,
     @ColumnInfo("localization") val localization: String,
     @ColumnInfo("considerations") val considerations: String
+
 )
