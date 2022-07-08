@@ -119,9 +119,9 @@ const getAppointment = async (req: Request, res: Response) => {
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { id } = req.params;
+        const { id, id2 } = req.params;
 
-        const appointment = await Appointment.findOne({ user: id });
+        const appointment = await Appointment.findOne({ _id: id, user: id2 });
 
         if (!appointment)
             return res.status(404).send({ message: "appointment not found" });
