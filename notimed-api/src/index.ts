@@ -6,6 +6,12 @@ import server from './server';
 import mongoose from 'mongoose';
 import configEnv from './config/config';
 
+if (typeof window !== 'undefined') {
+  console.log('You are on the browser')
+} else {
+  console.log('You are on the server')
+}
+
 
 const PORT = configEnv.port;
 // Start server, Iniciando servidor
@@ -21,6 +27,3 @@ db.on('error', console.error.bind(console, 'connection error:')); // enlaza el t
 db.once('open', () => {
   console.log('Mongo DB is connected'); // si esta todo ok, imprime esto
 });
-
-//"start": "node -r module-alias/register ./dist --env=production",
-//"build": "./node_modules/.bin/ts-node build.ts",

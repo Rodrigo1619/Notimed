@@ -29,11 +29,7 @@ router.post('/create/:id', [
     check('startHour', 'Tiene que ser un string').exists().isString(),
 
     check('endHour', 'Ingrese la especialidad del doctor').exists().not().isEmpty(),
-    check('endHour', 'Tiene que ser un string').exists().isString(),
-
-    check('days', 'Ingrese los días').exists().not().isEmpty(),
-    check('days', 'Tiene que ser objeto').exists().isObject(),
-
+    check('endHour', 'Tiene que ser un string').exists().isString()
 ], createContact);
 
 //delete

@@ -1,7 +1,7 @@
 
 import { check, validationResult } from 'express-validator';
 import express from 'express';
-import { login, register, whoami, forgotPassword, resetPassword} from '../controllers/user-controller';
+import { login, register, whoami, forgotPassword, resetPassword, resetPage} from '../controllers/user-controller';
 
 const loginRouter = express();
 
@@ -26,11 +26,9 @@ loginRouter.post("/forgot-password", [
 
 ], forgotPassword);
 
-loginRouter.patch("/reset-password/:id/:token", [
-    check('id').exists().isMongoId(),
-    check('password', 'Ingrese una contraseña válida').exists().not().isEmpty().isLength({min:8}),
-    check('passwor2', 'Ingrese una contraseña válida').exists().not().isEmpty().isLength({min:8})
-], resetPassword);
+loginRouter.post("/reset-password/:id/:token", resetPassword);
+
+loginRouter.get("/reset-password/:id/:token", resetPage)
 
 module.exports = loginRouter;
 

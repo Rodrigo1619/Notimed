@@ -11,7 +11,8 @@ const InputGroup: FC<InputProps> = ({
     label,
     type, 
     icon,
-    identifier
+    identifier,
+    
 }) => {
     return (
         <section className="space-y-4 w-full max-w-[18.75rem]">
@@ -22,7 +23,7 @@ const InputGroup: FC<InputProps> = ({
             </label>
             <div className="w-full h-fit flex flex-row items-center max-w-[18.75rem]">
                 {icon}
-                <input
+                <input 
                 id={identifier}
                 className={`placeholder:text-onSurface-variant text-bodyMedium h-14 w-full
                     bg-surface border-2 border-outline rounded-md max-w-[18.75rem]
