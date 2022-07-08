@@ -6,56 +6,56 @@ import { MdMailOutline } from "react-icons/md";
 import InputGroup from '../../src/components/Inputs/InputGroup';
 import RecoverNotimed from '../../src/components/svg/RecoverNotimed';
 import Top from '../../src/components/svg/Top';
+import { forgotPassword } from '../../src/services/IdentityService';
+import { useRouter } from 'next/router';
+import { ToastContainer, toast } from 'react-toastify';
 
-const Recover: NextPage = () => {
+const Recover: NextPage = () => {   
 
-    const [email, setEmail] = useState({
-        email: ''
-    })
-
-    const [success, setSuccess] = useState(false);
- 
-    const forgotPassword = "http://localhost:5000/identity/forgot-password";
-
-   
-
+    const router = useRouter();
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        const  loginFormData = new FormData();
-        loginFormData.append("email", email.email )
+
+        const formData = new FormData(e.target as HTMLFormElement);
+        const body = Object.fromEntries(formData);
+
         try {
-           const response = await axios.post(forgotPassword, {
-            data: loginFormData,
-            headers: { "Content-Type": "multipart/form-data" },
-           });
-           console.log(response)
+            const response = await forgotPassword(body)
+
+            if (response.status == 200) {
+                router.push("/")
+                
+            }
+
         } catch (error) {
-            
+            const { response }: any = error
+
+            switch (response.status) {
+                case 404:
+                    toast("El usuario ingresado no existe", { type: "error" })
+                    break;
+                case 400:
+                    toast("Revisa los datos ingresados", { type: "error" })
+                    break;
+                case 403:
+                    toast("Revisa tus credenciales", { type: "error" })
+                    break;
+                default:
+                    break;
+            }
         }
-        
+
     }
   
     return (
         <>
-        {success ? (
-                <section>
-                <h1>Your password link reset has been sent</h1>
-                <br />
-                <p>
-                <a href="#">Go to home</a></p>
-                </section>
-            ): (
-           <section>
+
              <Head>
                 <title> Recuperar contraseña </title>
             </Head>
             <Top title='Recuperar contraseña' icon={<RecoverNotimed />} className="h-[10rem]"/>
             <form  className='w-full h-full px-4 mt-4 mb-8 space-y-5 md:px-16 items-center flex flex-col justify-center' onSubmit={onSubmit}>
-                <InputGroup name={email.email} className="focus:outline-none focus:border-blue-600"
-                    onChange={(e:any) => setEmail(
-                      e.target.value
-                   )}
-                    value= {email.email}
+                <InputGroup  className="focus:outline-none focus:border-blue-600"                
                     placeholder="mrroboto@example.com"
                     minLength={4}
                     required={true}
@@ -70,9 +70,7 @@ const Recover: NextPage = () => {
                     </div>
                 </button>
             </form>
-           </section>
-            )}
-        </>
+           </>
     )
 }
 
