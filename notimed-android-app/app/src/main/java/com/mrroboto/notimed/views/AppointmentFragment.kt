@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAppointmentBinding
+import com.mrroboto.notimed.network.ApiResponse
 import com.mrroboto.notimed.repositories.AppointmentRepository
 import com.mrroboto.notimed.viewmodels.AppointmentViewModel
 import com.mrroboto.notimed.viewmodels.ViewModelFactory
@@ -44,12 +46,30 @@ class AppointmentFragment : Fragment() {
         val appointmentListRecyclerView = binding.listReminder
         val appointmentAdapter = AppointmentAdapter()
         appointmentListRecyclerView.apply {
-            adapter = appointmentAdapter }
-
-        viewModel.appointments.observe(viewLifecycleOwner){ data ->
-            appointmentAdapter.setData(data)
+            adapter = appointmentAdapter
         }
+
+        val app = requireActivity().application as NotiMedApplication
+
         binding.lifecycleOwner = viewLifecycleOwner
+
+        viewModel.getAppointments(isLoading = true)
+
+        viewModel.listResponse.observe(viewLifecycleOwner){
+            when (it){
+                is ApiResponse.Loading ->{
+                    binding.progressAppointments?.visibility  = View.VISIBLE
+                    binding.progressAppointments?.bringToFront()
+                }
+                is ApiResponse.Success ->{
+                    binding.progressAppointments?.visibility = View.GONE
+                    appointmentAdapter.setData(it.data)
+                }
+                is ApiResponse.Failure ->{
+                    Toast.makeText(requireContext(),R.string.general_error, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
         // Handler controlador de los gestos/click al boton de regresar del dispositivo
         requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
