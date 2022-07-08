@@ -10,9 +10,6 @@ export interface NavbarProps {
 }
 
 export interface InputProps extends PropVector {
-    onChange: any,
-    name: string,
-    value: any,
     placeholder: string,
     type: string,
     minLength?: number,
