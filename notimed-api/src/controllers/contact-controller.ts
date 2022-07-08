@@ -12,7 +12,7 @@ const createContact = async (req: Request, res: Response) => {
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { name, phoneNumber, address, specialization, startHour, endHour, days } = req.body //destructuring model CONTACT
+        const { name, phoneNumber, address, specialization, startHour, endHour } = req.body //destructuring model CONTACT
 
 
         //if the contact exists
@@ -41,7 +41,6 @@ const createContact = async (req: Request, res: Response) => {
                 specialization: specialization,
                 startHour: startHour,
                 endHour: endHour,
-                days: days,
                 user: userInfo.id
             });
             await newContact.save()
@@ -86,15 +85,14 @@ const updateContact = async (req: Request, res: Response) => {
             return res.status(400).json({ errors: errors.array() });
         }
         const { id, id2 } = req.params;
-        const { name, phoneNumber, address, specialization, startHour, endHour, days } = req.body;
+        const { name, phoneNumber, address, specialization, startHour, endHour} = req.body;
         const update = await Contact.findByIdAndUpdate({ _id: id, user: id2 }, {
             name: name,
             phoneNumber: phoneNumber,
             adress: address,
             specialization: specialization,
             startHour: startHour,
-            endHour: endHour,
-            days: days
+            endHour: endHour
         })
         res.status(200).send({ update })
     } catch (error) {

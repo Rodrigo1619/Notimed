@@ -39,19 +39,6 @@ const Contact: Schema = new Schema<IContact>({
         type: String,
         required: true
     },
-    days: {
-        required: true,
-        type: Object,
-        options: {
-            Monday: Boolean,
-            Tuesday: Boolean,
-            Wednesday: Boolean,
-            Thursday: Boolean,
-            Friday: Boolean,
-            Saturday: Boolean,
-            Sunday: Boolean,
-        }
-    },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
