@@ -5,6 +5,13 @@ import nodemailer from 'nodemailer';
 import bcrypt from 'bcrypt';
 import configEnv from '../config/config';
 import { validationResult } from 'express-validator';
+import path from 'path';
+var ObjectId = require('mongodb').ObjectID;
+
+
+
+
+
 
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
@@ -180,6 +187,40 @@ const whoami = async (req: Request, res: Response) => {
     }
 } 
 
+const resetPage = async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    const {id, token} = req.params;
+    
+
+    const existingUser = await User.findOne({_id: ObjectId(id)});
+    const userInfo = {
+        id: existingUser?._id,
+        email: existingUser?.email,
+        password: existingUser?.password
+    }
+
+    if(id != userInfo.id ){
+        res.send('Invalid id...')
+        return
+    }
+
+    const secret:string = configEnv.secret_key + userInfo.password!;
+    try {
+        const payload = jwt.verify(token, secret);
+       
+
+
+        res.sendFile(path.join(__dirname, '../views/reset-password.html'))
+    } catch (err: any) {
+        return res
+                .status(err.status as number ?? 400)
+                .json({ message: err.message ?? JSON.stringify(err) });
+    }
+}
+
 const resetPassword = async (req: Request, res: Response) => {
     const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -203,20 +244,28 @@ const resetPassword = async (req: Request, res: Response) => {
 
     try {
         const payload = jwt.verify(token, secret);
-        if(password !== password2){
-            res.send("Passwords don't match");
-            return;
-        }
+            if(password === ''){
+                res.send('Password is required')
+            }else if(password2===''){
+                res.send('Password is required')
+            }
+            else if(password != password2){
+                res.send("Passwords doesn't match")
+            
+            }else if(password.length <=8 ){//Mayor a 8
+                res.send('Must be longer or equal than 8 characteres');
+            } else{
+                userInfo.password = password;
 
-        userInfo.password = password;
-
-        const myPasssword = userInfo.password;
-        const hash = bcrypt.hashSync(myPasssword!, bcrypt.genSaltSync(10));
-        const update = await User.findByIdAndUpdate(id, {
-            password: hash
-        });
-
-        res.status(200).json({update});  
+                const myPasssword = userInfo.password;
+                const hash = bcrypt.hashSync(myPasssword!, bcrypt.genSaltSync(10));
+                const update = await User.findByIdAndUpdate(id, {
+                    password: hash
+                })
+                update?.save();
+                res.send('Password has been reseted');      
+            }
+        
     } catch (err: any) {
         return res
                 .status(err.status as number ?? 400)
@@ -264,7 +313,7 @@ try {
 
     const token = jwt.sign(payload, secret, {expiresIn: '15m'});
 
-    const link = `https://notimed-api.me/identity/reset-password/${userInfo.id}/${token}`
+    const link = `http://localhost:5000/identity/reset-password/${userInfo.id}/${token}`
 
     const info = await transporter.sendMail({
         from: `'Notimed' <${configEnv.user_mailer}>`,
@@ -289,6 +338,7 @@ export {
     updateUser,
     forgotPassword,
     resetPassword,
-    whoami
+    whoami,
+    resetPage
 }
 
