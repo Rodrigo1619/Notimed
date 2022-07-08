@@ -1,6 +1,7 @@
 //Imports
 import express from 'express';
 import passport, { session } from 'passport';
+import path from 'path'
 require("../src/middlewares/passport")
 import dbConnection from './db/config';
 // Constants
@@ -12,11 +13,12 @@ const identityPath = '/identity';
 const reminderPath = '/reminders';
 const contactPath = '/contacts';
 const appointmentPath = '/appointments'
-
 //Para tomar los datos del body en formato json
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname, '../views')))
 
 //db connection
 const dbConnect = async ()=>{
