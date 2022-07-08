@@ -6,63 +6,12 @@ import bcrypt from 'bcrypt';
 import configEnv from '../config/config';
 import { validationResult } from 'express-validator';
 import path from 'path';
+var ObjectId = require('mongodb').ObjectID;
 
 
-/* var form = (<HTMLInputElement>document.getElementById('passwordForm'));
-var password = (<HTMLInputElement>document.getElementById('password')).value;
-var password2 = (<HTMLInputElement>document.getElementById('password2')).value; */
-//var inputValue = (<HTMLInputElement>document.getElementById(elementId)).value;
 
 
-/* form?.addEventListener('submit', e => {
-    e.preventDefault();
-    validateInputs();
-})
 
-const setError = (element:any, message:any) => {
-    const inputControl = element.parenElement;
-    const errorDisplay = inputControl.querySelector('./error');
-
-    errorDisplay.innerText = message;
-    inputControl.classList.add('error');
-    inputControl.classList.remove('success');
-}
-
-const setSuccess = (element:any, message:any) => {
-    const inputControl = element.parenElement;
-    const errorDisplay = inputControl.querySelector('./error');
-
-    errorDisplay.innerText = '';
-    inputControl.classList.add('success');
-    inputControl.classList.remove('error');
-}
-
-const validateInputs = () =>{
-//Vacio
-if(password != password2){
-    setError(password, "Passwords doesn't match");
-}else{
-    setSuccess(password, 'Success');
-}
-
- if(password === ''){
-    setError(password, 'Is required')
- }else if(password.length <=8 ){//Mayor a 8
-    setError(password, 'Must be longer or equal than 8 characteres')
- } else{
-    setSuccess(password, 'Success');
- }
- 
- //Vacio
- if(password2 === ''){
-    setError(password2, 'Is required')
- }else if(password2.length <=8 ){ //Mayor a 8
-    setError(password2, 'Must be longer or equal than 8 characteres')
-}else{
-    setSuccess(password2, 'Success');
- }
-}
- */
 
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
@@ -246,7 +195,7 @@ const resetPage = async (req: Request, res: Response) => {
     const {id, token} = req.params;
     
 
-    const existingUser = await User.findOne({_id: id});
+    const existingUser = await User.findOne({_id: ObjectId(id)});
     const userInfo = {
         id: existingUser?._id,
         email: existingUser?.email,
@@ -295,23 +244,28 @@ const resetPassword = async (req: Request, res: Response) => {
 
     try {
         const payload = jwt.verify(token, secret);
-       
-        if(password !== password2){
-            res.send("Passwords don't match");
-            return;
-        }
+            if(password === ''){
+                res.send('Password is required')
+            }else if(password2===''){
+                res.send('Password is required')
+            }
+            else if(password != password2){
+                res.send("Passwords doesn't match")
+            
+            }else if(password.length <=8 ){//Mayor a 8
+                res.send('Must be longer or equal than 8 characteres');
+            } else{
+                userInfo.password = password;
 
-        userInfo.password = password;
-
-        const myPasssword = userInfo.password;
-        const hash = bcrypt.hashSync(myPasssword!, bcrypt.genSaltSync(10));
-        const update = await User.findByIdAndUpdate(id, {
-            password: hash
-        });
-
-        await update?.save();
-
-        res.send('Password has been reseted');  
+                const myPasssword = userInfo.password;
+                const hash = bcrypt.hashSync(myPasssword!, bcrypt.genSaltSync(10));
+                const update = await User.findByIdAndUpdate(id, {
+                    password: hash
+                })
+                update?.save();
+                res.send('Password has been reseted');      
+            }
+        
     } catch (err: any) {
         return res
                 .status(err.status as number ?? 400)
@@ -359,7 +313,7 @@ try {
 
     const token = jwt.sign(payload, secret, {expiresIn: '15m'});
 
-    const link = `http://notimed-api.me/identity/reset-password/${userInfo.id}/${token}`
+    const link = `http://localhost:5000/identity/reset-password/${userInfo.id}/${token}`
 
     const info = await transporter.sendMail({
         from: `'Notimed' <${configEnv.user_mailer}>`,
