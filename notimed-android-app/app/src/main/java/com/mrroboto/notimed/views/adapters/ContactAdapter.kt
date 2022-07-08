@@ -40,5 +40,25 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>(){
         notifyDataSetChanged()
     }
 
+    private var onItemClickListener : ((id : String) -> Unit)? = null
+    private var onItemListenerPosition : ((position: Int) -> Unit)? = null
+
+    private var onUpdateId : ((id : String) -> Unit)? = null
+    private var onUpdatePosition : ((position: Int) -> Unit)? = null
+    fun getContactId(listener: (id: String) -> Unit) {
+        onItemClickListener = listener
+    }
+
+    fun getPosition(listener: (position: Int) -> Unit) {
+        onItemListenerPosition = listener
+    }
+
+    fun getContactIdforUpdate(listener: (id: String) -> Unit) {
+        onUpdateId = listener
+    }
+
+    fun getPositionforUpdate(listener: (position: Int) -> Unit) {
+        onUpdatePosition = listener
+    }
 
 }
