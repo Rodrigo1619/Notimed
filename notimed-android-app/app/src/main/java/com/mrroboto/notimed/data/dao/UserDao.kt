@@ -7,4 +7,7 @@ import androidx.room.Query
 interface UserDao {
     @Query("DELETE FROM reminders_table")
     suspend fun deleteAllReminderInfo()
+
+    @Query("DELETE FROM appointments_table")
+    suspend fun deleteAllAppointmentsInfo()
 }

@@ -6,5 +6,5 @@ sealed class ApiResponse<T> {
         val errorCode: Int,
         val errorBody: String
     ) : ApiResponse<T>()
-    data class Loading<T>(val isLoading: T) : ApiResponse<T>()
+    data class Loading<T>(val isLoading: Boolean) : ApiResponse<T>()
 }

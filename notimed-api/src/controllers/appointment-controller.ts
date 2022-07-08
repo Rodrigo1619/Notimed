@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import appointmentModel from '../models/appointment.model';
 import Appointment from '../models/appointment.model';
 import User from '../models/user.model';
 
@@ -11,13 +10,13 @@ const createAppointment = async (req: Request, res: Response) => {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { appointmentName, doctorName, appointmentDate,
-            appointmentHour, address, additionalNotes } = req.body;
+        const { id } = req.params;
+
+        const { appointmentName, doctorName, appointmentDate, appointmentHour, address, additionalNotes } = req.body;
 
         //if the appointment is already in the database
         const body = req.body;
         //Datos de usuario
-        const { id } = req.params;
         const existingUser = await User.findOne({ _id: id });
         const userInfo = {
             id: existingUser?._id,
@@ -35,19 +34,20 @@ const createAppointment = async (req: Request, res: Response) => {
         if (appointment) {
             throw { status: 409, message: "Appointment already exists" }
         }
-        else {
-            const newAppointment = new Appointment({
-                appointmentName: appointmentName,
-                doctorName: doctorName,
-                appointmentDate: appointmentDate,
-                appointmentHour: appointmentHour,
-                address: address,
-                additionalNotes: additionalNotes,
-                user: userInfo.id
-            });
-            await newAppointment.save();
-            await newAppointment.populate('user', '_id - __v');
-        }
+
+        const newAppointment = new Appointment({
+            appointmentName: appointmentName,
+            doctorName: doctorName,
+            appointmentDate: appointmentDate,
+            appointmentHour: appointmentHour,
+            address: address,
+            additionalNotes: additionalNotes,
+            user: userInfo.id
+        });
+        await newAppointment.save();
+        await newAppointment.populate('user', '_id -__v');
+
+        return res.status(201).json({ content: newAppointment });
 
     } catch (error) {
         return res

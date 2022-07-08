@@ -20,14 +20,14 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
     val whoamiResponse = MutableLiveData<ApiResponse<WhoamiResponse>>()
 
     fun onLogin(email: String, password: String, isLoading: Any) = viewModelScope.launch {
-        apiResponse.value = ApiResponse.Loading(isLoading)
+        apiResponse.value = ApiResponse.Loading(true)
         apiResponse.postValue(
             repository.login(email, password)
         )
     }
 
     fun register(isLoading: Any) = viewModelScope.launch {
-        apiResponse.value = ApiResponse.Loading(isLoading)
+        apiResponse.value = ApiResponse.Loading(true)
 
         apiResponse.postValue(repository.register(
             currentName.value.toString(),
@@ -42,12 +42,12 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
     }
 
     fun whoami(isLoading: Any) = viewModelScope.launch {
-        apiResponse.value = ApiResponse.Loading(isLoading)
+        whoamiResponse.value = ApiResponse.Loading(true)
         whoamiResponse.postValue(repository.whoami())
     }
 
     fun recoverpassword(isLoading: Any) = viewModelScope.launch {
-        apiResponse.value = ApiResponse.Loading(isLoading)
+        apiResponse.value = ApiResponse.Loading(true)
         apiResponse.postValue(repository.recoverPassword(currentEmail.value.toString()))
     }
 
@@ -64,6 +64,6 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
     }
 
     fun deleteAllReminders() = viewModelScope.launch {
-        repository.deleteReminders()
+        repository.deleteAllDatabase()
     }
 }

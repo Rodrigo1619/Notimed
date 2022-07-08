@@ -78,7 +78,8 @@ class UserRepository(private val api: IdentityService, database: AppDatabase) {
         }
     }
 
-    suspend fun deleteReminders() {
+    suspend fun deleteAllDatabase() {
         userDao.deleteAllReminderInfo()
+        userDao.deleteAllAppointmentsInfo()
     }
 }
