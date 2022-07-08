@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAppointmentBinding
 import com.mrroboto.notimed.repositories.AppointmentRepository
@@ -22,8 +23,8 @@ class AppointmentFragment : Fragment() {
     private lateinit var binding: FragmentAppointmentBinding
 
     private val viewModelFactory by lazy{
-        val repository = AppointmentRepository()
-        ViewModelFactory(repository)
+        val app = requireActivity().application as NotiMedApplication
+        ViewModelFactory(app.getAppointmentRepository())
     }
     private val viewModel: AppointmentViewModel by viewModels {
         viewModelFactory

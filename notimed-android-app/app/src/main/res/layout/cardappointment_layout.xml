@@ -94,7 +94,7 @@
                 android:gravity="end">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/editButtonReminder"
+                    android:id="@+id/editButtonAppointment"
                     style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                     app:iconTint="?colorOnSurfaceVariant" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/deleteButtonReminder"
+                    android:id="@+id/deleteButtonAppointment"
                     style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
