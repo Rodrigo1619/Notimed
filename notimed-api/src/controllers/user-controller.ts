@@ -8,12 +8,6 @@ import { validationResult } from 'express-validator';
 import path from 'path';
 var ObjectId = require('mongodb').ObjectID;
 
-
-
-
-
-
-
 const register = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const errors = validationResult(req);
@@ -313,7 +307,7 @@ try {
 
     const token = jwt.sign(payload, secret, {expiresIn: '15m'});
 
-    const link = `http://localhost:5000/identity/reset-password/${userInfo.id}/${token}`
+    const link = `https://notimed-api.me/identity/reset-password/${userInfo.id}/${token}`
 
     const info = await transporter.sendMail({
         from: `'Notimed' <${configEnv.user_mailer}>`,
