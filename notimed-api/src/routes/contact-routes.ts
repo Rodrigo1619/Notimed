@@ -1,19 +1,8 @@
 import { Router } from "express";
-import {createContact,deleteContact,updateContact,getContacts, getContact} from "../controllers/contact-controller"
-import {check} from 'express-validator'
+import { createContact, deleteContact, updateContact, getContacts, getContact } from "../controllers/contact-controller"
+import { check } from 'express-validator'
 const router = Router();
 
-//const{name,phoneNumber,address,specialization,startHour,endHour,days} = req.body 
-
-/*  name:string,
-    phoneNumber:string,
-    address:string,
-    specialization:string,
-    startHour:string,
-    endHour:string,
-    days:object,
-    user:ObjectId
- */
 
 //get
 router.get('/:id', getContacts);
@@ -45,7 +34,7 @@ router.post('/create/:id', [
     check('days', 'Ingrese los días').exists().not().isEmpty(),
     check('days', 'Tiene que ser objeto').exists().isObject(),
 
-],createContact);
+], createContact);
 
 //delete
 router.delete('/delete/:id/:id2', [
@@ -53,9 +42,9 @@ router.delete('/delete/:id/:id2', [
     check('id2', 'No es un id valido').isMongoId()
 ], deleteContact);
 //patch
-router.patch('/update/:id/:id2',[
+router.patch('/update/:id/:id2', [
     check('id1', 'No es un id valido').isMongoId(),
     check('id2', 'No es un id valido').isMongoId()
-],updateContact);
+], updateContact);
 
 module.exports = router; 

@@ -4,8 +4,6 @@ import { getAppointment,deleteAppointment, updateAppointment,createAppointment, 
 
 const router = Router();
 
-//const { appointmentName, doctorName, appointmentDate, appointmentappointmentDate, address, additionalNotes } = req.body;
-
 router.post('/create/:id', [
     check('id', 'No es un id valido').isMongoId(),
     check('appointmentName', 'Ingrese elnombre de la cita').exists().not().isEmpty(),
@@ -22,8 +20,6 @@ router.post('/create/:id', [
 
     check('address', 'Ingrese dirección').exists().not().isEmpty(),
     check('address', 'Tiene que ser string').exists().isString(),
-
-    check('additionalNotes', 'Tiene que ser string').isString()
 ], createAppointment);
 
 router.get('/:id', [
