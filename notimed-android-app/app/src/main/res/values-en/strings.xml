@@ -168,6 +168,6 @@
     <string name="not_found_appointment">Appointment not found :c</string>
     <string name="scheduleContactLabel">Consultation hours</string>
 
-    <string name="title_update_contact"> Contact updated! </string>
+    <string name="title_update_contact"> Update contact </string>
     <string name="contact_not_found"> Contact not found  </string>
 </resources>
