@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  promo-web:
+    container_name: notimed-promo-web
+    restart: always
+    image: notimed-promo-web
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/code
+      - logvolume01:/var/log
+    links:
+      - redis
+  redis:
+    image: redis
+volumes:
+  logvolume01: {}
