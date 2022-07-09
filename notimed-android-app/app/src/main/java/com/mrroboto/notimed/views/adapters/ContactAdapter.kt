@@ -37,6 +37,16 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>(){
             holder.bind(it[position])
         }
 
+        holder.binding.deleteButtonContact.setOnClickListener {
+            onItemClickListener?.let {
+                it(contacts?.get(position)?._id.toString())
+            }
+
+            onItemListenerPosition?.let {
+                it(position)
+            }
+        }
+
         holder.binding.editButtonContact.setOnClickListener {
             onUpdateId?.let {
                 it(contacts?.get(position)?._id.toString())
