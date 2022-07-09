@@ -17,10 +17,9 @@ Desarrollo backend en NodeJS con Typescript.
 
 ### Pasos para montar contenedores e imagenes en Docker
 
-1. Construir imagen(es) para producción o desarrollo
+1. Construir Image
 ```
-docker build -f Dockerfile.dev -t notimed/dev-api .
-docker build -f Dockerfile.prod -t notimed/prod-api .
+docker build -f Dockerfile -t notimed-api .
 ```
 
 2. Montar contenedor para producción o desarrollo. 
@@ -30,6 +29,10 @@ docker build -f Dockerfile.prod -t notimed/prod-api .
 ```
 docker run -d -p <puerto_local>:<puerto_contenedor> --name <nombre_contenedor> <imagen>
 ```
+
+3. Con Docker compose.
+   - correr comando: ```docker compose build```
+   - Esperar a que finalize el comando y correr ```docker compose up```
 
 ## Información extra
 Para la base de datos usamos MongoDB, en especifico [MongoDB Atlas](https://www.mongodb.com/es/atlas/database)
