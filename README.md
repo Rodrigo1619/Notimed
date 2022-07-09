@@ -1,5 +1,9 @@
 # Proyecto NotiMed
 
+## Usuarios
+
+De preferencia crear usuario con su propia cuenta de Gmail.
+
 ## Estandares para ramas y commits
 
 Nos basamos en el flujo de trabajo según [git-flow](https://danielkummer.github.io/git-flow-cheatsheet/), por su facilidad en desarrollo y manejo por ramas
