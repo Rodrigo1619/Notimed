@@ -69,7 +69,7 @@ class ContactFragment : Fragment() {
             }
         }
 
-        contactAdapter.getAppointmentId {
+        contactAdapter.getContactId {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.deleteContactTitle)
                 .setNegativeButton(R.string.no_response) { dialog, _ ->
@@ -101,5 +101,13 @@ class ContactFragment : Fragment() {
             it.findNavController().navigate(R.id.action_contactFragment_to_addContactFragment)
         }
 
+
+        contactAdapter.getContactIdForUpdate {
+            app.saveCardId(it)
+        }
+
+        contactAdapter.getPositionforUpdate {
+            app.savePositionCard(it)
+        }
     }
 }

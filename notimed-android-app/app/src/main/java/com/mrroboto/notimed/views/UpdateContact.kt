@@ -66,14 +66,12 @@ class UpdateContact : Fragment() {
                 }
                 is ApiResponse.Success -> {
                     binding.progressBar5.visibility = View.GONE
-                    it.data.contact.forEach { it ->
-                        binding.editDoctor.editText?.setText(it.name)
-                        binding.editAddress.editText?.setText(it.address)
-                        binding.editSpecialization.editText?.setText(it.specialization)
-                        binding.startHour.editText?.setText(it.startHour)
-                        binding.endHour.editText?.setText(it.endHour)
-                        binding.editPhone.editText?.setText(it.phoneNumber)
-                    }
+                        binding.editDoctor.editText?.setText(it.data.contact.name)
+                        binding.editAddress.editText?.setText(it.data.contact.address)
+                        binding.editSpecialization.editText?.setText(it.data.contact.specialization)
+                        binding.startHour.editText?.setText(it.data.contact.startHour)
+                        binding.endHour.editText?.setText(it.data.contact.endHour)
+                        binding.editPhone.editText?.setText(it.data.contact.phoneNumber)
                 }
                 is ApiResponse.Failure -> {
                     when(it.errorCode) {
@@ -87,8 +85,8 @@ class UpdateContact : Fragment() {
         // Handler controlador de los gestos/click al boton de regresar del dispositivo
         requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.warning_title_appointment)
-                .setMessage(R.string.warning_body_appointment)
+                .setTitle(R.string.warning_title_contact)
+                .setMessage(R.string.warning_body_contact)
                 .setNegativeButton(R.string.no_response) { dialog, _ ->
                     dialog.cancel()
                 }
@@ -103,8 +101,8 @@ class UpdateContact : Fragment() {
 
         binding.topAppBar.setNavigationOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.warning_title_appointment)
-                .setMessage(R.string.warning_body_appointment)
+                .setTitle(R.string.warning_title_contact)
+                .setMessage(R.string.warning_body_contact)
                 .setNegativeButton(R.string.no_response) { dialog, _ ->
                     dialog.cancel()
                 }
@@ -119,8 +117,8 @@ class UpdateContact : Fragment() {
 
         binding.cancelButton.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.warning_title_appointment)
-                .setMessage(R.string.warning_body_appointment)
+                .setTitle(R.string.warning_title_contact)
+                .setMessage(R.string.warning_body_contact)
                 .setNegativeButton(R.string.no_response) { dialog, _ ->
                     dialog.cancel()
                 }
@@ -155,7 +153,7 @@ class UpdateContact : Fragment() {
 
                 is ApiResponse.Success -> {
                     binding.progressBar5.visibility = View.GONE
-                    Toast.makeText(requireContext(), R.string.reminder_updated, Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), R.string.contact_updated, Toast.LENGTH_SHORT)
                         .show()
                     contactAdapter.notifyDataSetChanged()
                     findNavController().navigate(R.id.action_updateContact_to_contactFragment)

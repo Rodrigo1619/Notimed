@@ -18,7 +18,7 @@ data class ContactResponse(
 )
 
 data class OneContactResponse(
-    val contact: List<ContactArray>
+    val contact: ContactArray
 )
 
 data class ContactArray(

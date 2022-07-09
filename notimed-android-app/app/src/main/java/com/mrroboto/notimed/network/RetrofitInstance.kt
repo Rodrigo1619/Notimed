@@ -9,7 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://notimed-api.me"
+private const val BASE_URL = "http://10.0.2.2:3000"
 
 object RetrofitInstance {
 

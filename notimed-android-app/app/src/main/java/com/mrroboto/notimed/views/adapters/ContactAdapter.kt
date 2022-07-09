@@ -63,13 +63,13 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>(){
     private var onUpdateId : ((id: String)->Unit)?=null
     private var onUpdatePosition : ((position: Int) -> Unit)? = null
 
-    fun getAppointmentId(listener: (id:String)->Unit){
+    fun getContactId(listener: (id:String)->Unit){
         onItemClickListener = listener
     }
     fun getPosition(listener: (position: Int) -> Unit) {
         onItemListenerPosition = listener
     }
-    fun getAppointmentIdforUpdate(listener: (id: String) -> Unit) {
+    fun getContactIdForUpdate(listener: (id: String) -> Unit) {
         onUpdateId = listener
     }
     fun getPositionforUpdate(listener: (position: Int) -> Unit) {
