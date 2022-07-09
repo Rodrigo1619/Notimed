@@ -16,7 +16,7 @@ data class AppointmentResponse(
     val appointments: List<Appointment>
 )
 data class OneAppointmentResponse(
-    val appointment: List<AppointmentArray>
+    val appointment: AppointmentArray
 )
 data class AppointmentArray(
     val appointmentName: String,

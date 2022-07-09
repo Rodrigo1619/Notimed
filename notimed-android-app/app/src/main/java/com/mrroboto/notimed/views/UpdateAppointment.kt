@@ -114,16 +114,15 @@ class UpdateAppointment : Fragment() {
                 }
                 is ApiResponse.Success -> {
                     binding.progressUpdateAppointment.visibility = View.GONE
-                    it.data.appointment.forEach {
-                        binding.editAppointmentName.editText?.setText(it.appointmentName)
-                        binding.editDoctor.editText?.setText(it.doctorName)
-                        binding.editAddress.editText?.setText(it.address)
-                        binding.editHour.editText?.setText(it.appointmentHour)
-                        binding.editDate.editText?.setText(it.appointmentDate)
-                        binding.editNotes.editText?.setText(it.additionalNotes)
-                    }
+                        binding.editAppointmentName.editText?.setText(it.data.appointment.appointmentName)
+                        binding.editDoctor.editText?.setText(it.data.appointment.doctorName)
+                        binding.editAddress.editText?.setText(it.data.appointment.address)
+                        binding.editHour.editText?.setText(it.data.appointment.appointmentHour)
+                        binding.editDate.editText?.setText(it.data.appointment.appointmentDate)
+                        binding.editNotes.editText?.setText(it.data.appointment.additionalNotes)
                 }
                 is ApiResponse.Failure -> {
+                    binding.progressUpdateAppointment.visibility = View.GONE
                     when(it.errorCode) {
                         404 -> Toast.makeText(requireContext(), getString(R.string.not_found_appointment), Toast.LENGTH_SHORT).show()
                         else -> Toast.makeText(requireContext(), getString(R.string.general_error), Toast.LENGTH_SHORT).show()

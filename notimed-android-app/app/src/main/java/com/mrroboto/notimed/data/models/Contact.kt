@@ -1,13 +1,18 @@
 package com.mrroboto.notimed.data.models
 
-import java.util.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "contacts_table")
 data class Contact(
-    val Name: String,
-    val PhoneNumber: String,
-    val Address: String,
-    val Specialization: String,
-    val StartHour: String,
-    val EndHour: String,
-    //val Days: Object
+    @PrimaryKey
+    @ColumnInfo("_id") val _id: String,
+    @ColumnInfo("name") val name: String,
+    @ColumnInfo("phoneNumber") val phoneNumber: String,
+    @ColumnInfo("address") val address: String,
+    @ColumnInfo("specialization") val specialization: String,
+    @ColumnInfo("startHour") val startHour: String,
+    @ColumnInfo("endHour") val endHour: String,
+    @ColumnInfo("user") val user: String
 )

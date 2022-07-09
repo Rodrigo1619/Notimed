@@ -130,10 +130,12 @@ class UpdateReminder : Fragment() {
                 is ApiResponse.Success -> {
                     binding.progressBar3.visibility = View.GONE
                     it.data.reminder.forEach {
+                        viewModel.currentStartDay.value = it.startDate
+                        viewModel.currentEndDay.value = it.endDate
                         binding.editMedicineName.editText?.setText(it.name)
                         binding.doseEdit.editText?.setText(it.dose.toString())
                         binding.hourEdit.editText?.setText(it.hour)
-                        binding.rangeDate.editText?.setText("${it.startDate} - ${it.endDate}")
+                        binding.rangeDate.editText?.setText("${viewModel.currentEndDay.value.toString()} - ${viewModel.currentEndDay.value.toString()}")
                         viewModel.currentOption.value = it.foodOption.toString()
                         binding.editTimesADay.editText?.setText(it.repeatEvery.toString())
                     }

@@ -10,4 +10,7 @@ interface UserDao {
 
     @Query("DELETE FROM appointments_table")
     suspend fun deleteAllAppointmentsInfo()
+
+    @Query("DELETE FROM contacts_table")
+    suspend fun deleteAllContactsInfo()
 }

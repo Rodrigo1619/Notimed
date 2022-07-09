@@ -1,6 +1,7 @@
 package com.mrroboto.notimed.network
 
 import com.mrroboto.notimed.network.services.AppointmentService
+import com.mrroboto.notimed.network.services.ContactService
 import com.mrroboto.notimed.network.services.IdentityService
 import com.mrroboto.notimed.network.services.ReminderService
 import okhttp3.OkHttpClient
@@ -8,7 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "http://10.0.2.2:5050"
+private const val BASE_URL = "http://10.0.2.2:3000"
 
 object RetrofitInstance {
 
@@ -53,6 +54,10 @@ object RetrofitInstance {
 
     fun getAppointmentService(): AppointmentService {
         return retrofit.create(AppointmentService::class.java)
+    }
+
+    fun getContactService() : ContactService {
+        return retrofit.create(ContactService::class.java)
     }
 
     // fun get<Service> : <Service> {

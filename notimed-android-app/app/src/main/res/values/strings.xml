@@ -72,6 +72,7 @@
     <string name="Saturday_text">Sábado</string>
     <string name="Sunday_text">Domingo</string>
     <string name="start_text">Inicio</string>
+
     <string name="text_final">Finaliza</string>
     <string name="hint_general_specialization">General</string>
     <string name="medicine_hint">Medicamento</string>
@@ -116,6 +117,7 @@
     <string name="labelStartHour">Hora inicial</string>
     <string name="labelHour">Hora</string>
     <string name="scheduleLabel">Horario de medicamento</string>
+    <string name="scheduleContactLabel">Horario de consulta</string>
     <string name="hour_final"> Hora final </string>
     <string name="foodQuestionLabel">¿El medicamento debe acompañarse con un alimento?</string>
     <string name="first_start"> Primero selecciona una hora de inicio </string>
@@ -167,10 +169,16 @@
 
     <string name="title_update_appointment">Actualizar cita médica</string>
 
+    <string name="contact_created">¡Contacto creado!</string>
+    <string name="contact_updated">¡Contacto actualizado!</string>
+    <string name="contact_exists"> Este contacto ya existe </string>
+
 
     <string name="logout_title"> Cerrar sesión </string>
     <string name="logout_message"> Si cierras sesión tus recordatorios serán descartados. ¿Deseas cerrar sesión? </string>
     <string name="notes_label">Notas adicionales:</string>
     <string name="date_appointment_label"> Fecha de cita: </string>
     <string name="not_found_appointment">Cita no encontrada :c</string>
+    <string name="title_update_contact"> Actualizar contacto </string>
+    <string name="contact_not_found"> Contacto no encontrado  </string>
 </resources>

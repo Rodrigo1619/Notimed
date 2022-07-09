@@ -1,29 +1,39 @@
 package com.mrroboto.notimed.views
 
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat.CLOCK_12H
+import com.mrroboto.notimed.NotiMedApplication
 import com.mrroboto.notimed.R
 import com.mrroboto.notimed.databinding.FragmentAddContactBinding
-import java.time.LocalDateTime
+import com.mrroboto.notimed.network.ApiResponse
+import com.mrroboto.notimed.viewmodels.ContactViewModel
+import com.mrroboto.notimed.viewmodels.ViewModelFactory
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class AddContactFragment : Fragment() {
     private lateinit var binding: FragmentAddContactBinding
+
+    private val viewModelFactory by lazy{
+        val app = requireActivity().application as NotiMedApplication
+        ViewModelFactory(app.getContactRepository())
+    }
+    private val viewModel: ContactViewModel by viewModels{
+        viewModelFactory
+    }
 
 
     override fun onCreateView(
@@ -35,18 +45,12 @@ class AddContactFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        val specializations = resources.getStringArray(R.array.specializations)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, specializations)
-
-        binding.dropdownSpecializations.setAdapter(arrayAdapter)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.viewModel = viewModel
 
         // Handler controlador de los gestos/click al boton de regresar del dispositivo
         requireActivity().onBackPressedDispatcher.addCallback(binding.lifecycleOwner!!) {
@@ -68,24 +72,6 @@ class AddContactFragment : Fragment() {
             it.findNavController().navigate(R.id.action_addContactFragment_to_contactFragment)
         }
 
-        binding.dropdownSpecializations.setOnItemClickListener { _, _, position, _ ->
-            val specializations = resources.getStringArray(R.array.specializations)
-            val arrayAdapter =
-                ArrayAdapter(requireContext(), R.layout.dropdown_item, specializations)
-
-            // Si es la position 5 (es el input custom) se setea un helper-text para que el usuario sepa
-            // lo que debe ingresar
-            if (position == 5) {
-                binding.editSpecialization.helperText = getString(R.string.enter_specialization)
-                binding.editSpecialization.editText?.setText("")
-                binding.editSpecialization.editText?.inputType = InputType.TYPE_CLASS_TEXT
-            } else {
-                closeKeyboard()
-                binding.editSpecialization.editText?.inputType = InputType.TYPE_NULL
-                binding.editSpecialization.helperText = null
-                binding.dropdownSpecializations.setAdapter(arrayAdapter)
-            }
-        }
 
         binding.startHour.editText?.setOnClickListener {
             val endhour = binding.endHour
@@ -186,16 +172,75 @@ class AddContactFragment : Fragment() {
                 isValidEndHour()
                 isValidStartHour()
                 isValidSpecialization()
-                isValidDays()
             } else {
-                Toast.makeText(requireContext(), "Se puede navegar", Toast.LENGTH_SHORT).show()
-            }
+                val doctor = binding.editDoctor.editText?.text.toString()
+                val phone = binding.editPhone.editText?.text.toString()
+                val address = binding.editAddress.editText?.text.toString()
+                val specialization = binding.editSpecialization.editText?.text.toString()
+                val startHour = binding.startHour.editText?.text.toString()
+                val endHour = binding.endHour.editText?.text.toString()
 
+                viewModel.createContact(doctor, phone, address, specialization, startHour, endHour)
+            }
+        }
+
+        viewModel.apiResponse.observe(viewLifecycleOwner) {
+            when(it) {
+                is ApiResponse.Loading -> {
+                    binding.progressBar5.visibility = View.VISIBLE
+                    binding.progressBar5.bringToFront()
+                }
+                is ApiResponse.Success -> {
+                    Toast.makeText(requireContext(), getString(R.string.contact_created), Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_addContactFragment_to_contactFragment)
+                }
+                is ApiResponse.Failure -> {
+                    when(it.errorCode) {
+                        400 -> Toast.makeText(requireContext(), getString(R.string.error_400_register), Toast.LENGTH_SHORT).show()
+                        else -> Toast.makeText(requireContext(), getString(R.string.general_error), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 
-    private fun closeKeyboard() {
-        view?.hideKeyboard()
+    override fun onPause() {
+        super.onPause()
+
+        val name = binding.editDoctor.editText
+        val address = binding.editAddress.editText
+        val specialization = binding.editSpecialization.editText
+        val startHour = binding.startHour.editText
+        val endHour = binding.endHour.editText
+        val phone = binding.editPhone.editText
+
+        viewModel.currentName.value = name?.text.toString()
+        viewModel.currentAdress.value = address?.text.toString()
+        viewModel.currentNumber.value = phone?.text.toString()
+        viewModel.currentEndHour.value = endHour?.text.toString()
+        viewModel.currentStartHour.value = startHour?.text.toString()
+        viewModel.currentSpecialization.value = specialization?.text.toString()
+
+        viewModel.currentName.observe(viewLifecycleOwner) {
+            name!!.setText(it)
+        }
+
+        viewModel.currentAdress.observe(viewLifecycleOwner) {
+            address!!.setText(it)
+        }
+        viewModel.currentNumber.observe(viewLifecycleOwner) {
+            phone!!.setText(it)
+        }
+        viewModel.currentEndHour.observe(viewLifecycleOwner) {
+            endHour!!.setText(it)
+        }
+        viewModel.currentStartHour.observe(viewLifecycleOwner) {
+            startHour!!.setText(it)
+        }
+        viewModel.currentSpecialization.observe(viewLifecycleOwner) {
+            specialization!!.setText(it)
+        }
+
     }
 
     private fun isValidDoctor(): Boolean {
@@ -290,6 +335,11 @@ class AddContactFragment : Fragment() {
                 false
             }
 
+            specialization.editText?.text?.length!! < 3 -> {
+                specialization.error =
+                    getString(R.string.ErrorForMinumunChars)
+                return false
+            }
             else -> {
                 specialization.error = null
                 true
@@ -322,19 +372,6 @@ class AddContactFragment : Fragment() {
             endHour.error = getString(R.string.ErrorForHour)
             false
         } else true
-    }
-
-    private fun isValidDays(): Boolean {
-        val weekChips = binding.chipWeekDays
-
-        return if (weekChips.checkedChipIds.isEmpty()) {
-            weekChips.check(R.id.chipMonday)
-            println(weekChips.checkedChipIds)
-            true
-        } else {
-            weekChips.checkedChipIds
-            true
-        }
     }
 
 }
